@@ -6,6 +6,7 @@
     "startOptimized": "node --optimize-for-size --no-lazy --gc_interval=120 server/index",
     "restartOnSaveOptimized": "node --optimize-for-size --no-lazy --gc_interval=120 --watch server/index",
     "start": "node server/index",
+    "startClient": "node public/index",
     "restartOnSave": "node --watch server/index",
     "host": "node standaloneClient/index",
     "build": "node standaloneClient/build minify"

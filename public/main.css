@@ -151,7 +151,7 @@ input.checkbox {
 
 #playerNameInput {
     padding: 10px;
-    font-size: large;
+    font-size: medium;
 }
 
 #playerKeyInput {
@@ -177,7 +177,7 @@ div {
 }
 
 .serverSelector {
-    height: 25px;
+    height: 65px;
     text-align: center;
     font-size: 14px;
     font-weight: bold;
