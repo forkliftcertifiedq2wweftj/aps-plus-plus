@@ -13,9 +13,9 @@ let fs = require('fs'),
     },
     server,
     port = 3000,
+    host = "localhost",
     // If someone tries to get a file that does not exist, send them this instead.
-    DEFAULT_FILE = 'index.html',
-    host = "localhost";
+    DEFAULT_FILE = 'index.html';
 
 server = require('http').createServer((req, res) => {
     if (req.url.startsWith('/shared/')) {

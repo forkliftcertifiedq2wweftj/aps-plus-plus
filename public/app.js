@@ -138,17 +138,27 @@ window.onload = async () => {
             },
         };
     for (let i = 0; i < serversNames.length; i++) {
-        const data = await (await fetch(`${serversNames[i]}/serverData.json`)).json();
-        servers.push(data);
+        try {
+            const data = await (await fetch(`${serversNames[i]}/serverData.json`)).json();
+            servers.push(data);
+        } catch (e) {
+            console.log(`Failed to fetch ${serversNames[i]}/serverData.json`);
+        }
     }
 
-    window.serverAdd = servers[0].ip;
     window.isMultiserver = true;
 
-    serverSelector.style.display = "block";
-    serverSelector.classList.add("serverSelector");
-    serverSelector.classList.add("shadowscroll");
-    serverSelector.appendChild(tbody);
+    if (servers.length) {
+        document.getElementById("serverName").remove();
+
+        window.serverAdd = servers[0].ip;
+        serverSelector.style.display = "block";
+        serverSelector.classList.add("serverSelector");
+        serverSelector.classList.add("shadowscroll");
+        serverSelector.appendChild(tbody);
+    } else {
+        document.getElementById("serverName").innerHTML = "<h4 class='nopadding'>No servers found</h4>";
+    }
 
     for (let server of servers) {
         try {
@@ -157,9 +167,11 @@ window.onload = async () => {
                 td2 = document.createElement("td"),
                 td3 = document.createElement("td");
 
+            td1.style.width = "30%";
             td1.textContent = `${server.ip}`;
             td2.textContent = `${server.gameMode}`;
             td3.textContent = `${server.players}`;
+
             tr.appendChild(td1);
             tr.appendChild(td2);
             tr.appendChild(td3);
