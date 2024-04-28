@@ -128,21 +128,31 @@ function getMockups() {
 window.onload = async () => {
     let serverSelector = document.getElementById("serverSelector"),
         tbody = document.createElement("tbody"),
-        serversNames = [
-            "http://localhost:26301",
-        ],
         servers = [],
         myServer = {
             classList: {
                 contains: () => false,
             },
         };
-    for (let i = 0; i < serversNames.length; i++) {
+
+    const serverNames = await (await fetch("/servers.json")).json();
+    for (let i = 0; i < serverNames.length; i++) {
+        serverName = serverNames[i];
         try {
-            const data = await (await fetch(`${serversNames[i]}/serverData.json`)).json();
-            servers.push(data);
+            if (typeof serverName != "string") throw 0;
+
+            let now = Date.now();
+            await fetch(`${serverName}/serverData.json`).then(x => x.json()).then(fetchedServer => {
+                servers.push({ server: fetchedServer, ping: Date.now() - now });
+            });
         } catch (e) {
-            console.log(`Failed to fetch ${serversNames[i]}/serverData.json`);
+            switch (e) {
+                case 0:
+                    console.log(`${serverName} is not a string`);
+                    break;
+                default:
+                    console.log(`Failed to fetch ${serverName}/serverData.json`);
+            }
         }
     }
 
@@ -151,7 +161,7 @@ window.onload = async () => {
     if (servers.length) {
         document.getElementById("serverName").remove();
 
-        window.serverAdd = servers[0].ip;
+        window.serverAdd = servers[0].server.ip;
         serverSelector.style.display = "block";
         serverSelector.classList.add("serverSelector");
         serverSelector.classList.add("shadowscroll");
@@ -160,7 +170,16 @@ window.onload = async () => {
         document.getElementById("serverName").innerHTML = "<h4 class='nopadding'>No servers found</h4>";
     }
 
-    for (let server of servers) {
+    let _ping = Number.MAX_SAFE_INTEGER;
+    const select = (tr, ip) => {
+        if (myServer.classList.contains("selected")) {
+            myServer.classList.remove("selected");
+        }
+        tr.classList.add("selected");
+        window.serverAdd = ip;
+        getMockups();
+    };
+    for (let { server, ping } of servers) {
         try {
             let tr = document.createElement("tr"),
                 td1 = document.createElement("td"),
@@ -177,14 +196,14 @@ window.onload = async () => {
             tr.appendChild(td3);
 
             tr.onclick = () => {
-                if (myServer.classList.contains("selected")) {
-                    myServer.classList.remove("selected");
-                }
-                tr.classList.add("selected");
+                select(tr, server.ip);
                 myServer = tr;
-                window.serverAdd = server.ip;
-                getMockups();
             };
+
+            if (_ping > ping) {
+                select(tr, server.ip);
+                _ping = ping;
+            }
 
             tbody.appendChild(tr);
             myServer = tr;
@@ -192,7 +211,6 @@ window.onload = async () => {
             console.log(e);
         }
     }
-    if (myServer.onclick) myServer.onclick();
 
     // Save forms
     util.retrieveFromLocalStorage("playerNameInput");

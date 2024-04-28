@@ -52,9 +52,10 @@ server = require('http').createServer((req, res) => {
             }
     }
 
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    // CORS?
+    if (req.method === 'GET') {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+    }
 
     res.writeHead(200);
     res.end(resStr);
