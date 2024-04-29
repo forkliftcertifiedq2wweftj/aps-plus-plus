@@ -888,7 +888,6 @@ const spawn = (socket, name) => {
         body = new Entity(loc);
         body.protect();
         body.isPlayer = true;
-        body.name = name;
         if (player.team != null) {
             body.team = player.team;
         } else {
@@ -903,6 +902,7 @@ const spawn = (socket, name) => {
         socket.spectateEntity = null;
         body.invuln = true;
     }
+    body.name = name;
     body.sendMessage = (content, displayTime = c.MESSAGE_DISPLAY_TIME) => socket.talk("m", displayTime, content);
 
     socket.rememberedTeam = player.team;
