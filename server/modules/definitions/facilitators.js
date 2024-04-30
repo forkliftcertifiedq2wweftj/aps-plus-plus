@@ -1,6 +1,6 @@
-const { gunCalcNames } = require('./constants.js');
-const { MAX_SKILL } = require("../../config.js");
-const g = require('./gunvals.js');
+const { gunCalcNames } = require('./constants.js')
+const { MAX_SKILL } = require("../../config.js")
+const g = require('./gunvals.js')
 
 let skcnv = {
     atk: 6,
@@ -13,9 +13,9 @@ let skcnv = {
     pen: 1,
     rgn: 8,
     hlt: 7,
-};
+}
 
-// GUN DEFINITIONS
+// gun definitions
 exports.combineStats = function (stats) {
     try {
         // Build a blank array of the appropiate length
@@ -65,13 +65,13 @@ exports.combineStats = function (stats) {
         console.log(err);
         console.log(JSON.stringify(stats));
     }
-};
+}
 exports.setBuild = (build) => {
     let skills = build.split(build.includes("/") ? "/" : "").map((r) => +r);
     if (skills.length !== 10)
         throw new RangeError("Build must be made up of 10 numbers");
     return [6, 4, 3, 5, 2, 9, 0, 1, 8, 7].map((r) => skills[r]);
-};
+}
 exports.skillSet = (args) => {
     let skills = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (let s in args) {
@@ -79,9 +79,9 @@ exports.skillSet = (args) => {
         skills[skcnv[s]] = Math.round(MAX_SKILL * args[s]);
     }
     return skills;
-};
+}
 
-// FUNCTIONS
+// functions
 exports.dereference = type => {
     let output = JSON.parse(JSON.stringify(type));
     if (type.GUNS) {
@@ -104,7 +104,28 @@ exports.dereference = type => {
     return output;
 }
 
-// CANNON FUNCTIONS
+// gun functions
+exports.makeMulti = (type, count, name = -1, startRotation = 0) => {
+    type = ensureIsClass(type);
+    let greekNumbers = ',Double ,Triple ,Quad ,Penta ,Hexa ,Septa ,Octo ,Nona ,Deca ,Hendeca ,Dodeca ,Trideca ,Tetradeca ,Pentadeca ,Hexadeca ,Septadeca ,Octadeca ,Nonadeca ,Icosa ,Henicosa ,Doicosa ,Triaicosa ,Tetraicosa ,Pentaicosa ,Hexaicosa ,Septaicosa ,Octoicosa ,Nonaicosa ,Triaconta '.split(','),
+        output = exports.dereference(type),
+        fraction = 360 / count;
+    output.GUNS = [];
+    for (let gun of type.GUNS) {
+        for (let i = 0; i < count; i++) {
+            let newgun = exports.dereference(gun);
+            if (Array.isArray(newgun.POSITION)) {
+                newgun.POSITION[5] += startRotation + fraction * i;
+            } else {
+                newgun.POSITION.ANGLE = (newgun.POSITION.ANGLE ?? 0) + startRotation + fraction * i;
+            }
+            if (gun.PROPERTIES) newgun.PROPERTIES = gun.PROPERTIES;
+            output.GUNS.push(newgun);
+        };
+    }
+    output.LABEL = name == -1 ? (greekNumbers[count - 1] || (count + ' ')) + type.LABEL : name;
+    return output;
+}
 exports.makeGuard = (type, name = -1) => {
     type = ensureIsClass(type);
     let output = exports.dereference(type),
@@ -120,43 +141,6 @@ exports.makeGuard = (type, name = -1) => {
     }];
     output.GUNS = type.GUNS == null ? cannons : type.GUNS.concat(cannons);
     output.LABEL = name == -1 ? type.LABEL + " Guard" : name;
-    return output;
-}
-exports.makeConq = (type, name = -1) => {
-    type = ensureIsClass(type);
-    let output = exports.dereference(type),
-    cannons = [{
-        POSITION: [18, 14, 1, 0, 0, 180, 0],
-    }, {
-        POSITION: [2, 14, 1.1, 18, 0, 180, 0],
-        PROPERTIES: {
-            SHOOT_SETTINGS: exports.combineStats([g.trap, g.setTrap]),
-            TYPE: "setTrap",
-            STAT_CALCULATOR: gunCalcNames.block
-        },
-    }];
-    output.GUNS = type.GUNS == null ? cannons : type.GUNS.concat(cannons);
-    output.LABEL = name == -1 ? type.LABEL + " Conqueror" : name;
-    return output;
-}
-exports.makeSplit = (type, name = -1) => {
-    type = ensureIsClass(type);
-    let output = exports.dereference(type);
-    let cannons = [{
-        POSITION: [18, 8, 1, 0, 0, 90, 0],
-        PROPERTIES: {
-            SHOOT_SETTINGS: exports.combineStats([g.basic, g.flankGuard]),
-            TYPE: "bullet",
-        },
-    }, {
-        POSITION: [18, 8, 1, 0, 0, 270, 0],
-        PROPERTIES: {
-            SHOOT_SETTINGS: exports.combineStats([g.basic, g.flankGuard]),
-            TYPE: "bullet",
-        },
-    }];
-    output.GUNS = type.GUNS == null ? cannons : type.GUNS.concat(cannons);
-    output.LABEL = name == -1 ? "Split " + type.LABEL : name;
     return output;
 }
 exports.addBackGunner = (type, name = -1) => {
@@ -179,27 +163,6 @@ exports.addBackGunner = (type, name = -1) => {
     }];
     output.GUNS = type.GUNS == null ? cannons : type.GUNS.concat(cannons);
     output.LABEL = name == -1 ? type.LABEL : name;
-    return output;
-}
-exports.makeMulti = (type, count, name = -1, startRotation = 0) => {
-    type = ensureIsClass(type);
-    let greekNumbers = ',Double ,Triple ,Quad ,Penta ,Hexa ,Septa ,Octo ,Nona ,Deca ,Hendeca ,Dodeca ,Trideca ,Tetradeca ,Pentadeca ,Hexadeca ,Septadeca ,Octadeca ,Nonadeca ,Icosa ,Henicosa ,Doicosa ,Triaicosa ,Tetraicosa ,Pentaicosa ,Hexaicosa ,Septaicosa ,Octoicosa ,Nonaicosa ,Triaconta '.split(','),
-        output = exports.dereference(type),
-        fraction = 360 / count;
-    output.GUNS = [];
-    for (let gun of type.GUNS) {
-        for (let i = 0; i < count; i++) {
-            let newgun = exports.dereference(gun);
-            if (Array.isArray(newgun.POSITION)) {
-                newgun.POSITION[5] += startRotation + fraction * i;
-            } else {
-                newgun.POSITION.ANGLE = (newgun.POSITION.ANGLE ?? 0) + startRotation + fraction * i;
-            }
-            if (gun.PROPERTIES) newgun.PROPERTIES = gun.PROPERTIES;
-            output.GUNS.push(newgun);
-        };
-    }
-    output.LABEL = name == -1 ? (greekNumbers[count - 1] || (count + ' ')) + type.LABEL : name;
     return output;
 }
 exports.makeBird = (type, name = -1, frontRecoilFactor = 1, backRecoilFactor = 1, color) => {
@@ -240,7 +203,7 @@ exports.makeBird = (type, name = -1, frontRecoilFactor = 1, backRecoilFactor = 1
     return output;
 }
 
-// SPAWNER FUNCTIONS
+// drone functions
 exports.makeHybrid = (type, name = -1) => {
     type = ensureIsClass(type);
     let output = exports.dereference(type);
@@ -320,116 +283,6 @@ exports.makeOversplit = (type, name = -1) => {
     output.LABEL = name == -1 ? "Over" + type.LABEL.toLowerCase() : name;
     return output;
 }
-exports.makeBattle = (type, name = -1) => {
-    type = ensureIsClass(type);
-    let output = exports.dereference(type);
-    let spawner1 = {
-        POSITION: [7, 7.5, 0.6, 7, 4, 125, 0],
-        PROPERTIES: {
-            SHOOT_SETTINGS: exports.combineStats([g.swarm]),
-            TYPE: "swarm",
-            STAT_CALCULATOR: gunCalcNames.swarm,
-        },
-    };
-    let spawner2 = {
-        POSITION: [7, 7.5, 0.6, 7, -4, 125, 0.5],
-        PROPERTIES: {
-            SHOOT_SETTINGS: exports.combineStats([g.swarm]),
-            TYPE: "swarm",
-            STAT_CALCULATOR: gunCalcNames.swarm,
-        },
-    };
-    let spawner3 = {
-        POSITION: [7, 7.5, 0.6, 7, 4, 235, 0],
-        PROPERTIES: {
-            SHOOT_SETTINGS: exports.combineStats([g.swarm]),
-            TYPE: "swarm",
-            STAT_CALCULATOR: gunCalcNames.swarm,
-        },
-    };
-    let spawner4 = {
-        POSITION: [7, 7.5, 0.6, 7, -4, 235, 0.5],
-        PROPERTIES: {
-            SHOOT_SETTINGS: exports.combineStats([g.swarm]),
-            TYPE: "swarm",
-            STAT_CALCULATOR: gunCalcNames.swarm,
-        },
-    };
-    if (type.TURRETS != null) {
-        output.TURRETS = type.TURRETS;
-    }
-    if (type.GUNS == null) {
-        output.GUNS = [spawner1, spawner2, spawner3, spawner4];
-    } else {
-        output.GUNS = [...type.GUNS, spawner1, spawner2, spawner3, spawner4];
-    }
-    if (name == -1) {
-        output.LABEL = "Battle" + type.LABEL.toLowerCase();
-    } else {
-        output.LABEL = name;
-    }
-    return output;
-}
-exports.makeCap = (type, name = -1) => {
-    type = ensureIsClass(type);
-    let output = exports.dereference(type);
-    let spawner1 = {
-        POSITION: [4.5, 10, 1, 10.5, 0, 125, 0],
-    };
-    let spawner2 = {
-        POSITION: [1, 12, 1, 15, 0, 125, 0],
-        PROPERTIES: {
-            MAX_CHILDREN: 4,
-            SHOOT_SETTINGS: exports.combineStats([g.factory, g.babyfactory]),
-            TYPE: "minion",
-            STAT_CALCULATOR: gunCalcNames.drone,
-            AUTOFIRE: true,
-            SYNCS_SKILLS: true,
-        },
-    };
-    let spawner3 = {
-        POSITION: [11.5, 12, 1, 0, 0, 125, 0],
-    };
-    let spawner4 = {
-        POSITION: [4.5, 10, 1, 10.5, 0, 235, 0],
-    };
-    let spawner5 = {
-        POSITION: [1, 12, 1, 15, 0, 235, 0],
-        PROPERTIES: {
-            MAX_CHILDREN: 4,
-            SHOOT_SETTINGS: exports.combineStats([g.factory, g.babyfactory]),
-            TYPE: "minion",
-            STAT_CALCULATOR: gunCalcNames.drone,
-            AUTOFIRE: true,
-            SYNCS_SKILLS: true,
-        },
-    };
-    let spawner6 = {
-        POSITION: [11.5, 12, 1, 0, 0, 235, 0],
-    };
-    if (type.TURRETS != null) {
-        output.TURRETS = type.TURRETS;
-    }
-    if (type.GUNS == null) {
-        output.GUNS = [spawner1, spawner2, spawner3, spawner4, spawner5, spawner6];
-    } else {
-        output.GUNS = [
-            ...type.GUNS,
-            spawner1,
-            spawner2,
-            spawner3,
-            spawner4,
-            spawner5,
-            spawner6,
-        ];
-    }
-    if (name == -1) {
-        output.LABEL = "Cap" + type.LABEL.toLowerCase();
-    } else {
-        output.LABEL = name;
-    }
-    return output;
-}
 exports.makeCross = (type, name = -1) => {
     type = ensureIsClass(type);
     let output = exports.dereference(type);
@@ -484,6 +337,8 @@ exports.makeCross = (type, name = -1) => {
     }
     return output;
 }
+
+// swarm functions
 exports.makeSwarming = (type, name = -1) => {
     type = ensureIsClass(type);
     let output = exports.dereference(type);
@@ -587,7 +442,7 @@ exports.makeTriSwarming = (type, name = -1) => {
     return output;
 }
 
-// AUTO FUNCTIONS
+// turret functions
 exports.makeAuto = (type, name = -1, options = {}) => {
     type = ensureIsClass(type);
     let turret = {
@@ -789,6 +644,7 @@ exports.addAura = (damageFactor = 1, sizeFactor = 1, opacity = 0.3, auraColor) =
     };
 }
 
+// misc functions
 exports.menu = (name = -1, color = -1, shape = 0) => {
     let gun = {
         POSITION: [18, 10, -1.4, 0, 0, 0, 0],
@@ -807,7 +663,6 @@ exports.menu = (name = -1, color = -1, shape = 0) => {
         IGNORED_BY_AI: true,
     };
 }
-
 exports.weaponArray = (weapons, count) => {
     if (!Array.isArray(weapons)) {
         weapons = [weapons]
@@ -830,7 +685,6 @@ exports.weaponArray = (weapons, count) => {
     }
     return output;
 }
-
 class LayeredBoss {
     constructor(identifier, NAME, PARENT = "celestial", SHAPE = 9, COLOR = 0, trapTurretType = "baseTrapTurret", trapTurretSize = 6.5, layerScale = 5, BODY, SIZE, VALUE) {
         this.identifier = identifier ?? NAME.charAt(0).toLowerCase() + NAME.slice(1);
