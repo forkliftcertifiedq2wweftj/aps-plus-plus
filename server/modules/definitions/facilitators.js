@@ -1,7 +1,6 @@
 const { gunCalcNames } = require('./constants.js')
 const { MAX_SKILL } = require("../../config.js")
 const g = require('./gunvals.js')
-
 let skcnv = {
     atk: 6,
     spd: 4,
@@ -218,25 +217,6 @@ exports.makeBird = (type, name = -1, options = {}) => {
 }
 
 // drone functions
-exports.makeHybrid = (type, name = -1) => {
-    type = ensureIsClass(type);
-    let output = exports.dereference(type);
-    let spawner = {
-        POSITION: [6, 12, 1.2, 8, 0, 180, 0],
-        PROPERTIES: {
-            SHOOT_SETTINGS: exports.combineStats([g.drone, g.weak]),
-            TYPE: ["drone", { INDEPENDENT: true }],
-            AUTOFIRE: true,
-            SYNCS_SKILLS: true,
-            STAT_CALCULATOR: gunCalcNames.drone,
-            WAIT_TO_CYCLE: false,
-            MAX_CHILDREN: 3,
-        },
-    };
-    output.GUNS = type.GUNS == null ? [spawner] : type.GUNS.concat([spawner]);
-    output.LABEL = name == -1 ? "Hybrid " + type.LABEL : name;
-    return output;
-}
 exports.makeOver = (type, name = -1, options = {}) => {
     type = ensureIsClass(type);
     let output = exports.dereference(type);
@@ -244,6 +224,7 @@ exports.makeOver = (type, name = -1, options = {}) => {
     let angle = 180 - (options.angle ?? 125);
     let count = options.count ?? 2;
     let independent = options.independent ?? false;
+    let cycle = options.cycle ?? true;
     let maxChildren = options.maxDrones ?? 3;
     let stats = options.extraStats ?? [];
     let spawnerProperties = {
@@ -252,7 +233,7 @@ exports.makeOver = (type, name = -1, options = {}) => {
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: gunCalcNames.drone,
-        WAIT_TO_CYCLE: true,
+        WAIT_TO_CYCLE: cycle,
         MAX_CHILDREN: maxChildren,
     };
 
@@ -277,8 +258,6 @@ exports.makeOver = (type, name = -1, options = {}) => {
     output.LABEL = name == -1 ? "Over" + type.LABEL.toLowerCase() : name;
     return output;
 }
-
-// swarm functions
 exports.makeBattle = (type, name = -1, options = {}) => {
     type = ensureIsClass(type);
     let output = exports.dereference(type);
