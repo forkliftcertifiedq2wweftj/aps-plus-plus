@@ -2795,7 +2795,7 @@ ioTypes.nearestDifferentMaster2 = io_nearestDifferentMaster2;
 Class.toothlessBase = {
     PARENT: "genericTank",
     LABEL: "NightFury",
-	UPGRADE_TOOLTIP: "A power league...",
+	UPGRADE_TOOLTIP: "A cute...",
     GLOW: {
         RADIUS: 2,
         COLOR: 42,
@@ -2826,7 +2826,7 @@ Class.toothlessBossTurret = {
     PARENT: "genericTank",
     LABEL: "",
     BODY: {
-        FOV: 2,
+        FOV: 3,
     },
     CONTROLLERS: [
         "onlyAcceptInArc",
@@ -2947,7 +2947,6 @@ Class.toothlessBoss = {
             const power = Math.floor(body._power);
 
             if (power >= 1) {
-                body.sendMessage(`Your power level ${power}`);
                 body._oldPower = body._power;
                 body._mode = 1;
                 body.color.base = 5;
@@ -2962,11 +2961,10 @@ Class.toothlessBoss = {
         },
     }],
 }
-for (let b = 0; b < 3; b++)
-    Class.toothlessBoss.TURRETS.push({
-        POSITION: [8, 6, -5.6, 120 * b + 180, 180, 0],
-        TYPE: "toothlessBossTurret",
-    }, {
-        POSITION: [8, 6, 5.6, 120 * b + 180, 180, 0],
-        TYPE: "toothlessBossTurret",
-    });
+Class.toothlessBoss.TURRETS = Class.toothlessBoss.TURRETS.concat(weaponArray([{
+    POSITION: [8, 6, -5.6, 180, 180, 0],
+    TYPE: "toothlessBossTurret",
+}, {
+    POSITION: [8, 6, 5.6, 180, 180, 0],
+    TYPE: "toothlessBossTurret",
+}], 3));
