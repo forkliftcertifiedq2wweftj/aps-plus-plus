@@ -53,9 +53,7 @@ server = require('http').createServer((req, res) => {
     }
 
     // CORS?
-    if (req.method === 'GET') {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-    }
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
     res.writeHead(200);
     res.end(resStr);
