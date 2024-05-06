@@ -23,7 +23,6 @@ class Gun extends EventEmitter {
     constructor(body, info) {
         super();
         this.id = entitiesIdLog++;
-        this.ac = false;
         this.lastShot = { time: 0, power: 0 };
         this.body = body;
         this.master = body.source;
@@ -876,6 +875,7 @@ class Entity extends EventEmitter {
         this.turrets = [];
         this.props = [];
         this.upgrades = [];
+        this.skippedUpgrades = [];
         this.settings = {};
         this.aiSettings = {};
         this.children = [];
@@ -1221,15 +1221,11 @@ class Entity extends EventEmitter {
             this.skill.setCaps(caps);
             this.upgrades = [];
             this.isArenaCloser = false;
-            this.ac = false;
             this.alpha = 1;
             this.reset();
         }
         if (set.RESET_UPGRADE_MENU) this.upgrades = []
-        if (set.ARENA_CLOSER != null) {
-            this.isArenaCloser = set.ARENA_CLOSER;
-            this.ac = set.ARENA_CLOSER;
-        }
+        if (set.ARENA_CLOSER != null) this.isArenaCloser = set.ARENA_CLOSER;
         if (set.BRANCH_LABEL != null) this.branchLabel = set.BRANCH_LABEL;
         if (set.BATCH_UPGRADES != null) this.batchUpgrades = set.BATCH_UPGRADES;
         for (let i = 0; i < c.MAX_UPGRADE_TIER; i++) {
@@ -1712,8 +1708,11 @@ class Entity extends EventEmitter {
         }
         return suc;
     }
-    upgrade(number) {
-        let old = this;
+    upgrade(number, branchId) {
+        // Account for upgrades that are too high level for the player to access
+        for (let i = 0; i < branchId; i++) {
+            number += this.skippedUpgrades[i] ?? 0;
+        }
         if (
             number < this.upgrades.length &&
             this.skill.level >= this.upgrades[number].level
