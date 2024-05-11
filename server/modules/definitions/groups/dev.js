@@ -1231,8 +1231,15 @@ Class.nexusPortal = {
     LABEL: 'APS++ Nexus Portal',
     COLOR: 'black',
     NAME: c.LOCATION,
+    IGNORED_BY_AI: true,
+    ACCEPTS_SCORE: false,
+    CAN_BE_ON_LEADERBOARD: false,
+    DRAW_HEALTH: false,
+    ARENA_CLOSER: true,
     BODY: {
-        PUSHABILITY: 0
+        PUSHABILITY: 0,
+        DAMAGE: 0,
+        HEALTH: 1e100,
     },
     ON: [{
         event: 'tick',
@@ -1274,8 +1281,8 @@ Class.nexusPortal = {
             // The less, the better
             n.socket.talk(
                 'REDIRECT',
-                "http",
-                'localhost:26302',
+                c.HTTPS ? "https" : "http",
+                c.host,
                 JSON.stringify({
                     name: n.name,
                     definition: n.defs.map(d => Object.keys(Class).find(k => Class[k] === d) || d),

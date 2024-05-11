@@ -187,7 +187,7 @@ function incoming(message, socket) {
                 socket.makeView();
             }
             socket.party = m[4];
-            socket.player = socket.spawn(name, content.definition);
+            socket.player = socket.spawn(name, content.definition ? content.definition : false);
 
             if (content.key) socket.permissions.class = content.key;
             if (content.name) socket.player.body.name = content.name;
@@ -1536,7 +1536,7 @@ const sockets = {
             }
         };
         // Put the player functions in the socket
-        socket.spawn = (name, spawnClass = false) => spawn(socket, name, spawnClass);
+        socket.spawn = (name, spawnClass) => spawn(socket, name, spawnClass);
         socket.on("message", message => incoming(message, socket));
         socket.on("close", () => {
             socket.loops.terminate();
