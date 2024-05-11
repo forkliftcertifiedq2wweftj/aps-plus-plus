@@ -1225,7 +1225,75 @@ Class.tripleFlail = {
     }]
 }
 
-Class.developer.UPGRADES_TIER_0 = ["tanks", "bosses", "spectator", "levels", "teams", "eggGenerator", "testing", "addons"]
+// Code by Taureon
+Class.nexusPortal = {
+    PARENT: 'genericEntity',
+    LABEL: 'APS++ Nexus Portal',
+    COLOR: 'black',
+    NAME: c.LOCATION,
+    BODY: {
+        PUSHABILITY: 0
+    },
+    ON: [{
+        event: 'tick',
+        handler: ({ body }) => {
+            let ang = Math.random() * Math.PI * 2,
+            e = new Entity({
+                x: body.x - 1 * Math.sin(ang),
+                y: body.y - 1 * Math.cos(ang)
+            });
+            e.define('genericEntity');
+            e.velocity.x = 1 * Math.sin(ang);
+            e.velocity.y = 1 * Math.cos(ang);
+            e.SIZE = body.size + 5;
+            e.team = body.team;
+            e.color.base = 'rainbow';
+            e.alpha = 0.5;
+            setSyncedTimeout(() => e.kill(), 3);
+        }
+    },{
+        event: 'collide',
+        handler: ({ body: my, other: n }) => {
+            let tock = Math.min(my.stepRemaining, n.stepRemaining),
+                combinedRadius = n.size + my.size,
+                motion = {
+                    _me: new Vector(my.xMotion, my.yMotion),
+                    _n: new Vector(n.xMotion, n.yMotion),
+                },
+                delta = new Vector(
+                    tock * (motion._me.x - motion._n.x),
+                    tock * (motion._me.y - motion._n.y)
+                ),
+                difference = new Vector(my.x - n.x, my.y - n.y),
+                direction = new Vector((n.x - my.x) / difference.length, (n.y - my.y) / difference.length),
+                component = Math.max(0, direction.x * delta.x + direction.y * delta.y);
+
+            // radius and socket check
+            if (component < difference.length - combinedRadius || !n.socket) return;
+
+            // The less, the better
+            n.socket.talk(
+                'REDIRECT',
+                "http",
+                'localhost:26302',
+                JSON.stringify({
+                    name: n.name,
+                    definition: n.defs.map(d => Object.keys(Class).find(k => Class[k] === d) || d),
+                    score: n.skill.score,
+                    skillcap: n.skill.caps,
+                    skill: n.skill.raw,
+                    key: n.socket.permissions ? n.socket.permissions.class : "",
+                }),
+            );
+            n.kill();
+            setTimeout(() => {
+                n.socket.kick("Teleporting.");
+            }, 1100);
+        }
+    }]
+};
+
+Class.developer.UPGRADES_TIER_0 = ["tanks", "bosses", "nexusPortal", "spectator", "levels", "teams", "eggGenerator", "testing", "addons"]
     Class.tanks.UPGRADES_TIER_0 = ["basic", "unavailable", "arenaCloser", "dominators", "sanctuaries", "mothership", "baseProtector", "antiTankMachineGun"]
         Class.unavailable.UPGRADES_TIER_0 = ["flail", "healer", "volute", "whirlwind"]
             Class.flail.UPGRADES_TIER_2 = ["doubleFlail"]

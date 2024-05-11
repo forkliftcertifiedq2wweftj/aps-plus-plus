@@ -200,6 +200,12 @@ div {
     cursor: default;
 }
 
+.serverSelector tr.selected_yellow {
+    color: #e2cf22;
+    /*color: #8ABC3F;*/
+    cursor: default;
+}
+
 #startMenu {
     position: relative;
     margin: auto;

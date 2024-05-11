@@ -1,17 +1,22 @@
-let bossRush;
-if (c.SPECIAL_BOSS_SPAWNS) bossRush = new BossRush();
-let train;
-if (c.TRAIN) train = new Train();
-let moon;
-if (c.SPACE_MODE) moon = new Moon();
-let hunt;
-if (c.HUNT) hunt = new ManHunt();
+let bossRush,
+    moon,
+    hunt,
+    train,
+    logger = new LagLogger();
 
-if (c.MOTHERSHIP_LOOP) mothershipLoop.spawn();
-if (c.SPECIAL_BOSS_SPAWNS) bossRush.init();
-if (c.MAZE > 0) generateMaze(c.MAZE);
+const init = function() {
+    if (c.SPECIAL_BOSS_SPAWNS) bossRush = new BossRush();
+    if (c.TRAIN) train = new Train();
+    if (c.SPACE_MODE) moon = new Moon();
+    if (c.HUNT) hunt = new ManHunt();
 
-let logger = new LagLogger();
+    if (c.MOTHERSHIP_LOOP) mothershipLoop.spawn();
+    if (c.SPECIAL_BOSS_SPAWNS) bossRush.init();
+    if (c.MAZE > 0) generateMaze(c.MAZE);
+};
+
+init();
+
 const gamemodeLoop = function() {
     logger.set();
     if (c.HUNT) hunt.loop();
@@ -28,4 +33,4 @@ const gamemodeLoop = function() {
     }
 };
 
-module.exports = { gamemodeLoop };
+module.exports = { gamemodeLoop, init };

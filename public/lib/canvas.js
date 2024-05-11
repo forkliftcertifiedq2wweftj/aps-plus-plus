@@ -70,7 +70,7 @@ class Canvas {
             case global.KEY_ENTER:
                 // Enter to respawn
                 if (global.died) {
-                    this.socket.talk('s', global.playerName, 0, 1 * settings.game.autoLevelUp);
+                    this.socket.talk('s', JSON.stringify({ name: global.playerName }), 0, 1 * settings.game.autoLevelUp);
                     global.died = false;
                     break;
                 }

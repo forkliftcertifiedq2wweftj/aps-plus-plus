@@ -1,0 +1,10 @@
+[
+    {
+        "ip": "localhost:26301",
+        "protocol": "http"
+    },
+    {
+        "ip": "localhost:26302",
+        "protocol": "http"
+    }
+]

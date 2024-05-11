@@ -10,6 +10,7 @@ let levelscore = 0;
 let deduction = 0;
 let level = 0;
 let sscore = util.Smoothbar(0, 10);
+let playerBody = 0;
 var serverStart = 0,
     gui = {
         getStatNames: data => [
@@ -743,12 +744,12 @@ const convert = {
     }
 };
 const protocols = {
-    "http:": "ws://",
-    "https:": "wss://"
+    "http": "ws://",
+    "https": "wss://"
 };
 const socketInit = port => {
     window.resizeEvent();
-    let socket = new WebSocket(protocols[location.protocol] + window.serverAdd);
+    let socket = new WebSocket(protocols[window.protocol] + window.serverAdd);
     // Set up our socket
     socket.binaryType = 'arraybuffer';
     socket.open = false;
@@ -819,10 +820,12 @@ const socketInit = port => {
             case 'w': // welcome to the game
                 if (m[0]) { // Ask to spawn
                     console.log('The server has welcomed us to the game room. Sending spawn request.');
-                    socket.talk('s', global.playerName, 1, 1 * settings.game.autoLevelUp);
+                    socket.talk('s', playerBody == 0
+                        ? JSON.stringify({ name: global.playerName })
+                        : playerBody, 1, 1 * settings.game.autoLevelUp);
                     global.message = '';
                 }
-            break;
+                break;
             case 'R': // room setup
                 global.gameWidth = m[0];
                 global.gameHeight = m[1];
@@ -992,6 +995,50 @@ const socketInit = port => {
                 break;
             case 'z': // name color
                 global.nameColor = m[0];
+                break;
+            case 'REDIRECT':
+                if (global.travelling) return;
+                // disconnect from the server.
+                window.protocol = m[0];
+                window.serverAdd = m[1];
+                global.gameStart = false;
+                global.travelling = true;
+                global.message = "Disconnecting...";
+                socket.onclose = () => {};
+                socket.close();
+                socket.open = false;
+                setTimeout(() => {
+                    global.died = false;
+                }, 100);
+                setTimeout(() => {
+                    // Reset minimap and leaderboard
+                    minimapAllInt.elements = {};
+                    minimapTeamInt.elements = {};
+                    leaderboardInt.elements = {};
+                    leaderboard.entries = {};
+                    minimap.map = {};
+                    // Reset other stuff
+                    sync = [];
+                    clockDiff = 0;
+                    truscore = 0;
+                    levelscore = 0;
+                    deduction = 0;
+                    level = 0;
+                    sscore = util.Smoothbar(0, 10);
+                    playerBody = m[2];
+                    serverStart = 0;
+                    global.player.lastUpdate = 0;
+                    global.message = "Waiting for connection...";
+                    global.mockupLoading = new Promise(Resolve => {
+                        util.pullJSON("mockups").then(data => {
+                            global.mockups = data;
+                            console.log('Mockups loading complete.');
+                            Resolve();
+                        });
+                    });
+                    global.travelling = false;
+                    window.canvas.socket = global.socket = socketInit();
+                }, 1100);
                 break;
             case 'CHAT_MESSAGE_ENTITY':
                 get.set(m);

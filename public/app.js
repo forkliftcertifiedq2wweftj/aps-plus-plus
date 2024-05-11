@@ -128,34 +128,13 @@ function getMockups() {
 window.onload = async () => {
     let serverSelector = document.getElementById("serverSelector"),
         tbody = document.createElement("tbody"),
-        servers = [],
         myServer = {
             classList: {
                 contains: () => false,
             },
         };
 
-    const serverNames = await (await fetch("/servers.json")).json();
-    for (let i = 0; i < serverNames.length; i++) {
-        serverName = serverNames[i];
-        try {
-            if (typeof serverName != "string") throw 0;
-
-            let now = Date.now();
-            await fetch(`${serverName}/serverData.json`).then(x => x.json()).then(fetchedServer => {
-                servers.push({ server: fetchedServer, ping: Date.now() - now });
-            });
-        } catch (e) {
-            switch (e) {
-                case 0:
-                    console.log(`${serverName} is not a string`);
-                    break;
-                default:
-                    console.log(`Failed to fetch ${serverName}/serverData.json`);
-            }
-        }
-    }
-
+    const servers = await (await fetch("/servers.json")).json();
     window.isMultiserver = true;
 
     if (servers.length) {
@@ -171,15 +150,17 @@ window.onload = async () => {
     }
 
     let _ping = Number.MAX_SAFE_INTEGER;
-    const select = (tr, ip) => {
+    const select = (tr, server, protocol) => {
         if (myServer.classList.contains("selected")) {
             myServer.classList.remove("selected");
         }
-        tr.classList.add("selected");
-        window.serverAdd = ip;
+        tr.classList.add(server.closed ? "selected_yellow" : "selected");
+        window.serverAdd = server.ip;
+        window.protocol = protocol;
         getMockups();
     };
-    for (let { server, ping } of servers) {
+    for (let { server, ping, https } of servers) {
+        if (server.hidden) continue;
         try {
             let tr = document.createElement("tr"),
                 td1 = document.createElement("td"),
@@ -187,7 +168,7 @@ window.onload = async () => {
                 td3 = document.createElement("td");
 
             td1.style.width = "30%";
-            td1.textContent = `${server.ip}`;
+            td1.textContent = `${server.location == "" ? server.ip : server.location}`;
             td2.textContent = `${server.gameMode}`;
             td3.textContent = `${server.players}`;
 
@@ -196,12 +177,12 @@ window.onload = async () => {
             tr.appendChild(td3);
 
             tr.onclick = () => {
-                select(tr, server.ip);
+                select(tr, server, https);
                 myServer = tr;
             };
 
             if (_ping > ping) {
-                select(tr, server.ip);
+                select(tr, server, https);
                 _ping = ping;
             }
 

@@ -153,7 +153,8 @@ function incoming(message, socket) {
                 return 1;
             }
             // Get data
-            let name = m[0].replace(c.BANNED_CHARACTERS_REGEX, "");
+            let content = JSON.parse(m[0]);
+            let name = content.name.replace(c.BANNED_CHARACTERS_REGEX, "");
             let needsRoom = m[1];
             let autoLVLup = m[2];
             // Verify it
@@ -186,7 +187,13 @@ function incoming(message, socket) {
                 socket.makeView();
             }
             socket.party = m[4];
-            socket.player = socket.spawn(name);
+            socket.player = socket.spawn(name, content.definition);
+
+            if (content.key) socket.permissions.class = content.key;
+            if (content.name) socket.player.body.name = content.name;
+            if (content.score) socket.player.body.skill.score = content.score;
+            if (content.skillcap) socket.player.body.skill.caps = content.skillcap;
+            if (content.skill) socket.player.body.skill.raw = content.skill;
 
             if (autoLVLup) {
                 while (socket.player.body.skill.level < c.LEVEL_CHEAT_CAP) {
@@ -200,7 +207,7 @@ function incoming(message, socket) {
             // Give it the room state
             socket.talk("R", room.width, room.height, JSON.stringify(room.setup.map(x => x.map(t => t.color.compiled))), JSON.stringify(util.serverStartTime), c.runSpeed, c.ARENA_TYPE);
             // Log it
-            util.log(`[INFO] ${m[0]} ${needsRoom ? "joined" : "rejoined"} the game on team ${socket.player.body.team}! Players: ${players.length}`);
+            util.log(`[INFO] ${name} ${needsRoom ? "joined" : "rejoined"} the game on team ${socket.player.body.team}! Players: ${players.length}`);
             break;
         case "S":
             // clock syncing
@@ -853,7 +860,7 @@ let newgui = (player) => {
 };
 
 // Make a function to spawn new players
-const spawn = (socket, name) => {
+const spawn = (socket, name, spawnClass) => {
     let player = {},
         loc = {};
     if (!socket.group && c.GROUPS) {
@@ -902,7 +909,7 @@ const spawn = (socket, name) => {
         } else {
             player.team = body.team;
         }
-        body.define(c.SPAWN_CLASS);
+        body.define(spawnClass ? spawnClass : c.SPAWN_CLASS);
         if (socket.permissions && socket.permissions.nameColor) {
             body.nameColor = socket.permissions.nameColor;
             socket.talk("z", body.nameColor);
@@ -1529,7 +1536,7 @@ const sockets = {
             }
         };
         // Put the player functions in the socket
-        socket.spawn = (name) => spawn(socket, name);
+        socket.spawn = (name, spawnClass = false) => spawn(socket, name, spawnClass);
         socket.on("message", message => incoming(message, socket));
         socket.on("close", () => {
             socket.loops.terminate();

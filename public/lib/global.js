@@ -119,6 +119,7 @@ const global = {
     died: false,
     kicked: false,
     continuity: false,
+    travelling: false,
     startPingTime: 0,
     toggleMassState: 0,
     backgroundColor: '#f2fbff',

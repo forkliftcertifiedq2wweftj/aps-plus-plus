@@ -34,6 +34,9 @@ server = require('http').createServer((req, res) => {
                 ip: c.host,
                 gameMode: c.gameModeName,
                 players: views.length,
+                closed: arenaClosed,
+                location: c.LOCATION,
+                hidden: c.HIDDEN,
             });
             break;
         default:
@@ -52,8 +55,9 @@ server = require('http').createServer((req, res) => {
             }
     }
 
-    // CORS?
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    if (req.url == '/serverData.json' || req.url == '/lib/json/mockups.json') {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+    }
 
     res.writeHead(200);
     res.end(resStr);
