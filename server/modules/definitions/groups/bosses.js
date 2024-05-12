@@ -2776,3 +2776,111 @@ Class.toothlessBoss.TURRETS = Class.toothlessBoss.TURRETS.concat(weaponArray([{
     POSITION: [8, 6, 5.6, 180, 180, 0],
     TYPE: "toothlessBossTurret",
 }], 3));
+
+Class.nightFuryExplosion = {
+    PARENT: "genericEntity",
+    COLOR: "#3c1157",
+    BODY: {
+        HEALTH: 1e6,
+        DAMAGE: 6 * base.DAMAGE,
+    },
+    ON: [{
+        event: 'tick',
+        handler: ({ body }) => {
+            body.alpha -= 0.05;
+            body.SIZE *= 1.12;
+            for (let instance of entities) {
+                let diffX = instance.x - body.x,
+                    diffY = instance.y - body.y,
+                    dist2 = diffX ** 2 + diffY ** 2,
+                    forceMulti = 300 ** 2 / dist2,
+                    number = 1/20;
+                if (
+                    !instance.isDominator &&
+                    !instance.isArenaCloser &&
+                    !instance.invuln &&
+                    instance.id != body.id &&
+                    instance.type !== "wall" &&
+                    instance.team != body.team &&
+                    dist2 <= (body.size / 12 * 100) ** 2 &&
+                    (
+                        (instance.id === instance.master.id && instance.type !== "miniboss") || 
+                        instance.type === "bullet" || 
+                        instance.type === "drone" || 
+                        instance.type === "trap" || 
+                        instance.type === "minion"
+                    )
+                ) {
+                    instance.accel.x -= util.clamp(
+                        body.x - instance.x, -90, 90
+                    ) * instance.damp * ((1 - (1 / forceMulti ** number)) + 0.1);
+                    instance.accel.y -= util.clamp(
+                        body.y - instance.y, -90, 90
+                    ) * instance.damp * ((1 - (1 / forceMulti ** number)) + 0.1);
+                }
+            }
+        }
+    }],
+}
+Class.nightFuryBlast = {
+    PARENT: "bullet",
+    COLOR: "#112557",
+    ON: [{
+        event: 'tick',
+        handler: ({ body }) => {
+            let e = new Entity(body);
+            e.define('genericEntity');
+            e.SIZE = body.size;
+            e.team = body.team;
+            e.color.base = "purple";
+            e.alpha = 0.5;
+            setSyncedTimeout(() => e.kill(), 2);
+
+            body.SIZE += 0.12;
+        }
+    }, {
+        event: 'death',
+        handler: ({ body }) => {
+            let e = new Entity(body);
+            e.define('nightFuryExplosion');
+            e.SIZE = body.size + 5;
+            e.team = body.team;
+            setSyncedTimeout(() => e.kill(), 20);
+        }
+    }],
+}
+Class.nightFury = {
+    PARENT: "genericTank",
+    LABEL: "Toothless",
+	UPGRADE_TOOLTIP: "A cutie",
+	BODY: {
+        HEALTH: 8 * base.HEALTH,
+        DAMAGE: 4 * base.DAMAGE,
+    },
+    LEVEL_CAP: 120,
+    VALUE: 10e+6,
+    SIZE: 20,
+    SHAPE: "nightFury.png",
+    COLOR: "black",
+    SKILL_CAP: Array(10).fill(smshskl),
+    LEVEL_SKILL_POINT_FUNCTION: level => {
+        if (level <= 120) return 1;
+        return 0;
+    },
+    GUNS: [
+        {
+            POSITION: [1, 3, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.destroyer, {
+                    reload: 4,
+                    damage: 3.5,
+                    health: 3,
+                    speed: 3.2,
+                    maxSpeed: 3.2,
+                    range: 0.6,
+                }]),
+                TYPE: "nightFuryBlast",
+            },
+        },
+    ],
+}
