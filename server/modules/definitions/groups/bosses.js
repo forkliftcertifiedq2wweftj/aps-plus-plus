@@ -2782,41 +2782,46 @@ Class.nightFuryExplosion = {
     COLOR: "#3c1157",
     BODY: {
         HEALTH: 1e6,
-        DAMAGE: 6 * base.DAMAGE,
+        DAMAGE: 2.8 * base.DAMAGE,
     },
     ON: [{
         event: 'tick',
         handler: ({ body }) => {
-            body.alpha -= 0.05;
-            body.SIZE *= 1.12;
+            const number = 1/20;
+
+            body.alpha -= number;
+            body.SIZE *= 1.15;
             for (let instance of entities) {
                 let diffX = instance.x - body.x,
                     diffY = instance.y - body.y,
                     dist2 = diffX ** 2 + diffY ** 2,
-                    forceMulti = 300 ** 2 / dist2,
-                    number = 1/20;
+                    forceMulti = 300 ** 2 / dist2;
+
                 if (
-                    !instance.isDominator &&
                     !instance.isArenaCloser &&
                     !instance.invuln &&
                     instance.id != body.id &&
                     instance.type !== "wall" &&
                     instance.team != body.team &&
-                    dist2 <= (body.size / 12 * 100) ** 2 &&
+                    dist2 <= (body.size / 12 * 20) ** 2 &&
                     (
-                        (instance.id === instance.master.id && instance.type !== "miniboss") || 
-                        instance.type === "bullet" || 
-                        instance.type === "drone" || 
-                        instance.type === "trap" || 
+                        instance.id === instance.master.id || // instance.type !== "miniboss"
+                        instance.type === "bullet" ||
+                        instance.type === "drone" ||
+                        instance.type === "trap" ||
                         instance.type === "minion"
                     )
                 ) {
-                    instance.accel.x -= util.clamp(
-                        body.x - instance.x, -90, 90
-                    ) * instance.damp * ((1 - (1 / forceMulti ** number)) + 0.1);
-                    instance.accel.y -= util.clamp(
-                        body.y - instance.y, -90, 90
-                    ) * instance.damp * ((1 - (1 / forceMulti ** number)) + 0.1);
+                    let deathFactor = instance.health.max / 100;
+                    instance.damageReceived += instance.health.amount < deathFactor ? deathFactor : body.DAMAGE;
+                    if (!instance.isDominator) {
+                        instance.accel.x -= util.clamp(
+                            body.x - instance.x, -90, 90
+                        ) * instance.damp * ((1 - (1 / forceMulti ** number)) + 0.1);
+                        instance.accel.y -= util.clamp(
+                            body.y - instance.y, -90, 90
+                        ) * instance.damp * ((1 - (1 / forceMulti ** number)) + 0.1);
+                    }
                 }
             }
         }
@@ -2824,7 +2829,7 @@ Class.nightFuryExplosion = {
 }
 Class.nightFuryBlast = {
     PARENT: "bullet",
-    COLOR: "#112557",
+    COLOR: "purple",
     ON: [{
         event: 'tick',
         handler: ({ body }) => {
@@ -2832,7 +2837,7 @@ Class.nightFuryBlast = {
             e.define('genericEntity');
             e.SIZE = body.size;
             e.team = body.team;
-            e.color.base = "purple";
+            e.color.base = "#112557";
             e.alpha = 0.5;
             setSyncedTimeout(() => e.kill(), 2);
 
@@ -2841,7 +2846,7 @@ Class.nightFuryBlast = {
     }, {
         event: 'death',
         handler: ({ body }) => {
-            let e = new Entity(body);
+            let e = new Entity(body, body.master.master);
             e.define('nightFuryExplosion');
             e.SIZE = body.size + 5;
             e.team = body.team;
@@ -2858,7 +2863,7 @@ Class.nightFury = {
         DAMAGE: 4 * base.DAMAGE,
     },
     LEVEL_CAP: 120,
-    VALUE: 10e+6,
+    LEVEL: 120,
     SIZE: 20,
     SHAPE: "nightFury.png",
     COLOR: "black",
@@ -2871,13 +2876,13 @@ Class.nightFury = {
         {
             POSITION: [1, 3, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.destroyer, {
+                SHOOT_SETTINGS: combineStats([g.basic, {
                     reload: 4,
-                    damage: 3.5,
-                    health: 3,
+                    damage: 1.2,
+                    health: 0.8,
                     speed: 3.2,
                     maxSpeed: 3.2,
-                    range: 0.6,
+                    range: 0.4,
                 }]),
                 TYPE: "nightFuryBlast",
             },

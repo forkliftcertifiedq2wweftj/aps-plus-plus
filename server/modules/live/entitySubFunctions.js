@@ -24,6 +24,7 @@ class Skill {
     constructor(inital = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]) {
         // Just skill stuff.
         this.raw = inital;
+        this.LSPF = null;
         this.caps = [];
         this.setCaps([ c.MAX_SKILL, c.MAX_SKILL, c.MAX_SKILL, c.MAX_SKILL, c.MAX_SKILL, c.MAX_SKILL, c.MAX_SKILL, c.MAX_SKILL, c.MAX_SKILL, c.MAX_SKILL ]);
         this.name = [
@@ -59,7 +60,6 @@ class Skill {
         this.score = 0;
         this.deduction = 0;
         this.level = 0;
-        this.LSPF = null;
         this.set([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
         this.maintain();
     }

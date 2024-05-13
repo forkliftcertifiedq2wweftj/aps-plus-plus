@@ -13,13 +13,12 @@ let fs = require('fs'),
         "ico": "image/x-icon"
     },
     server,
-    servers,
     port = 3000,
     host = "localhost",
     // If someone tries to get a file that does not exist, send them this instead.
     DEFAULT_FILE = "index.html",
     update_servers = async () => {
-        servers = [];
+        const servers = [];
         for (let i = 0; i < serverNames.length; i++) {
             let protocol = serverNames[i].protocol,
                 serverName = protocol + "://" + serverNames[i].ip;
@@ -42,6 +41,7 @@ let fs = require('fs'),
                 }
             }
         };
+        return servers;
     },
     modify_file = (file, root) => {
         if (!fs.existsSync(file)) {
@@ -60,8 +60,7 @@ server = require('http').createServer(async (req, res) => {
 
     switch (req.url) {
         case '/servers.json':
-            await update_servers();
-            resStr = JSON.stringify(servers);
+            resStr = JSON.stringify(await update_servers());
             break;
         default:
             //if this file does not exist, return the default;
