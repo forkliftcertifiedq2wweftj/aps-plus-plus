@@ -1,18 +1,4 @@
-let fs = require('fs'),
-    path = require('path'),
-    publicRoot = path.join(__dirname, "../../../public"),
-    mimeSet = {
-        "js": "application/javascript",
-        "json": "application/json",
-        "css": "text/css",
-        "html": "text/html",
-        "md": "text/markdown",
-        "png": "image/png",
-        "ico": "image/x-icon"
-    },
-    // If someone tries to get a file that does not exist, send them this instead.
-    DEFAULT_FILE = 'index.html',
-    server,
+let server,
     wsServer = new (require('ws').WebSocketServer)({ noServer: true });
 
 server = require('http').createServer((req, res) => {
@@ -32,20 +18,6 @@ server = require('http').createServer((req, res) => {
                 hidden: c.HIDDEN,
             });
             break;
-        default:
-            if (c.COMBINED) {
-                let fileToGet = path.join(publicRoot, req.url);
-
-                if (!fs.existsSync(fileToGet)) {
-                    fileToGet = path.join(publicRoot, DEFAULT_FILE);
-                } else if (!fs.lstatSync(fileToGet).isFile()) {
-                    fileToGet = path.join(publicRoot, DEFAULT_FILE);
-                }
-
-                //return the file
-                res.writeHead(200, { 'Content-Type': mimeSet[ fileToGet.split('.').pop() ] || 'text/html' });
-                return fs.createReadStream(fileToGet).pipe(res);
-            }
     }
 
     if (req.url == '/serverData.json' || req.url == '/lib/json/mockups.json') {
