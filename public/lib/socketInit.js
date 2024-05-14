@@ -140,32 +140,35 @@ const Integrate = class {
 }
 const Minimap = class {
     constructor(speed = 250) {
-        this.speed = speed
-        this.map = {}
-        this.lastUpdate = Date.now()
+        this.speed = speed;
+        this.map = {};
+        this.lastUpdate = Date.now();
+    }
+    reset() {
+        this.map = {};
     }
     update(elements) {
-        this.lastUpdate = Date.now()
+        this.lastUpdate = Date.now();
         for (let [key, value] of Object.entries(this.map))
             if (value.now) {
-                value.old = value.now
-                value.now = null
+                value.old = value.now;
+                value.now = null;
             } else {
-                delete this.map[key]
+                delete this.map[key];
             }
         for (let element of elements)
             if (this.map[element.id]) {
-                this.map[element.id].now = element
+                this.map[element.id].now = element;
             } else {
                 this.map[element.id] = {
                     old: null,
                     now: element
-                }
+                };
             }
     }
     get() {
-        let state = Math.min(1, (Date.now() - this.lastUpdate) / this.speed)
-        let stateOld = 1 - state
+        let state = Math.min(1, (Date.now() - this.lastUpdate) / this.speed);
+        let stateOld = 1 - state;
         return Object.values(this.map).map(({ old, now }) => {
             if (!now) return {
                 type: old.type,
@@ -200,7 +203,7 @@ const Minimap = class {
                 width: state * now.width + stateOld * old.width,
                 height: state * now.height + stateOld * old.height
             }
-        })
+        });
     }
 }
 // Build the leaderboard object
@@ -237,6 +240,9 @@ const Entry = class {
 };
 const Leaderboard = class {
     constructor() {
+        this.entries = {};
+    }
+    reset() {
         this.entries = {};
     }
     get() {
@@ -748,7 +754,7 @@ const protocols = {
     "http": "ws://",
     "https": "wss://"
 };
-const socketInit = port => {
+const socketInit = () => {
     window.resizeEvent();
     let socket = new WebSocket(protocols[window.protocol] + window.serverAdd);
     // Set up our socket
@@ -1004,8 +1010,8 @@ const socketInit = port => {
                 // disconnect from the server.
                 window.protocol = m[0];
                 window.serverAdd = m[1];
-                global.gameStart = false;
                 global.travelling = true;
+                global.gameStart = false;
                 global.message = "Disconnecting...";
                 socket.onclose = () => {};
                 socket.close();
@@ -1015,11 +1021,11 @@ const socketInit = port => {
                 }, 100);
                 setTimeout(() => {
                     // Reset minimap and leaderboard
-                    minimapAllInt.elements = {};
-                    minimapTeamInt.elements = {};
-                    leaderboardInt.elements = {};
-                    leaderboard.entries = {};
-                    minimap.map = {};
+                    minimapAllInt.reset();
+                    minimapTeamInt.reset();
+                    leaderboardInt.reset();
+                    leaderboard.reset();
+                    minimap.reset();
                     // Reset other stuff
                     sync = [];
                     clockDiff = 0;
@@ -1029,9 +1035,9 @@ const socketInit = port => {
                     level = 0;
                     sscore = util.Smoothbar(0, 10);
                     playerBody = m[2];
-                    serverStart = 0;
                     global.player.lastUpdate = 0;
                     global.message = "Waiting for connection...";
+                    global.travelling = false;
                     global.mockupLoading = new Promise(Resolve => {
                         util.pullJSON("mockups").then(data => {
                             global.mockups = data;
@@ -1039,7 +1045,6 @@ const socketInit = port => {
                             Resolve();
                         });
                     });
-                    global.travelling = false;
                     window.canvas.socket = global.socket = socketInit();
                 }, 1100);
                 break;

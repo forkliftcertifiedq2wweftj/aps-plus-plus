@@ -1225,6 +1225,16 @@ Class.tripleFlail = {
     }]
 }
 
+const get_client = async (client, host) => {
+    let protocol = "http",
+        ip = `${c.host}:${c.port}`;
+    if (client.ip && client.protocol) {
+        const serverData = await (await fetch(`${client.protocol}://${client.ip}/servers.json`)).json();
+        protocol = serverData[host].https;
+        ip = serverData[host].server.ip;
+    }
+    return { protocol, ip };
+};
 // Code by Taureon
 Class.nexusPortal = {
     PARENT: 'genericEntity',
@@ -1278,24 +1288,23 @@ Class.nexusPortal = {
             // radius and socket check
             if (component < difference.length - combinedRadius || !n.socket) return;
 
-            // The less, the better
-            n.socket.talk(
-                'REDIRECT',
-                c.HTTPS ? "https" : "http",
-                c.host,
-                JSON.stringify({
-                    name: n.name,
-                    definition: n.defs.map(d => Object.keys(Class).find(k => Class[k] === d) || d),
-                    score: n.skill.score,
-                    skillcap: n.skill.caps,
-                    skill: n.skill.raw,
-                    key: n.socket.permissions ? n.socket.permissions.class : "",
-                }),
-            );
-            n.kill();
-            setTimeout(() => {
-                n.socket.kick("Teleporting.");
-            }, 1100);
+            get_client(c.CLIENT_HOST, 0).then(data => {
+                n.socket.talk(
+                    'REDIRECT',
+                    data.protocol,
+                    data.ip,
+                    JSON.stringify({
+                        name: n.name,
+                        definition: n.defs.map(d => Object.keys(Class).find(k => Class[k] === d) || d),
+                        score: n.skill.score,
+                        skillcap: n.skill.caps,
+                        skill: n.skill.raw,
+                        key: n.socket.permissions ? n.socket.permissions.class : "",
+                    }),
+                );
+                setTimeout(() => n.socket.kick("Teleporting."), 1100);
+            });
+            n.destroy();
         }
     }]
 };

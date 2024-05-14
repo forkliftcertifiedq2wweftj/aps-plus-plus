@@ -2,8 +2,7 @@ module.exports = {
     // Server
 
     // Game server domain.
-    // If 'localhost:NUMBER', the port must equal the port setting.
-    host: "localhost:26301",
+    host: "localhost",
 
     // Which port to run the web server on.
     port: 26301,
@@ -31,12 +30,16 @@ module.exports = {
     // World wide location of your server
     LOCATION: "",
 
+    // Client address and https proxy
+    // Needed for server wide transferring
+    // Left it empty if combined is true or no more then one server exists
+    CLIENT_HOST: {
+        protocol: "http",
+        ip: "localhost:3000"
+    },
+
     // Hide from the list
     HIDDEN: false,
-
-    // Is behind https proxy
-    // Used for portal teleporting to work
-    HTTPS: true,
 
     // The room files to load in the setup/rooms folder.
     // NOTE: If a /gamemodeconfig/ file "replaces" the value of ROOM_SETUP, it just adds its own ROOM_SETUP's content to this array.

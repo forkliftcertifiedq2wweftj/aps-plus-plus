@@ -15,13 +15,6 @@ let fs = require('fs'),
     server,
     wsServer = new (require('ws').WebSocketServer)({ noServer: true });
 
-if (c.host === 'localhost') {
-    util.warn(`config.host is just "localhost", are you sure you don't mean "localhost:${c.port}"?`);
-}
-if (c.host.match(/localhost:(\d)/) && c.host !== 'localhost:' + c.port) {
-    util.warn('config.host is a localhost domain but its port is different to config.port!');
-}
-
 server = require('http').createServer((req, res) => {
     let resStr = "";
 
@@ -31,7 +24,7 @@ server = require('http').createServer((req, res) => {
             break;
         case "/serverData.json":
             resStr = JSON.stringify({
-                ip: c.host,
+                ip: `${c.host}:${c.port}`,
                 gameMode: c.gameModeName,
                 players: views.length,
                 closed: arenaClosed,
@@ -64,6 +57,6 @@ server = require('http').createServer((req, res) => {
 });
 
 server.on('upgrade', (req, socket, head) => wsServer.handleUpgrade(req, socket, head, ws => sockets.connect(ws, req)));
-server.listen(c.port, () => console.log("Server listening on port", c.port));
+server.listen(c.port, c.host, () => console.log("Server listening on port", c.port));
 
 module.exports = { server };

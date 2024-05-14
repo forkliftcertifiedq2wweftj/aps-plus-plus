@@ -68,7 +68,7 @@ const util = {
     },
     pullJSON: fileName => {
         return new Promise((resolve, reject) => {
-            const url = `${location.protocol}//${window.serverAdd}/lib/json/${fileName}.json`;
+            const url = `${window.protocol}://${window.serverAdd}/lib/json/${fileName}.json`;
             console.log("Loading JSON from " + url);
             fetch(url).then(response => response.json()).then(json => {
                 console.log("JSON load from " + url + " complete");

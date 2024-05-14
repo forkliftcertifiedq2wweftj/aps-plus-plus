@@ -2782,20 +2782,19 @@ Class.nightFuryExplosion = {
     COLOR: "#3c1157",
     BODY: {
         HEALTH: 1e6,
-        DAMAGE: 2.8 * base.DAMAGE,
+        DAMAGE: 8 * base.DAMAGE,
     },
     ON: [{
         event: 'tick',
         handler: ({ body }) => {
-            const number = 1/20;
-
-            body.alpha -= number;
-            body.SIZE *= 1.15;
+            body.alpha -= 1/10;
+            body.SIZE *= 1.3;
             for (let instance of entities) {
                 let diffX = instance.x - body.x,
                     diffY = instance.y - body.y,
                     dist2 = diffX ** 2 + diffY ** 2,
-                    forceMulti = 300 ** 2 / dist2;
+                    forceMulti = 300 ** 2 / dist2,
+                    number = 1/20;
 
                 if (
                     !instance.isArenaCloser &&
@@ -2812,8 +2811,10 @@ Class.nightFuryExplosion = {
                         instance.type === "minion"
                     )
                 ) {
-                    let deathFactor = instance.health.max / 100;
-                    instance.damageReceived += instance.health.amount < deathFactor ? deathFactor : body.DAMAGE;
+                    let stuff = instance.health.getDamage(body.DAMAGE, false),
+                        deathFactor = (stuff > instance.health.amount) ? instance.health.amount / stuff : 1;
+
+                    instance.damageReceived += body.DAMAGE * deathFactor;
                     if (!instance.isDominator) {
                         instance.accel.x -= util.clamp(
                             body.x - instance.x, -90, 90
@@ -2850,7 +2851,7 @@ Class.nightFuryBlast = {
             e.define('nightFuryExplosion');
             e.SIZE = body.size + 5;
             e.team = body.team;
-            setSyncedTimeout(() => e.kill(), 20);
+            setSyncedTimeout(() => e.kill(), 10);
         }
     }],
 }
@@ -2882,7 +2883,7 @@ Class.nightFury = {
                     health: 0.8,
                     speed: 3.2,
                     maxSpeed: 3.2,
-                    range: 0.4,
+                    range: 0.28,
                 }]),
                 TYPE: "nightFuryBlast",
             },

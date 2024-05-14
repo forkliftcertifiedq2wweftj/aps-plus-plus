@@ -135,10 +135,11 @@ window.onload = async () => {
         };
 
     const servers = await (await fetch("/servers.json")).json();
-    window.isMultiserver = true;
+    window.isMultiserver = false;
 
     if (servers.length) {
         document.getElementById("serverName").remove();
+        window.isMultiserver = true;
 
         window.serverAdd = servers[0].server.ip;
         serverSelector.style.display = "block";
@@ -215,7 +216,9 @@ window.onload = async () => {
         document.getElementById("optBorders").value = "normal";
     }
     // Game start stuff
-    document.getElementById("startButton").onclick = () => startGame();
+    document.getElementById("startButton").onclick = () => {
+        if (window.isMultiserver) startGame();
+    };
     document.onkeydown = (e) => {
         var key = e.which || e.keyCode;
         if (key === global.KEY_ENTER && (global.dead || !global.gameLoading)) {
@@ -461,7 +464,7 @@ function startGame() {
     document.getElementById("gameAreaWrapper").style.opacity = 1;
     // Set up the socket
     if (!global.socket) {
-        global.socket = socketInit(26301);
+        global.socket = socketInit();
     }
     if (!global.animLoopHandle) {
         animloop();
