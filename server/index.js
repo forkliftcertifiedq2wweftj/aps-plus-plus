@@ -8,7 +8,7 @@ for (let key in enviroment) {
 }
 const GLOBAL = require("./modules/global.js");
 
-console.log(`[${GLOBAL.creationDate}]: Server initialized.\nRoom Info:\n Dimensions: ${room.width} x ${room.height}`);
+console.log(`[${GLOBAL.creationDate}]: Server initialized.`);
 
 // Let's get a cheaper array removal thing
 Array.prototype.remove = function (index) {
@@ -18,10 +18,11 @@ Array.prototype.remove = function (index) {
     return r;
 };
 
-//console window title
+// console window title
 // https://stackoverflow.com/questions/29548477/how-do-you-set-the-terminal-tab-title-from-node-js
 process.stdout.write(String.fromCharCode(27) + "]0;" + c.WINDOW_NAME + String.fromCharCode(7));
 
+// Initialize room
 util.log(room.width + " x " + room.height + " room initalized.");
 
 // Collision stuff
@@ -259,8 +260,6 @@ const gameloop = () => {
     }
 };
 
-setTimeout(closeArena, 60000 * 120); // Restart every 2 hours
-
 global.naturallySpawnedBosses = [];
 global.bots = [];
 let bossTimer = 0;
@@ -352,6 +351,8 @@ if (c.REPL_WINDOW) {
     require('repl').start({/* stdin, stdout, stderr,*/ useGlobal: true });
 }
 
+// Start
+restart(false);
 // Bring it to life
 let counter = 0;
 setInterval(() => {

@@ -1,9 +1,17 @@
-let loop;
-function close() {
-    sockets.broadcast("Closing!");
-    clearInterval(loop);
-    global.arenaClosed = false;
-    init();
+let loop,
+    arenaClosing;
+
+function restart(announce) {
+    arenaClosers = [];
+    if (announce) {
+        sockets.broadcast("Closing!");
+        for (let i = 0; i < entities.length; i++) if (entities.team != TEAM_ROOM) entities[i].destroy(); // Fuckall
+    }
+    if (loop) clearInterval(loop);
+    if (arenaClosing) clearInterval(arenaClosing);
+    arenaClosing = setInterval(closeArena, 60000 * 120); // reset arena closing interval
+    initGameModeLoop();
+    setTimeout(() => global.arenaClosed = false, 2000);
 }
 
 function closeArena() {
@@ -43,19 +51,14 @@ function closeArena() {
     let ticks = 0;
     loop = setInterval(() => {
         ticks++;
-        if (ticks >= 20) return close();
+        if (ticks >= 100) return restart(true);
         let alive = false;
         for (let i = 0; i < entities.length; i++) {
             let instance = entities[i];
-            if (
-                instance.isPlayer || instance.isMothership ||
-                (instance.isDominator && instance.team !== -101)
-            ) {
-                alive = true;
-            }
+            if (instance.isPlayer || instance.isMothership) alive = true;
         }
-        if (!alive) close();
+        if (!alive) restart(true);
     }, 500);
 }
 
-module.exports = { closeArena };
+module.exports = { closeArena, restart };

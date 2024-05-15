@@ -120,6 +120,18 @@ for (let [key, value] of Object.entries(require('./setup/config.js'))) {
 }
 
 global.Class = {};
+global.room = {
+    lastCycle: undefined,
+    cycleSpeed: 1000 / 30,
+    topPlayerID: -1,
+    partyHash: Number(((Math.random() * 1000000 | 0) + 1000000).toString().replace("0.", "")),
+    spawnableDefault: [],
+    center: {},
+    spawnable: {},
+    blackHoles: [],
+    setup: [],
+    sendColorsToClient: false,
+};
 global.ensureIsClass = str => {
     if ("object" == typeof str) {
         return str;
@@ -130,7 +142,7 @@ global.ensureIsClass = str => {
     console.log('Definitions:');
     console.log(Class);
     throw Error(`Definition ${str} is attempted to be gotten but does not exist!`);
-}
+};
 global.makeHitbox = wall => {
     const _size = wall.size + 4;
     //calculate the relative corners
@@ -157,7 +169,7 @@ global.makeHitbox = wall => {
         [relativeCorners[3], relativeCorners[0]]
     ];
     wall.hitboxRadius = distance;
-}
+};
 
 // Now that we've set up the global variables, we import all the modules, then put them into global varialbles and then export something just so this file is run.
 const requires = [

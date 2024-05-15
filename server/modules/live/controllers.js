@@ -796,24 +796,23 @@ class io_wanderAroundMap extends IO {
         super(b);
         this.lookAtGoal = opts.lookAtGoal;
         this.immitatePlayerMovement = opts.immitatePlayerMovement;
-        this.spot = ran.choose(room.spawnableDefault).loc;
+        this.spot = ran.choose(room.spawnableDefault);
     }
     think(input) {
         if (
-            new Vector( this.body.x - this.spot.x, this.body.y - this.spot.y ).isShorterThan(50) ||
-            wouldHitWall(this.body, this.spot)
-        ) {
-            this.spot = ran.choose(room.spawnableDefault).loc;
-        }
+            new Vector( this.body.x - this.spot.loc.x, this.body.y - this.spot.loc.y ).isShorterThan(50) ||
+            wouldHitWall(this.body, this.spot.loc)
+        ) this.spot = ran.choose(room.spawnableDefault);
+
         if (input.goal == null && !this.body.autoOverride) {
-            let goal = this.spot;
+            let goal = this.spot.loc;
             if (this.immitatePlayerMovement) {
                 goal = compressMovement(this.body, goal);
             }
             return {
                 target: (this.lookAtGoal && input.target == null) ? {
-                    x: this.spot.x - this.body.x,
-                    y: this.spot.y - this.body.y
+                    x: this.spot.loc.x - this.body.x,
+                    y: this.spot.loc.y - this.body.y
                 } : null,
                 goal
             };

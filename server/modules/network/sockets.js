@@ -148,6 +148,10 @@ function incoming(message, socket) {
                 socket.kick("Trying to spawn while already alive.");
                 return 1;
             }
+            if (arenaClosed) {
+                socket.kick("Arena is closed.");
+                return 1;
+            }
             if (m.length !== 3) {
                 socket.kick("Ill-sized spawn request.");
                 return 1;

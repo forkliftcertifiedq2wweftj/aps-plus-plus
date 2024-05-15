@@ -1,32 +1,17 @@
-let importedRoom = [];
-
 for (let filename of c.ROOM_SETUP) {
     let currentRoom = require(`./rooms/${filename}.js`);
     for (let y = 0; y < currentRoom.length; y++) {
         for (let x = 0; x < currentRoom[0].length; x++) {
-            if (importedRoom[y] == null) {
-                importedRoom[y] = currentRoom[y];
+            if (room.setup[y] == null) {
+                room.setup[y] = currentRoom[y];
             } else if (currentRoom[y][x]) {
-                importedRoom[y][x] = currentRoom[y][x];
+                room.setup[y][x] = currentRoom[y][x];
             }
         }
     }
 }
-
-global.room = {
-    lastCycle: undefined,
-    cycleSpeed: 1000 / 30,
-    setup: importedRoom,
-    xgrid: importedRoom[0].length,
-    ygrid: importedRoom.length,
-    topPlayerID: -1,
-    partyHash: Number(((Math.random() * 1000000 | 0) + 1000000).toString().replace("0.", "")),
-    spawnableDefault: [],
-    center: {},
-    spawnable: {},
-    blackHoles: [],
-    sendColorsToClient: false
-};
+room.xgrid = room.setup[0].length;
+room.ygrid = room.setup.length;
 
 Object.defineProperties(room, {
     tileWidth: { get: () => c.TILE_WIDTH, set: v => c.TILE_WIDTH = v },
@@ -46,24 +31,24 @@ room.isInRoom = location => {
     }
     return location.x >= 0 && location.x <= room.width && location.y >= 0 && location.y <= room.height;
 };
-room.near = function(position, radius) {
+room.getAt = location => {
+    if (!room.isInRoom(location)) return undefined;
+    let a = Math.floor(location.y / room.tileWidth);
+    let b = Math.floor(location.x / room.tileHeight);
+    return room.setup[a][b];
+};
+room.near = (position, radius) => {
     let point = ran.pointInUnitCircle();
     return {
         x: Math.round(position.x + radius * point.x),
         y: Math.round(position.y + radius * point.y)
     };
 };
-room.random = function() {
+room.random = () => {
     return c.ARENA_TYPE === "circle" ? room.near(room.center, room.center.x) : {
         x: ran.irandom(room.width),
         y: ran.irandom(room.height)
     };
-};
-room.getAt = location => {
-    if (!room.isInRoom(location)) return undefined;
-    let a = Math.floor(location.y / room.tileWidth);
-    let b = Math.floor(location.x / room.tileHeight);
-    return room.setup[a][b];
 };
 
 class TileEntity {
@@ -94,13 +79,6 @@ class TileEntity {
     }
 }
 
-for (let y in room.setup) {
-    for (let x in room.setup[y]) {
-        let tile = room.setup[y][x] = new TileEntity(room.setup[y][x], { x, y });
-        tile.init(tile);
-    }
-}
-
 function roomLoop() {
     for (let i = 0; i < entities.length; i++) {
         let entity = entities[i],
@@ -119,6 +97,13 @@ function roomLoop() {
     if (room.sendColorsToClient) {
         room.sendColorsToClient = false;
         sockets.broadcastRoom();
+    }
+}
+
+for (let y in room.setup) {
+    for (let x in room.setup[y]) {
+        let tile = room.setup[y][x] = new TileEntity(room.setup[y][x], { x, y });
+        tile.init(tile);
     }
 }
 

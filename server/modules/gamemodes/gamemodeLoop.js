@@ -4,7 +4,7 @@ let bossRush,
     train,
     logger = new LagLogger();
 
-const init = function() {
+const initGameModeLoop = function() {
     if (c.SPECIAL_BOSS_SPAWNS) bossRush = new BossRush();
     if (c.TRAIN) train = new Train();
     if (c.SPACE_MODE) moon = new Moon();
@@ -14,8 +14,6 @@ const init = function() {
     if (c.SPECIAL_BOSS_SPAWNS) bossRush.init();
     if (c.MAZE > 0) generateMaze(c.MAZE);
 };
-
-init();
 
 const gamemodeLoop = function() {
     logger.set();
@@ -33,4 +31,4 @@ const gamemodeLoop = function() {
     }
 };
 
-module.exports = { gamemodeLoop, init };
+module.exports = { gamemodeLoop, initGameModeLoop };
