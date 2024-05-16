@@ -4,4 +4,4 @@ module.exports = {
     TILE_WIDTH: 200,
     TILE_HEIGHT: 200,
     ROOM_SETUP: ['map_nexus_trplnr']
-}
+};

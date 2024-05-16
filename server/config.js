@@ -20,9 +20,12 @@ module.exports = {
     // Log speed loop warnings
     LOGS: true,
 
+    // Combinations of random game modes
+    RANDOM_MODE: ["growth"],
+
     // The \modules\setup\gamemodeconfigs\ files to load.
     // To change specific things about specific gamemodes (such as team count for tdm), edit their config file in \modules\setup\gamemodeconfigs\.
-    GAME_MODES: ['tdm', 'domination'],
+    GAME_MODES: ["tdm", "domination"],
 
     // World wide location of your server
     LOCATION: "",
@@ -31,8 +34,8 @@ module.exports = {
     // Needed for server wide transferring
     // Left it empty if combined is true or no more then one server exists
     CLIENT_HOST: {
+        ip: "localhost:3000",
         protocol: "http",
-        ip: "localhost:3000"
     },
 
     // Hide from the list

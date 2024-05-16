@@ -1226,14 +1226,13 @@ Class.tripleFlail = {
 }
 
 const get_client = async (client, host) => {
-    let protocol = "http",
-        ip = `${c.host}:${c.port}`;
     if (client.ip && client.protocol) {
         const serverData = await (await fetch(`${client.protocol}://${client.ip}/servers.json`)).json();
-        protocol = serverData[host].https;
-        ip = serverData[host].server.ip;
+        return {
+            protocol: serverData[host == "random" ? Math.floor(Math.random() * serverData.length) : host].protocol,
+            ip: serverData[host == "random" ? Math.floor(Math.random() * serverData.length) : host].ip,
+        };
     }
-    return { protocol, ip };
 };
 // Code by Taureon
 Class.nexusPortal = {
@@ -1288,7 +1287,7 @@ Class.nexusPortal = {
             // radius and socket check
             if (component < difference.length - combinedRadius || !n.socket) return;
 
-            get_client(c.CLIENT_HOST, 0).then(data => {
+            get_client(c.CLIENT_HOST, "random").then(data => {
                 n.socket.talk(
                     'REDIRECT',
                     data.protocol,

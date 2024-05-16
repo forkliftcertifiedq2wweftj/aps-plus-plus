@@ -141,6 +141,7 @@ const global = {
     statHover: false,
     upgradeHover: false,
     statMaxing: false,
+    serverSelector: false,
     metrics: {
         latency: 0,
         lag: 0,

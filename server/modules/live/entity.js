@@ -815,47 +815,33 @@ class Entity extends EventEmitter {
         };
         this.isInGrid = false;
         this.removeFromGrid = () => {
-            if (this.isInGrid) {
-                grid.removeObject(this);
-                this.isInGrid = false;
-            }
+            if (!this.isInGrid) return;
+            grid.removeObject(this, false);
+            this.isInGrid = false;
         };
         this.addToGrid = () => {
-            if (!mockupsLoaded) return;
-            if (!this.collidingBond && this.bond != null) return;
-            if (!this.isInGrid) {
-                grid.addObject(this);
-                this.isInGrid = true;
-            }
+            if (!mockupsLoaded || this.isInGrid || !this.collidingBond && this.bond != null) return;
+            grid.addObject(this);
+            this.isInGrid = true;
         };
         this.activation = (() => {
-            let active = true;
-            let timer = ran.irandom(15);
+            let active = true,
+                timer = ran.irandom(15);
             return {
                 update: () => {
-                    if (this.skipLife) {
-                        return active = false;
-                    }
-                    if (this.isDead()) {
-                        return 0;
-                    }
+                    if (this.skipLife) return active = false;
+                    if (this.isDead()) return 0;
                     if (!active) {
                         this.removeFromGrid();
-                        if (this.settings.diesAtRange) {
-                            this.kill();
-                        }
-                        if (!timer--) {
-                            active = true;
-                        }
+                        if (this.settings.diesAtRange) this.kill();
+                        if (!timer--) active = true;
                     } else {
                         this.addToGrid();
                         timer = 15;
                         active = this.alwaysActive || this.isPlayer || this.isBot || views.some((v) => v.check(this, 0.6));
                     }
                 },
-                check: () => {
-                    return active;
-                },
+                check: () => active,
             };
         })();
         this.autoOverride = false;
@@ -927,7 +913,7 @@ class Entity extends EventEmitter {
         // This is for collisions
         this.AABB_data = {};
         this.AABB_savedSize = 0;
-        this.collidingBond = false
+        this.collidingBond = false;
         this.updateAABB = (active) => {
             if (!this.collidingBond && this.bond != null) return 0;
             if (!active) {

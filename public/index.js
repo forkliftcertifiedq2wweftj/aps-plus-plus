@@ -21,13 +21,14 @@ let fs = require('fs'),
         const servers = [];
         for (let i = 0; i < serverNames.length; i++) {
             let protocol = serverNames[i].protocol,
-                serverName = protocol + "://" + serverNames[i].ip;
+                ip = serverNames[i].ip,
+                serverName = protocol + "://" + ip;
             try {
                 if (typeof serverName != "string") throw 0;
         
                 let now = Date.now();
                 await fetch(`${serverName}/serverData.json`).then(x => x.json()).then(fetchedServer => {
-                    servers.push({ server: fetchedServer, ping: Date.now() - now, https: protocol });
+                    servers.push({ server: fetchedServer, ping: Date.now() - now, protocol, ip });
                 }).catch(() => {
                     console.log(`${serverName} doesn't respond`);
                 });
@@ -76,5 +77,3 @@ server = require('http').createServer(async (req, res) => {
 });
 
 server.listen(port, host, () => console.log("Client server listening on port", port));
-
-module.exports = { server };

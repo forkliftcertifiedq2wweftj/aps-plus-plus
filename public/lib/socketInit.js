@@ -2,10 +2,10 @@ import { global } from "./global.js";
 import { util } from "./util.js";
 import { settings } from "./settings.js";
 import { protocol } from "./protocol.js";
+
 window.fakeLagMS = 0;
 var sync = [];
 var clockDiff = 0;
-let truscore = 0;
 let levelscore = 0;
 let deduction = 0;
 let level = 0;
@@ -756,7 +756,7 @@ const protocols = {
 };
 const socketInit = () => {
     window.resizeEvent();
-    let socket = new WebSocket(protocols[window.protocol] + window.serverAdd);
+    let socket = new WebSocket(protocols[global.serverSelector.protocol] + global.serverSelector.serverAdd);
     // Set up our socket
     socket.binaryType = 'arraybuffer';
     socket.open = false;
@@ -1008,8 +1008,8 @@ const socketInit = () => {
             case 'REDIRECT':
                 if (global.travelling) return;
                 // disconnect from the server.
-                window.protocol = m[0];
-                window.serverAdd = m[1];
+                global.serverSelector.protocol = m[0];
+                global.serverSelector.serverAdd = m[1];
                 global.travelling = true;
                 global.gameStart = false;
                 global.message = "Disconnecting...";
@@ -1029,7 +1029,6 @@ const socketInit = () => {
                     // Reset other stuff
                     sync = [];
                     clockDiff = 0;
-                    truscore = 0;
                     levelscore = 0;
                     deduction = 0;
                     level = 0;

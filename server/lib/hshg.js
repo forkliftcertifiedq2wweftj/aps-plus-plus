@@ -10,621 +10,470 @@ you never will because we fired you lol
 - zephi
 ***/
 
+/***
+Shit goes here, touchy-touchy.
+
+- Toothless
+***/
+
 // Hierarchical Spatial Hash Grid: HSHG
 // https://gist.github.com/kirbysayshi/1760774
-(function (root, undefined) {
-  //---------------------------------------------------------------------
-  // GLOBAL FUNCTIONS
-  //---------------------------------------------------------------------
+(function(root, undefined) {
+    //---------------------------------------------------------------------
+    // GLOBAL FUNCTIONS
+    //---------------------------------------------------------------------
 
-  /**
-   * Updates every object's position in the grid, but only if
-   * the hash value for that object has changed.
-   * This method DOES NOT take into account object expansion or
-   * contraction, just position, and does not attempt to change
-   * the grid the object is currently in; it only (possibly) changes
-   * the cell.
-   *
-   * If the object has significantly changed in size, the best bet is to
-   * call removeObject() and addObject() sequentially, outside of the
-   * normal update cycle of HSHG.
-   *
-   * @return  void   desc
-   */
-  function update_RECOMPUTE() {
-    var i, obj, grid, meta, objAABB, newObjHash;
+    /**
+     * Updates every object's position in the grid, but only if
+     * the hash value for that object has changed.
+     * This method DOES NOT take into account object expansion or
+     * contraction, just position, and does not attempt to change
+     * the grid the object is currently in; it only (possibly) changes
+     * the cell.
+     *
+     * If the object has significantly changed in size, the best bet is to
+     * call removeObject() and addObject() sequentially, outside of the
+     * normal update cycle of HSHG.
+     *
+     * @return void desc
+     */
+    function update_RECOMPUTE() {
+        var i, obj, grid, meta, objAABB, newObjHash;
 
-    // for each object
-    for (i = 0; i < this._globalObjects.length; i++) {
-      obj = this._globalObjects[i];
-      meta = obj.HSHG;
-      grid = meta.grid;
+        // for each object
+        for (i = 0; i < this._globalObjects.length; i++) {
+            obj = this._globalObjects[i];
+            meta = obj.HSHG;
+            grid = meta.grid;
 
-      // recompute hash
-      objAABB = obj.getAABB();
-      newObjHash = grid.toHash(objAABB.min[0], objAABB.min[1]);
+            // recompute hash
+            objAABB = obj.getAABB();
+            newObjHash = grid.toHash(objAABB.min[0], objAABB.min[1]);
 
-      if (newObjHash !== meta.hash) {
-        // grid position has changed, update!
-        grid.removeObject(obj);
-        grid.addObject(obj, newObjHash);
-      }
+            if (newObjHash !== meta.hash) {
+                // grid position has changed, update!
+                grid.removeObject(obj, false);
+                grid.addObject(obj, newObjHash);
+            }
+        }
     }
-  }
 
-  // not implemented yet :)
-  function update_REMOVEALL() {}
+    // not implemented yet :)
+    function update_REMOVEALL() {}
 
-  function testAABBOverlap(objA, objB) {
-    var a = objA.getAABB(),
-      b = objB.getAABB();
+    function testAABBOverlap(objA, objB) {
+        var a = objA.getAABB(),
+            b = objB.getAABB();
 
-    //if(a.min[0] > b.max[0] || a.min[1] > b.max[1] || a.min[2] > b.max[2]
-    //|| a.max[0] < b.min[0] || a.max[1] < b.min[1] || a.max[2] < b.min[2]){
-    if (!a.active && !b.active) return false;
+        if (!a.active && !b.active) return false;
 
-    if (
-      a.min[0] > b.max[0] ||
-      a.min[1] > b.max[1] ||
-      a.max[0] < b.min[0] ||
-      a.max[1] < b.min[1]
-    ) {
-      return false;
-    } else {
-      return true;
+        return !(
+            a.min[0] > b.max[0] ||
+            a.min[1] > b.max[1] ||
+            a.max[0] < b.min[0] ||
+            a.max[1] < b.min[1]
+        );
     }
-  }
 
-  function getLongestAABBEdge(min, max) {
-    return Math.max(
-      Math.abs(max[0] - min[0]),
-      Math.abs(max[1] - min[1])
-      //,Math.abs(max[2] - min[2])
-    );
-  }
+    function getLongestAABBEdge(min, max) {
+        return Math.max(
+            Math.abs(max[0] - min[0]),
+            Math.abs(max[1] - min[1])
+        );
+    }
 
-  //---------------------------------------------------------------------
-  // ENTITIES
-  //---------------------------------------------------------------------
+    //---------------------------------------------------------------------
+    // ENTITIES
+    //---------------------------------------------------------------------
 
-  function HSHG() {
-    this.MAX_OBJECT_CELL_DENSITY = 1 / 8; // objects / cells
-    this.INITIAL_GRID_LENGTH = 256; // 16x16
-    this.HIERARCHY_FACTOR = 2;
-    this.HIERARCHY_FACTOR_SQRT = Math.SQRT2;
-    this.UPDATE_METHOD = update_RECOMPUTE; // or update_REMOVEALL
+    function HSHG() {
+        this.MAX_OBJECT_CELL_DENSITY = 1 / 8; // objects / cells
+        this.INITIAL_GRID_LENGTH = 256; // 16x16
+        this.HIERARCHY_FACTOR = 2;
+        this.HIERARCHY_FACTOR_SQRT = Math.SQRT2;
+        this.UPDATE_METHOD = update_RECOMPUTE; // or update_REMOVEALL
 
-    this._grids = [];
-    this._globalObjects = [];
-  }
+        this._grids = [];
+        this._globalObjects = [];
+    }
 
-  //HSHG.prototype.init = function(){
-  //	this._grids = [];
-  //	this._globalObjects = [];
-  //}
+    HSHG.prototype.addObject = function(obj) {
+        var objAABB = obj.getAABB(),
+            objSize = getLongestAABBEdge(objAABB.min, objAABB.max),
+            newGrid = this.findOrCreateGridFor(objSize);
 
-  HSHG.prototype.addObject = function (obj) {
-    var x,
-      i,
-      cellSize,
-      objAABB = obj.getAABB(),
-      objSize = getLongestAABBEdge(objAABB.min, objAABB.max),
-      oneGrid,
-      newGrid;
+        // for HSHG metadata
+        obj.HSHG = {
+            globalObjectsIndex: this._globalObjects.length,
+            hash: null,
+            grid: newGrid
+        };
 
-    // for HSHG metadata
-    obj.HSHG = {
-      globalObjectsIndex: this._globalObjects.length,
+        // add to global object array
+        this._globalObjects.push(obj);
+
+        newGrid.addObject(obj);
     };
 
-    // add to global object array
-    this._globalObjects.push(obj);
+    HSHG.prototype.findOrCreateGridFor = function(objSize) {
+        var grid, x, i, oneGrid;
 
-    if (this._grids.length == 0) {
-      // no grids exist yet
-      cellSize = objSize * this.HIERARCHY_FACTOR_SQRT;
-      newGrid = new Grid(cellSize, this.INITIAL_GRID_LENGTH, this);
-      newGrid.initCells();
-      newGrid.addObject(obj);
+        if (this._grids.length == 0) {
+            // no grids exist yet
+            grid = new Grid(objSize * this.HIERARCHY_FACTOR_SQRT, this.INITIAL_GRID_LENGTH, this);
+            grid.initCells();
+            this._grids.push(grid);
+        } else {
+            x = 0;
 
-      this._grids.push(newGrid);
-    } else {
-      x = 0;
-
-      // grids are sorted by cellSize, smallest to largest
-      for (i = 0; i < this._grids.length; i++) {
-        oneGrid = this._grids[i];
-        x = oneGrid.cellSize;
-        if (objSize < x) {
-          x = x / this.HIERARCHY_FACTOR;
-          if (objSize < x) {
-            // find appropriate size
-            while (objSize < x) {
-              x = x / this.HIERARCHY_FACTOR;
+            // grids are sorted by cellSize, smallest to largest
+            for (i = 0; i < this._grids.length; i++) {
+                oneGrid = this._grids[i];
+                x = oneGrid.cellSize;
+                if (objSize < x) {
+                    x = x / this.HIERARCHY_FACTOR;
+                    if (objSize < x) {
+                        // find appropriate size
+                        while (objSize < x) {
+                            x = x / this.HIERARCHY_FACTOR;
+                        }
+                        grid = new Grid(x * this.HIERARCHY_FACTOR, this.INITIAL_GRID_LENGTH, this);
+                        grid.initCells();
+                        this._grids.splice(i, 0, grid);
+                    } else {
+                        grid = oneGrid;
+                    }
+                    return grid;
+                }
             }
-            newGrid = new Grid(
-              x * this.HIERARCHY_FACTOR,
-              this.INITIAL_GRID_LENGTH,
-              this
-            );
-            newGrid.initCells();
-            // assign obj to grid
-            newGrid.addObject(obj);
-            // insert grid into list of grids directly before oneGrid
-            this._grids.splice(i, 0, newGrid);
-          } else {
-            // insert obj into grid oneGrid
-            oneGrid.addObject(obj);
-          }
-          return;
-        }
-      }
 
-      while (objSize >= x) {
-        x = x * this.HIERARCHY_FACTOR;
-      }
-
-      newGrid = new Grid(x, this.INITIAL_GRID_LENGTH, this);
-      newGrid.initCells();
-      // insert obj into grid
-      newGrid.addObject(obj);
-      // add newGrid as last element in grid list
-      this._grids.push(newGrid);
-    }
-  };
-
-  HSHG.prototype.checkIfInHSHG = function (obj) {
-    var meta = obj.HSHG,
-      globalObjectsIndex,
-      replacementObj;
-
-    if (meta === undefined) return false;
-    return true;
-  };
-
-  HSHG.prototype.removeObject = function (obj) {
-    var meta = obj.HSHG,
-      globalObjectsIndex,
-      replacementObj;
-
-    if (meta === undefined) {
-      throw Error(obj + " was not in the HSHG.");
-      return;
-    }
-
-    // remove object from global object list
-    globalObjectsIndex = meta.globalObjectsIndex;
-    if (globalObjectsIndex === this._globalObjects.length - 1) {
-      this._globalObjects.pop();
-    } else {
-      replacementObj = this._globalObjects.pop();
-      replacementObj.HSHG.globalObjectsIndex = globalObjectsIndex;
-      this._globalObjects[globalObjectsIndex] = replacementObj;
-    }
-
-    meta.grid.removeObject(obj);
-
-    // remove meta data
-    delete obj.HSHG;
-  };
-
-  HSHG.prototype.update = function () {
-    this.UPDATE_METHOD.call(this);
-  };
-
-  HSHG.prototype.queryForCollisionPairs = function (broadOverlapTestCallback) {
-    var i,
-      j,
-      k,
-      l,
-      c,
-      grid,
-      cell,
-      objA,
-      objB,
-      offset,
-      adjacentCell,
-      biggerGrid,
-      objAAABB,
-      objAHashInBiggerGrid,
-      possibleCollisions = [],
-      broadOverlapTest;
-
-    // default broad test to internal aabb overlap test
-    broadOverlapTest = broadOverlapTestCallback || testAABBOverlap;
-
-    // for all grids ordered by cell size ASC
-    for (i = 0; i < this._grids.length; i++) {
-      grid = this._grids[i];
-
-      // for each cell of the grid that is occupied
-      for (j = 0; j < grid.occupiedCells.length; j++) {
-        cell = grid.occupiedCells[j];
-
-        // collide all objects within the occupied cell
-        for (k = 0; k < cell.objectContainer.length; k++) {
-          objA = cell.objectContainer[k];
-          if (!objA.getAABB().active) continue;
-          for (l = k + 1; l < cell.objectContainer.length; l++) {
-            objB = cell.objectContainer[l];
-            if (!objB.getAABB().active) continue;
-            if (broadOverlapTest(objA, objB) === true) {
-              possibleCollisions.push([objA, objB]);
+            while (objSize >= x) {
+                x = x * this.HIERARCHY_FACTOR;
             }
-          }
+
+            grid = new Grid(x, this.INITIAL_GRID_LENGTH, this);
+            grid.initCells();
+            this._grids.push(grid);
         }
 
-        // for the first half of all adjacent cells (offset 4 is the current cell)
-        for (c = 0; c < 4; c++) {
-          offset = cell.neighborOffsetArray[c];
+        return grid;
+    };
 
-          //if(offset === null) { continue; }
+    HSHG.prototype.checkIfInHSHG = function(obj) {
+        var meta = obj.HSHG;
 
-          adjacentCell = grid.allCells[cell.allCellsIndex + offset];
+        return meta !== undefined;
+    };
 
-          // collide all objects in cell with adjacent cell
-          for (k = 0; k < cell.objectContainer.length; k++) {
-            objA = cell.objectContainer[k];
-            if (!objA.getAABB().active) continue;
-            for (l = 0; l < adjacentCell.objectContainer.length; l++) {
-              objB = adjacentCell.objectContainer[l];
-              if (!objB.getAABB().active) continue;
-              if (broadOverlapTest(objA, objB) === true) {
-                possibleCollisions.push([objA, objB]);
-              }
-            }
-          }
+    HSHG.prototype.removeObject = function(obj) {
+        var meta = obj.HSHG,
+            globalObjectsIndex,
+            replacementObj;
+
+        if (meta === undefined) throw Error(obj + " was not in the HSHG.");
+
+        // remove object from global object list
+        globalObjectsIndex = meta.globalObjectsIndex;
+        if (globalObjectsIndex === this._globalObjects.length - 1) {
+            this._globalObjects.pop();
+        } else {
+            replacementObj = this._globalObjects.pop();
+            replacementObj.HSHG.globalObjectsIndex = globalObjectsIndex;
+            this._globalObjects[globalObjectsIndex] = replacementObj;
         }
-      }
 
-      // forall objects that are stored in this grid
-      for (j = 0; j < grid.allObjects.length; j++) {
-        objA = grid.allObjects[j];
-        objAAABB = objA.getAABB();
-        if (!objAAABB.active) continue;
-        // for all grids with cellsize larger than grid
-        for (k = i + 1; k < this._grids.length; k++) {
-          biggerGrid = this._grids[k];
-          objAHashInBiggerGrid = biggerGrid.toHash(
-            objAAABB.min[0],
-            objAAABB.min[1]
-          );
-          cell = biggerGrid.allCells[objAHashInBiggerGrid];
+        meta.grid.removeObject(obj);
 
-          // check objA against every object in all cells in offset array of cell
-          // for all adjacent cells...
-          for (c = 0; c < cell.neighborOffsetArray.length; c++) {
-            offset = cell.neighborOffsetArray[c];
+        // remove meta data
+        delete obj.HSHG;
+    };
 
-            //if(offset === null) { continue; }
+    HSHG.prototype.update = function() {
+        this.UPDATE_METHOD.call(this);
+    };
 
-            adjacentCell = biggerGrid.allCells[cell.allCellsIndex + offset];
+    HSHG.prototype.queryForCollisionPairs = function(broadOverlapTestCallback) {
+        var i, j, k, l, c, grid, cell, objA, objB, offset, adjacentCell, biggerGrid, objAAABB, objAHashInBiggerGrid, possibleCollisions = [],
+            broadOverlapTest;
 
-            // for all objects in the adjacent cell...
-            for (l = 0; l < adjacentCell.objectContainer.length; l++) {
-              objB = adjacentCell.objectContainer[l];
-              if (!objB.getAABB().active) continue;
-              // test against object A
-              if (broadOverlapTest(objA, objB) === true) {
-                possibleCollisions.push([objA, objB]);
-              }
+        // default broad test to internal aabb overlap test
+        broadOverlapTest = broadOverlapTestCallback || testAABBOverlap;
+
+        // for all grids ordered by cell size ASC
+        for (i = 0; i < this._grids.length; i++) {
+            grid = this._grids[i];
+
+            // for each cell of the grid that is occupied
+            for (j = 0; j < grid.occupiedCells.length; j++) {
+                cell = grid.occupiedCells[j];
+
+                // collide all objects within the occupied cell
+                for (k = 0; k < cell.objectContainer.length; k++) {
+                    objA = cell.objectContainer[k];
+                    if (!objA.getAABB().active) continue;
+                    for (l = k + 1; l < cell.objectContainer.length; l++) {
+                        objB = cell.objectContainer[l];
+                        if (!objB.getAABB().active) continue;
+                        if (broadOverlapTest(objA, objB) === true) {
+                            possibleCollisions.push([objA, objB]);
+                        }
+                    }
+                }
+
+                // for the first half of all adjacent cells (offset 4 is the current cell)
+                for (c = 0; c < 4; c++) {
+                    offset = cell.neighborOffsetArray[c];
+
+                    adjacentCell = grid.allCells[cell.allCellsIndex + offset];
+
+                    // collide all objects in cell with adjacent cell
+                    for (k = 0; k < cell.objectContainer.length; k++) {
+                        objA = cell.objectContainer[k];
+                        if (!objA.getAABB().active) continue;
+                        for (l = 0; l < adjacentCell.objectContainer.length; l++) {
+                            objB = adjacentCell.objectContainer[l];
+                            if (!objB.getAABB().active) continue;
+                            if (broadOverlapTest(objA, objB) === true) {
+                                possibleCollisions.push([objA, objB]);
+                            }
+                        }
+                    }
+                }
             }
-          }
+
+            // forall objects that are stored in this grid
+            for (j = 0; j < grid.allObjects.length; j++) {
+                objA = grid.allObjects[j];
+                objAAABB = objA.getAABB();
+                if (!objAAABB.active) continue;
+                // for all grids with cellsize larger than grid
+                for (k = i + 1; k < this._grids.length; k++) {
+                    biggerGrid = this._grids[k];
+                    objAHashInBiggerGrid = biggerGrid.toHash(objAAABB.min[0], objAAABB.min[1]);
+                    cell = biggerGrid.allCells[objAHashInBiggerGrid];
+
+                    // check objA against every object in all cells in offset array of cell
+                    // for all adjacent cells...
+                    for (c = 0; c < cell.neighborOffsetArray.length; c++) {
+                        offset = cell.neighborOffsetArray[c];
+
+                        adjacentCell = biggerGrid.allCells[cell.allCellsIndex + offset];
+
+                        // for all objects in the adjacent cell...
+                        for (l = 0; l < adjacentCell.objectContainer.length; l++) {
+                            objB = adjacentCell.objectContainer[l];
+                            if (!objB.getAABB().active) continue;
+                            // test against object A
+                            if (broadOverlapTest(objA, objB) === true) {
+                                possibleCollisions.push([objA, objB]);
+                            }
+                        }
+                    }
+                }
+            }
         }
-      }
+
+        // return list of object pairs
+        return possibleCollisions;
+    };
+
+    HSHG.update_RECOMPUTE = update_RECOMPUTE;
+    HSHG.update_REMOVEALL = update_REMOVEALL;
+
+    /**
+     * Grid
+     *
+     * @constructor
+     * @param int cellSize the pixel size of each cell of the grid
+     * @param int cellCount the total number of cells for the grid (width x height)
+     * @param HSHG parentHierarchy the HSHG to which this grid belongs
+     * @return void
+     */
+    function Grid(cellSize, cellCount, parentHierarchy) {
+        this.cellSize = cellSize;
+        this.inverseCellSize = 1 / cellSize;
+        this.rowColumnCount = ~~Math.sqrt(cellCount);
+        this.xyHashMask = this.rowColumnCount - 1;
+        this.occupiedCells = [];
+        this.allCells = Array(this.rowColumnCount * this.rowColumnCount);
+        this.allObjects = [];
+        this.sharedInnerOffsets = [];
+
+        this._parentHierarchy = parentHierarchy || null;
     }
 
-    // return list of object pairs
-    return possibleCollisions;
-  };
+    Grid.prototype.initCells = function() {
+        var i, gridLength = this.allCells.length,
+            x, y, wh = this.rowColumnCount,
+            isOnRightEdge, isOnLeftEdge, isOnTopEdge, isOnBottomEdge,
+            innerOffsets = [wh - 1, wh, wh + 1, -1, 0, 1, -1 + -wh, -wh, -wh + 1],
+            leftOffset, rightOffset, topOffset, bottomOffset,
+            uniqueOffsets = [],
+            cell;
 
-  HSHG.update_RECOMPUTE = update_RECOMPUTE;
-  HSHG.update_REMOVEALL = update_REMOVEALL;
+        this.sharedInnerOffsets = innerOffsets;
 
-  /**
-   * Grid
-   *
-   * @constructor
-   * @param	int cellSize  the pixel size of each cell of the grid
-   * @param	int cellCount  the total number of cells for the grid (width x height)
-   * @param	HSHG parentHierarchy	the HSHG to which this grid belongs
-   * @return  void
-   */
-  function Grid(cellSize, cellCount, parentHierarchy) {
-    this.cellSize = cellSize;
-    this.inverseCellSize = 1 / cellSize;
-    this.rowColumnCount = ~~Math.sqrt(cellCount);
-    this.xyHashMask = this.rowColumnCount - 1;
-    this.occupiedCells = [];
-    this.allCells = Array(this.rowColumnCount * this.rowColumnCount);
-    this.allObjects = [];
-    this.sharedInnerOffsets = [];
+        // init all cells, creating offset arrays as needed
 
-    this._parentHierarchy = parentHierarchy || null;
-  }
+        for (i = 0; i < gridLength; i++) {
+            cell = new Cell();
+            // compute row (y) and column (x) for an index
+            y = ~~(i / this.rowColumnCount);
+            x = ~~(i - y * this.rowColumnCount);
 
-  Grid.prototype.initCells = function () {
-    // TODO: inner/unique offset rows 0 and 2 may need to be
-    // swapped due to +y being "down" vs "up"
+            // reset / init
+            isOnRightEdge = false;
+            isOnLeftEdge = false;
+            isOnTopEdge = false;
+            isOnBottomEdge = false;
 
-    var i,
-      gridLength = this.allCells.length,
-      x,
-      y,
-      wh = this.rowColumnCount,
-      isOnRightEdge,
-      isOnLeftEdge,
-      isOnTopEdge,
-      isOnBottomEdge,
-      innerOffsets = [
-        // y+ down offsets
-        //-1 + -wh, -wh, -wh + 1,
-        //-1, 0, 1,
-        //wh - 1, wh, wh + 1
+            // right or left edge cell
+            if ((x + 1) % this.rowColumnCount == 0) {
+                isOnRightEdge = true;
+            } else if (x % this.rowColumnCount == 0) {
+                isOnLeftEdge = true;
+            }
 
-        // y+ up offsets
-        wh - 1,
-        wh,
-        wh + 1,
-        -1,
-        0,
-        1,
-        -1 + -wh,
-        -wh,
-        -wh + 1,
-      ],
-      leftOffset,
-      rightOffset,
-      topOffset,
-      bottomOffset,
-      uniqueOffsets = [],
-      cell;
+            // top or bottom edge cell
+            if ((y + 1) % this.rowColumnCount == 0) {
+                isOnTopEdge = true;
+            } else if (y % this.rowColumnCount == 0) {
+                isOnBottomEdge = true;
+            }
 
-    this.sharedInnerOffsets = innerOffsets;
+            // if cell is edge cell, use unique offsets, otherwise use inner offsets
+            if (isOnRightEdge || isOnLeftEdge || isOnTopEdge || isOnBottomEdge) {
+                // figure out cardinal offsets first
+                rightOffset = isOnRightEdge === true ? -wh + 1 : 1;
+                leftOffset = isOnLeftEdge === true ? wh - 1 : -1;
+                topOffset = isOnTopEdge === true ? -gridLength + wh : wh;
+                bottomOffset = isOnBottomEdge === true ? gridLength - wh : -wh;
 
-    // init all cells, creating offset arrays as needed
+                // diagonals are composites of the cardinals
+                uniqueOffsets = [
+                    leftOffset + topOffset,
+                    topOffset,
+                    rightOffset + topOffset,
+                    leftOffset,
+                    0,
+                    rightOffset,
+                    leftOffset + bottomOffset,
+                    bottomOffset,
+                    rightOffset + bottomOffset
+                ];
 
-    for (i = 0; i < gridLength; i++) {
-      cell = new Cell();
-      // compute row (y) and column (x) for an index
-      y = ~~(i / this.rowColumnCount);
-      x = ~~(i - y * this.rowColumnCount);
+                cell.neighborOffsetArray = uniqueOffsets;
+            } else {
+                cell.neighborOffsetArray = this.sharedInnerOffsets;
+            }
 
-      // reset / init
-      isOnRightEdge = false;
-      isOnLeftEdge = false;
-      isOnTopEdge = false;
-      isOnBottomEdge = false;
+            cell.allCellsIndex = i;
+            this.allCells[i] = cell;
+        }
+    };
 
-      // right or left edge cell
-      if ((x + 1) % this.rowColumnCount == 0) {
-        isOnRightEdge = true;
-      } else if (x % this.rowColumnCount == 0) {
-        isOnLeftEdge = true;
-      }
+    Grid.prototype.toHash = function(x, y, z) {
+        var i, xHash, yHash;
 
-      // top or bottom edge cell
-      if ((y + 1) % this.rowColumnCount == 0) {
-        isOnTopEdge = true;
-      } else if (y % this.rowColumnCount == 0) {
-        isOnBottomEdge = true;
-      }
+        if (x < 0) {
+            i = -x * this.inverseCellSize;
+            xHash = this.rowColumnCount - 1 - (~~i & this.xyHashMask);
+        } else {
+            i = x * this.inverseCellSize;
+            xHash = ~~i & this.xyHashMask;
+        }
 
-      // if cell is edge cell, use unique offsets, otherwise use inner offsets
-      if (isOnRightEdge || isOnLeftEdge || isOnTopEdge || isOnBottomEdge) {
-        // figure out cardinal offsets first
-        rightOffset = isOnRightEdge === true ? -wh + 1 : 1;
-        leftOffset = isOnLeftEdge === true ? wh - 1 : -1;
-        topOffset = isOnTopEdge === true ? -gridLength + wh : wh;
-        bottomOffset = isOnBottomEdge === true ? gridLength - wh : -wh;
+        if (y < 0) {
+            i = -y * this.inverseCellSize;
+            yHash = this.rowColumnCount - 1 - (~~i & this.xyHashMask);
+        } else {
+            i = y * this.inverseCellSize;
+            yHash = ~~i & this.xyHashMask;
+        }
 
-        // diagonals are composites of the cardinals
-        uniqueOffsets = [
-          // y+ down offset
-          //leftOffset + bottomOffset, bottomOffset, rightOffset + bottomOffset,
-          //leftOffset, 0, rightOffset,
-          //leftOffset + topOffset, topOffset, rightOffset + topOffset
+        return xHash + yHash * this.rowColumnCount;
+    };
 
-          // y+ up offset
-          leftOffset + topOffset,
-          topOffset,
-          rightOffset + topOffset,
-          leftOffset,
-          0,
-          rightOffset,
-          leftOffset + bottomOffset,
-          bottomOffset,
-          rightOffset + bottomOffset,
-        ];
+    Grid.prototype.addObject = function(obj, hash) {
+        var objAABB = obj.getAABB(),
+            objHash = hash === undefined ? this.toHash(objAABB.min[0], objAABB.min[1]) : hash,
+            targetCell = this.allCells[objHash];
 
-        cell.neighborOffsetArray = uniqueOffsets;
-      } else {
-        cell.neighborOffsetArray = this.sharedInnerOffsets;
-      }
+        if (obj.HSHG === undefined) throw Error(obj + " was passed directly to the grid.");
 
-      cell.allCellsIndex = i;
-      this.allCells[i] = cell;
-    }
-  };
+        // add to cell
+        targetCell.objectContainer.push(obj);
 
-  Grid.prototype.toHash = function (x, y, z) {
-    var i, xHash, yHash, zHash;
+        // add to cell list
+        if (targetCell.objectContainer.length === 1) {
+            this.occupiedCells.push(targetCell);
+        }
 
-    if (x < 0) {
-      i = -x * this.inverseCellSize;
-      xHash = this.rowColumnCount - 1 - (~~i & this.xyHashMask);
-    } else {
-      i = x * this.inverseCellSize;
-      xHash = ~~i & this.xyHashMask;
-    }
+        // update obj's HSHG meta data
+        obj.HSHG.hash = objHash;
+        obj.HSHG.grid = this;
 
-    if (y < 0) {
-      i = -y * this.inverseCellSize;
-      yHash = this.rowColumnCount - 1 - (~~i & this.xyHashMask);
-    } else {
-      i = y * this.inverseCellSize;
-      yHash = ~~i & this.xyHashMask;
-    }
+        // we can assume that the object is already added (for whatever reason) to the
+        // HSHG global list
 
-    //if(z < 0){
-    //	i = (-z) * this.inverseCellSize;
-    //	zHash = this.rowColumnCount - 1 - ( ~~i & this.xyHashMask );
-    //} else {
-    //	i = z * this.inverseCellSize;
-    //	zHash = ~~i & this.xyHashMask;
-    //}
+        this.allObjects.push(obj);
+    };
 
-    return xHash + yHash * this.rowColumnCount;
-    //+ zHash * this.rowColumnCount * this.rowColumnCount;
-  };
+    // Set deleteGrid property to false if you are readding object
+    Grid.prototype.removeObject = function(obj, deleteGrid = true) {
+        var meta = obj.HSHG,
+            hash, targetCell, cellObjects,
+            i, cellObjectCount;
 
-  Grid.prototype.addObject = function (obj, hash) {
-    var objAABB, objHash, targetCell;
+        if (meta === undefined) throw Error(obj + " was not in the HSHG.");
 
-    // technically, passing this in this should save some computational effort when updating objects
-    if (hash !== undefined) {
-      objHash = hash;
-    } else {
-      objAABB = obj.getAABB();
-      objHash = this.toHash(objAABB.min[0], objAABB.min[1]);
-    }
-    targetCell = this.allCells[objHash];
+        // remove from cell
+        hash = meta.hash;
+        targetCell = this.allCells[hash];
+        cellObjects = targetCell.objectContainer;
+        cellObjectCount = cellObjects.length;
 
-    if (targetCell.objectContainer.length === 0) {
-      // insert this cell into occupied cells list
-      targetCell.occupiedCellsIndex = this.occupiedCells.length;
-      this.occupiedCells.push(targetCell);
+        // find index of obj in cell
+        for (i = 0; i < cellObjectCount; i++) {
+            if (cellObjects[i] === obj) {
+                cellObjects.splice(i, 1);
+                break;
+            }
+        }
+
+        // if that was the last object in the cell, remove the cell from the
+        // occupied list
+        if (cellObjects.length === 0) {
+            for (i = 0; i < this.occupiedCells.length; i++) {
+                if (this.occupiedCells[i] === targetCell) {
+                    this.occupiedCells.splice(i, 1);
+                    break;
+                }
+            }
+        }
+
+        // remove object from global object list
+        cellObjectCount = this.allObjects.length;
+        for (i = 0; i < cellObjectCount; i++) {
+            if (this.allObjects[i] === obj) {
+                this.allObjects.splice(i, 1);
+                break;
+            }
+        }
+
+        // remove meta data
+        if (deleteGrid) delete obj.HSHG;
+    };
+
+    function Cell() {
+        this.objectContainer = [];
+        this.neighborOffsetArray = [];
+        this.allCellsIndex = -1;
     }
 
-    // add meta data to obj, for fast update/removal
-    obj.HSHG.objectContainerIndex = targetCell.objectContainer.length;
-    obj.HSHG.hash = objHash;
-    obj.HSHG.grid = this;
-    obj.HSHG.allGridObjectsIndex = this.allObjects.length;
-    // add obj to cell
-    targetCell.objectContainer.push(obj);
+    //---------------------------------------------------------------------
+    // EXPORTS
+    //---------------------------------------------------------------------
 
-    // we can assume that the targetCell is already a member of the occupied list
-
-    // add to grid-global object list
-    this.allObjects.push(obj);
-
-    // do test for grid density
-    if (
-      this.allObjects.length / this.allCells.length >
-      this._parentHierarchy.MAX_OBJECT_CELL_DENSITY
-    ) {
-      // grid must be increased in size
-      this.expandGrid();
-    }
-  };
-
-  Grid.prototype.removeObject = function (obj) {
-    var meta = obj.HSHG,
-      hash,
-      containerIndex,
-      allGridObjectsIndex,
-      cell,
-      replacementCell,
-      replacementObj;
-
-    hash = meta.hash;
-    containerIndex = meta.objectContainerIndex;
-    allGridObjectsIndex = meta.allGridObjectsIndex;
-    cell = this.allCells[hash];
-
-    // remove object from cell object container
-    if (cell.objectContainer.length === 1) {
-      // this is the last object in the cell, so reset it
-      cell.objectContainer.length = 0;
-
-      // remove cell from occupied list
-      if (cell.occupiedCellsIndex === this.occupiedCells.length - 1) {
-        // special case if the cell is the newest in the list
-        this.occupiedCells.pop();
-      } else {
-        replacementCell = this.occupiedCells.pop();
-        replacementCell.occupiedCellsIndex = cell.occupiedCellsIndex;
-        this.occupiedCells[cell.occupiedCellsIndex] = replacementCell;
-      }
-
-      cell.occupiedCellsIndex = null;
-    } else {
-      // there is more than one object in the container
-      if (containerIndex === cell.objectContainer.length - 1) {
-        // special case if the obj is the newest in the container
-        cell.objectContainer.pop();
-      } else {
-        replacementObj = cell.objectContainer.pop();
-        replacementObj.HSHG.objectContainerIndex = containerIndex;
-        cell.objectContainer[containerIndex] = replacementObj;
-      }
-    }
-
-    // remove object from grid object list
-    if (allGridObjectsIndex === this.allObjects.length - 1) {
-      this.allObjects.pop();
-    } else {
-      replacementObj = this.allObjects.pop();
-      replacementObj.HSHG.allGridObjectsIndex = allGridObjectsIndex;
-      this.allObjects[allGridObjectsIndex] = replacementObj;
-    }
-  };
-
-  Grid.prototype.expandGrid = function () {
-    var i,
-      j,
-      currentCellCount = this.allCells.length,
-      currentRowColumnCount = this.rowColumnCount,
-      currentXYHashMask = this.xyHashMask,
-      newCellCount = currentCellCount * 4, // double each dimension
-      newRowColumnCount = ~~Math.sqrt(newCellCount),
-      newXYHashMask = newRowColumnCount - 1,
-      allObjects = this.allObjects.slice(0), // duplicate array, not objects contained
-      aCell,
-      push = Array.prototype.push;
-
-    // remove all objects
-    for (i = 0; i < allObjects.length; i++) {
-      this.removeObject(allObjects[i]);
-    }
-
-    // reset grid values, set new grid to be 4x larger than last
-    this.rowColumnCount = newRowColumnCount;
-    this.allCells = Array(this.rowColumnCount * this.rowColumnCount);
-    this.xyHashMask = newXYHashMask;
-
-    // initialize new cells
-    this.initCells();
-
-    // re-add all objects to grid
-    for (i = 0; i < allObjects.length; i++) {
-      this.addObject(allObjects[i]);
-    }
-  };
-
-  /**
-   * A cell of the grid
-   *
-   * @constructor
-   * @return  void   desc
-   */
-  function Cell() {
-    this.objectContainer = [];
-    this.neighborOffsetArray;
-    this.occupiedCellsIndex = null;
-    this.allCellsIndex = null;
-  }
-
-  //---------------------------------------------------------------------
-  // EXPORTS
-  //---------------------------------------------------------------------
-
-  root["HSHG"] = HSHG;
-  HSHG._private = {
-    Grid: Grid,
-    Cell: Cell,
-    testAABBOverlap: testAABBOverlap,
-    getLongestAABBEdge: getLongestAABBEdge,
-  };
+    root.HSHG = HSHG;
 })(this);

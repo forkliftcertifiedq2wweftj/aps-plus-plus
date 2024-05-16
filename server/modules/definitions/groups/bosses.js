@@ -2782,7 +2782,7 @@ Class.nightFuryExplosion = {
     COLOR: "#3c1157",
     BODY: {
         HEALTH: 1e6,
-        DAMAGE: 8 * base.DAMAGE,
+        DAMAGE: 9.8 * base.DAMAGE,
     },
     ON: [{
         event: 'tick',
@@ -2802,19 +2802,19 @@ Class.nightFuryExplosion = {
                     instance.id != body.id &&
                     instance.type !== "wall" &&
                     instance.team != body.team &&
-                    dist2 <= (body.size / 12 * 20) ** 2 &&
+                    dist2 <= (body.size / 12 * 10) ** 2 &&
                     (
-                        instance.id === instance.master.id || // instance.type !== "miniboss"
+                        instance.id === instance.master.id ||
                         instance.type === "bullet" ||
                         instance.type === "drone" ||
                         instance.type === "trap" ||
                         instance.type === "minion"
                     )
                 ) {
-                    let stuff = instance.health.getDamage(body.DAMAGE, false),
-                        deathFactor = (stuff > instance.health.amount) ? instance.health.amount / stuff : 1;
+                    let deathDamage = instance.health.amount / 10,
+                        damage = deathDamage < body.DAMAGE ? body.DAMAGE : deathDamage;
 
-                    instance.damageReceived += body.DAMAGE * deathFactor;
+                    instance.damageReceived += damage;
                     if (!instance.isDominator) {
                         instance.accel.x -= util.clamp(
                             body.x - instance.x, -90, 90
@@ -2836,6 +2836,8 @@ Class.nightFuryBlast = {
         handler: ({ body }) => {
             let e = new Entity(body);
             e.define('genericEntity');
+            e.velocity.x = body.velocity.x / 4;
+            e.velocity.y = body.velocity.y / 4;
             e.SIZE = body.size;
             e.team = body.team;
             e.color.base = "#112557";
@@ -2852,6 +2854,22 @@ Class.nightFuryBlast = {
             e.SIZE = body.size + 5;
             e.team = body.team;
             setSyncedTimeout(() => e.kill(), 10);
+
+            for (let i = 1; i <= 10; i++) {
+                let e = new Entity(body);
+                e.define('genericEntity');
+                e.define({
+                    BODY: {
+                        HEALTH: 1e6,
+                        DAMAGE: 0,
+                    },
+                });
+                e.SIZE = body.size + i ** 1.6;
+                e.team = body.team;
+                e.color.base = "#112557";
+                e.alpha = 1 - 0.1 * i;
+                setSyncedTimeout(() => e.kill(), i);
+            }
         }
     }],
 }
@@ -2879,11 +2897,10 @@ Class.nightFury = {
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {
                     reload: 4,
-                    damage: 1.2,
-                    health: 0.8,
-                    speed: 3.2,
-                    maxSpeed: 3.2,
-                    range: 0.28,
+                    health: 0.82,
+                    speed: 7,
+                    maxSpeed: 7,
+                    range: 0.14,
                 }]),
                 TYPE: "nightFuryBlast",
             },

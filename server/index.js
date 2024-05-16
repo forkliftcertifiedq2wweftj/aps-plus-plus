@@ -192,7 +192,7 @@ function collide(collision) {
 }
 
 // The most important loop. Lots of looping.
-let time, ticks = 0;
+let ticks = 0;
 const gameloop = () => {
     logs.loops.tally();
     logs.master.set();

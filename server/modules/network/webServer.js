@@ -10,7 +10,6 @@ server = require('http').createServer((req, res) => {
             break;
         case "/serverData.json":
             resStr = JSON.stringify({
-                ip: `${c.host}:${c.port}`,
                 gameMode: c.gameModeName,
                 players: views.length,
                 closed: arenaClosed,

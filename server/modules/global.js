@@ -1,10 +1,10 @@
 // Global Utilities Requires
-let EventEmitter = require('events');
-global.events = new EventEmitter();
 global.ran = require(".././lib/random.js");
 global.util = require(".././lib/util.js");
 global.hshg = require(".././lib/hshg.js");
 global.protocol = require(".././lib/fasttalk.js");
+let EventEmitter = require('events');
+global.events = new EventEmitter();
 
 // Global Variables (These must come before we import from the modules folder.)
 global.fps = "Unknown";
