@@ -1,3 +1,5 @@
+const { combineStats } = require('../definitions/facilitators');
+
 let EventEmitter = require('events'),
     events,
     init = g => events = g.events;
@@ -1274,6 +1276,15 @@ class Entity extends EventEmitter {
                 newGuns.push(new Gun(this, set.GUNS[i]));
             }
             this.guns = newGuns;
+        }
+        if (set.GUN_STAT_SCALE) {
+            this.gunStatScale = set.GUN_STAT_SCALE;
+            if (typeof this.gunStatScale == "object") {
+                this.gunStatScale = [this.gunStatScale];
+            }
+            for (let gun of this.guns) {
+                gun.settings = combineStats([gun.settings, ...this.gunStatScale]);
+            }
         }
         if (set.MAX_CHILDREN != null) this.maxChildren = set.MAX_CHILDREN;
         if (set.RESET_CHILDREN) this.destroyAllChildren();
