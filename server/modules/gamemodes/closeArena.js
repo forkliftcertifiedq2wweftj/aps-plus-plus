@@ -11,6 +11,7 @@ function restart(announce) {
     if (arenaClosing) clearInterval(arenaClosing);
     arenaClosing = setInterval(closeArena, 60000 * 120); // reset arena closing interval
     initGameModeLoop();
+    chooseRandomMode();
     setTimeout(() => global.arenaClosed = false, 2000);
 }
 

@@ -170,6 +170,44 @@ global.makeHitbox = wall => {
     ];
     wall.hitboxRadius = distance;
 };
+global.chooseRandomMode = () => {
+    let random = Math.round(Math.random()),
+        //everything past this handles the display name in the main menu
+        nameMap = {
+            tdm: `${global.c.TEAMS}TDM`,
+            ffa: "FFA",
+            tag: "TAG",
+            opentdm: `Open ${global.c.TEAMS}TDM`,
+            //clanwars: "Clan Wars",
+            trainwars: "Train Wars"
+        };
+
+    for (let gamemode of global.c.RANDOM_MODE) {
+        let mode = require(`./setup/gamemodeconfigs/${gamemode}.js`);
+        for (let key in mode) {
+            if (key === "ROOM_SETUP") {
+                throw new Error("Travelling game modes doesn't support room setup changes");
+            } else {
+                if (random) {
+                    if (global.c.OLD_PROPERTIES.includes(key)) continue;
+                    global.c.OLD_PROPERTIES.push(key, global.c[key]);
+                    global.c[key] = mode[key];
+                } else {
+                    if (!global.c.OLD_PROPERTIES.includes(key)) continue;
+                    let index = global.c.OLD_PROPERTIES.indexOf(key);
+                    global.c[key] = global.c.OLD_PROPERTIES[index + 1];
+                    global.c.OLD_PROPERTIES.splice(index, 2);
+                }
+            }
+        }
+    }
+    global.c.gameModeName = global.c.GAMEMODE_NAME_PREFIXES.join(" ")
+        + " " + global.c.GAME_MODES.map(x => nameMap[x] || (x[0].toUpperCase() + x.slice(1))).join(" ");
+    if (random)
+        global.c.gameModeName += " " + global.c.RANDOM_MODE.map(x => nameMap[x] || (x[0].toUpperCase() + x.slice(1))).join(" ");
+    // Update config
+    global.Config = global.c;
+};
 
 // Now that we've set up the global variables, we import all the modules, then put them into global varialbles and then export something just so this file is run.
 const requires = [

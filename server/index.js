@@ -24,6 +24,8 @@ process.stdout.write(String.fromCharCode(27) + "]0;" + c.WINDOW_NAME + String.fr
 
 // Initialize room
 util.log(room.width + " x " + room.height + " room initalized.");
+// Choose a travelling game mode
+chooseRandomMode();
 
 // Collision stuff
 const auraCollideTypes = ["miniboss", "tank", "food", "crasher"]

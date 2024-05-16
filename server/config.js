@@ -20,10 +20,9 @@ module.exports = {
     // Log speed loop warnings
     LOGS: true,
 
-    // Combinations of random game modes
-    RANDOM_MODE: [
-        ["growth", ""],
-    ],
+    // Combinations of random travelling game modes
+    RANDOM_MODE: ["growth"],
+    OLD_PROPERTIES: [],
 
     // The \modules\setup\gamemodeconfigs\ files to load.
     // To change specific things about specific gamemodes (such as team count for tdm), edit their config file in \modules\setup\gamemodeconfigs\.
