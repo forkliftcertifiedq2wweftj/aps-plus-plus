@@ -13,7 +13,7 @@ let fs = require('fs'),
         "ico": "image/x-icon"
     },
     server,
-    port = 3000,
+    port = 26300,
     host = "localhost",
     // If someone tries to get a file that does not exist, send them this instead.
     DEFAULT_FILE = "index.html",
