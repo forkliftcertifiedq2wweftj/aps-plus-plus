@@ -195,9 +195,12 @@ function incoming(message, socket) {
 
             if (content.key) socket.permissions.class = content.key;
             if (content.name) socket.player.body.name = content.name;
-            if (content.score) socket.player.body.skill.score = content.score;
-            if (content.skillcap) socket.player.body.skill.caps = content.skillcap;
-            if (content.skill) socket.player.body.skill.raw = content.skill;
+            if (content.score) {
+                socket.player.body.skill.reset();
+                socket.player.body.skill.score = content.score;
+                socket.player.body.skill.caps = content.skillcap;
+                socket.player.body.skill.raw = content.skill;
+            }
 
             if (autoLVLup) {
                 while (socket.player.body.skill.level < c.LEVEL_CHEAT_CAP) {

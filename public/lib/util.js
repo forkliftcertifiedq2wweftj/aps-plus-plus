@@ -69,12 +69,12 @@ const util = {
     pullJSON: fileName => {
         return new Promise((resolve, reject) => {
             const url = `${global.serverSelector.protocol}://${global.serverSelector.serverAdd}/lib/json/${fileName}.json`;
-            console.log("Loading JSON from " + url);
+            console.log("Loading JSON...");
             fetch(url).then(response => response.json()).then(json => {
-                console.log("JSON load from " + url + " complete");
+                console.log("JSON load complete");
                 resolve(json);
             }).catch(error => {
-                console.log("JSON load from " + url + " complete");
+                console.log("JSON load failed");
                 reject(error);
             });
         });

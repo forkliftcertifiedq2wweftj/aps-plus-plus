@@ -2,13 +2,9 @@ let output = require("../../config.js"),
     result = [];
 
 if (output.RANDOM_MODE.length) {
-    let tempArray = output.RANDOM_MODE.slice();
-
-    for (let i = 0; i < ran.choose(tempArray); i++) {
-        const randomIndex = ran.choose(tempArray);
-        const randomElement = tempArray[randomIndex];
-        result.push(randomElement);
-        tempArray.splice(randomIndex, 1); // Remove the selected element to avoid duplicates
+    for (let i = 0; i < output.RANDOM_MODE.length; i++) {
+        const index = Math.round(Math.random());
+        if (output.RANDOM_MODE[i][index] != "") result.push(tempArray[index]);
     }
 
     for (let gamemode of result) {
