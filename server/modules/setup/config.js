@@ -4,7 +4,7 @@ let output = require("../../config.js"),
 if (output.RANDOM_MODE.length) {
     for (let i = 0; i < output.RANDOM_MODE.length; i++) {
         const index = Math.round(Math.random());
-        if (output.RANDOM_MODE[i][index] != "") result.push(tempArray[index]);
+        if (output.RANDOM_MODE[i][index] != "") result.push(output.RANDOM_MODE[i][index]);
     }
 
     for (let gamemode of result) {
