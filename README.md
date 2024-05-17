@@ -26,6 +26,8 @@ If you want to stay up to date, fork this template, download a git client, and s
 
 ## Setup Guide (Webhost)
 
+**We have deprecated support for webhosts and no longer recommend using one unless you absolutely have to.**
+
 Don't have a supported device or don't want to mess around with localhost? Get a webhost to do the dirty work for you.
 
 Create a new project and choose to import one from GitHub. When prompted for the URL of the repository, type in `https://github.com/Taureon/aps-plus-plus.git`.
