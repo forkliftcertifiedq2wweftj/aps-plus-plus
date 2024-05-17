@@ -18,7 +18,7 @@ You'll first need to install [Node.js](https://nodejs.org). It doesn't matter if
 
 Once `Node.js` is installed, open Terminal and run the command `npm i ws`. This will install the WebSocket library that Open Source Arras uses.
 
-After installing `ws`, [download the source code of the latest release of Open Source Arras](https://github.com/Taureon/aps-plus-plus/releases). Extract it once it's downloaded and open either `runClient.bat` and `runServer.bat` (if you're on Windows) or `runClient.sh` and `runServer.sh` (if you're not). If there aren't any errors, both the client and server will start up. Go to `localhost:26300` in your favourite web browser (keep both terminal windows open, they keep the client and server on) to play.
+After installing `ws`, [download the source code of the latest release of Open Source Arras](https://github.com/Taureon/aps-plus-plus/releases). Extract it once it's downloaded and open `runClient.bat` and `runServer.bat` (if you're on Windows) or `runClient.sh` and `runServer.sh` (if you're not). If there aren't any errors, both the client and server will start up. Go to `localhost:26300` in your favourite web browser (keep both terminal windows open, they keep the client and server on) to play.
 
 [If you need a more detailed guide, click here for a step by step list.](https://github.com/Taureon/aps-plus-plus/wiki/Frequently-Asked-Questions#how-do-i-set-up-my-server)
 
