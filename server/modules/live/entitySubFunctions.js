@@ -132,7 +132,7 @@ class Skill {
     get levelPoints() {
         return this.LSPF ? this.LSPF(this.level) : c.LEVEL_SKILL_POINT_FUNCTION(this.level);
     }
-    cap(skill, real = false) {
+    cap(skill) {
         return this.caps[skcnv[skill]];
     }
     upgrade(stat) {

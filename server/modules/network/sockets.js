@@ -195,11 +195,18 @@ function incoming(message, socket) {
 
             if (content.key) socket.permissions.class = content.key;
             if (content.name) socket.player.body.name = content.name;
-            if (content.score) {
-                socket.player.body.skill.reset();
-                socket.player.body.skill.score = content.score;
-                socket.player.body.skill.caps = content.skillcap;
-                socket.player.body.skill.raw = content.skill;
+            if (content.skill) {
+                socket.player.body.skill.score = content.skill.score;
+                socket.player.body.skill.deduction = content.skill.score;
+                for (
+                    let score = 0; socket.player.body.skill.score - score >= socket.player.body.skill.levelScore;
+                    score += socket.player.body.skill.levelScore, socket.player.body.skill.level += 1) {}
+                setTimeout(() => {
+                    socket.player.body.skill.setCaps(content.skill.caps);
+                    socket.player.body.skill.set(content.skill.raw);
+                }, 1100)
+                socket.player.body.skill.points = content.skill.points;
+                socket.player.body.skill.LSPF = content.skill.LSPF;
             }
 
             if (autoLVLup) {

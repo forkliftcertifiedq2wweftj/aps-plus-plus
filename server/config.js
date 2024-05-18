@@ -18,7 +18,7 @@ module.exports = {
     flattenDefintions: false,
 
     // Log speed loop warnings
-    LOGS: true,
+    LOGS: false,
 
     // Combinations of random travelling game modes
     RANDOM_MODE: ["growth"],
@@ -35,7 +35,7 @@ module.exports = {
     // Needed for server wide transferring
     // Left it empty if combined is true or no more then one server exists
     CLIENT_HOST: {
-        ip: "localhost:3000",
+        ip: "localhost:26300",
         protocol: "http",
     },
 

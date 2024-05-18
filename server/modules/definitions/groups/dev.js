@@ -1303,10 +1303,14 @@ Class.nexusPortal = {
                     JSON.stringify({
                         name: n.name,
                         definition: n.defs.map(d => Object.keys(Class).find(k => Class[k] === d) || d),
-                        score: n.skill.score,
-                        skillcap: n.skill.caps,
-                        skill: n.skill.raw,
                         key: n.socket.permissions ? n.socket.permissions.class : "",
+                        skill: {
+                            score: n.skill.score,
+                            points: n.skill.points,
+                            caps: n.skill.caps,
+                            raw: n.skill.raw,
+                            LSPF: n.skill.LSPF,
+                        },
                     }),
                 );
                 setTimeout(() => n.socket.kick("Teleporting."), 1100);
