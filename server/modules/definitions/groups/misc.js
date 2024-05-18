@@ -43,7 +43,7 @@ Class.wall = {
     PARENT: "rock",
     LABEL: "Wall",
     SIZE: 25,
-    SHAPE: "M 1 1 L -1 1 L -1 -1 L 1 -1 Z",
+    SHAPE: 4,
     VARIES_IN_SIZE: false
 }
 Class.moon = {

@@ -1252,7 +1252,7 @@ class Entity extends EventEmitter {
             this.skill.LSPF = set.LEVEL_SKILL_POINT_FUNCTION;
         }
         if (set.LEVEL != null) {
-            this.skill.reset(true);
+            this.skill.reset(false);
             while (this.skill.level < set.LEVEL) {
                 this.skill.score += this.skill.levelScore;
                 this.skill.maintain();

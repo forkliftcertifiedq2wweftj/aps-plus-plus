@@ -1290,7 +1290,7 @@ let minimapAll = new Delta(5, args => {
             all.push({
                 id: my.id,
                 data: [
-                    my.type === "wall" || my.isMothership ? (my.shape === 4 || my.shapeData == "M 1 1 L -1 1 L -1 -1 L 1 -1 Z") ? 2 : 1 : 0,
+                    my.type === "wall" || my.isMothership ? my.shape === 4 ? 2 : 1 : 0,
                     util.clamp(Math.floor((256 * my.x) / room.width), 0, 255),
                     util.clamp(Math.floor((256 * my.y) / room.height), 0, 255),
                     my.color.compiled,

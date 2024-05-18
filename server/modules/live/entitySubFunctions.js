@@ -55,7 +55,7 @@ class Skill {
         this.acl = 0;
         this.reset();
     }
-    reset(resetLSPF = false) {
+    reset(resetLSPF = true) {
         this.points = 0;
         this.score = 0;
         this.deduction = 0;

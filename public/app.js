@@ -1525,7 +1525,8 @@ import { socketInit, gui, leaderboard, minimap, moveCompensation, lag, getNow } 
             ctx.globalAlpha = entity.alpha;
             switch (entity.type) {
                 case 2:
-                    drawGuiRect(x + ((entity.x - entity.size) / global.gameWidth) * len - 0.4, y + ((entity.y - entity.size) / global.gameHeight) * height - 1, ((2 * entity.size) / global.gameWidth) * len + 0.2, ((2 * entity.size) / global.gameWidth) * len + 0.2);
+                    let trueSize = (entity.size + 2) / 1.1283791671;
+                    drawGuiRect(x + ((entity.x - trueSize) / global.gameWidth) * len - 0.4, y + ((entity.y - trueSize) / global.gameHeight) * height - 1, ((2 * trueSize) / global.gameWidth) * len + 0.2, ((2 * trueSize) / global.gameWidth) * len + 0.2);
                     break;
                 case 1:
                     drawGuiCircle(x + (entity.x / global.gameWidth) * len, y + (entity.y / global.gameHeight) * height, (entity.size / global.gameWidth) * len + 0.2);
