@@ -2810,9 +2810,9 @@ Class.nightFuryBlast = {
                 GUNS: weaponArray([{
                     POSITION: [1, 18, 1, 0, 0, 0, 0],
                     PROPERTIES: {
-                        SHOOT_SETTINGS: combineStats([g.basic, g.op, {
-                            speed: 1.3,
-                            maxSpeed: 1.3,
+                        SHOOT_SETTINGS: combineStats([g.basic, g.power, {
+                            speed: 1.4,
+                            maxSpeed: 1.4,
                             health: 1e6,
                         }]),
                         TYPE: "bullet",
@@ -2821,9 +2821,9 @@ Class.nightFuryBlast = {
                 }, {
                     POSITION: [1, 18, 1, 0, 0, 0, 3],
                     PROPERTIES: {
-                        SHOOT_SETTINGS: combineStats([g.basic, g.fake, {
-                            speed: 1.3,
-                            maxSpeed: 1.3,
+                        SHOOT_SETTINGS: combineStats([g.basic, g.weak, {
+                            speed: 2,
+                            maxSpeed: 2,
                             health: 1e6,
                         }]),
                         TYPE: "bullet",
@@ -2842,6 +2842,8 @@ Class.nightFury = {
 	BODY: {
         HEALTH: 4 * base.HEALTH,
         DAMAGE: 2 * base.DAMAGE,
+        SPEED: 2.4 * base.SPEED,
+        ACCEL: 0.1 * base.ACCEL,
     },
     LEVEL_CAP: 120,
     LEVEL: 120,
@@ -2857,13 +2859,13 @@ Class.nightFury = {
         {
             POSITION: [1, 3, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, {
-                    reload: 2,
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, {
+                    reload: 4,
                     range: 0.2,
                     speed: 3,
                     maxSpeed: 3,
+                    health: 0.2,
                     damage: 0.4,
-                    pen: 0.2,
                 }]),
                 TYPE: "nightFuryBlast",
             },

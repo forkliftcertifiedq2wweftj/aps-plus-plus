@@ -146,6 +146,7 @@ const Minimap = class {
     }
     reset() {
         this.map = {};
+        this.lastUpdate = Date.now();
     }
     update(elements) {
         this.lastUpdate = Date.now();

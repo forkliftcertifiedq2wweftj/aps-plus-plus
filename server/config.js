@@ -21,12 +21,12 @@ module.exports = {
     LOGS: false,
 
     // Combinations of random travelling game modes
-    RANDOM_MODE: ["growth"],
+    RANDOM_MODE: [],
     OLD_PROPERTIES: [],
 
     // The \modules\setup\gamemodeconfigs\ files to load.
     // To change specific things about specific gamemodes (such as team count for tdm), edit their config file in \modules\setup\gamemodeconfigs\.
-    GAME_MODES: ["tdm", "domination"],
+    GAME_MODES: ["opentdm", "growth"],
 
     // World wide location of your server
     LOCATION: "",
@@ -125,13 +125,13 @@ module.exports = {
     LEVEL_CHEAT_CAP: 45,
 
     // Amount of player-bots to spawn.
-    BOTS: 0,
+    BOTS: 20,
 
     // How much XP player-bots get per second until they reach LEVEL_CAP.
     BOT_XP: 125,
 
     // How much XP player-bots will receive when first created.
-    BOT_START_XP: 0,
+    BOT_START_XP: 1e6,
 
     // The chances of a player-bot upgrading a specific skill when skill upgrades are available.
     BOT_SKILL_UPGRADE_CHANCES: [ 1, 1, 3, 4, 4, 4, 4, 2, 1, 1],
