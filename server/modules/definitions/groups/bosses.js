@@ -2843,7 +2843,7 @@ Class.nightFury = {
         HEALTH: 4 * base.HEALTH,
         DAMAGE: 2 * base.DAMAGE,
         SPEED: 2.4 * base.SPEED,
-        ACCEL: 0.1 * base.ACCEL,
+        ACCEL: 0.01 * base.ACCEL,
     },
     LEVEL_CAP: 120,
     LEVEL: 120,
