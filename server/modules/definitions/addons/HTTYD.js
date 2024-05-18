@@ -1,4 +1,4 @@
-const { combineStats, weaponArray } = require('../facilitators.js');
+const { combineStats, weaponArray, menu } = require('../facilitators.js');
 const { smshskl, base } = require('../constants.js');
 const g = require('../gunvals.js');
 
@@ -8,8 +8,6 @@ const g = require('../gunvals.js');
 const HTTYD_names = ["nightFury"];
 const HTTYD_firework = {
     PARENT: "genericEntity",
-    SIZE: body.size,
-    TEAM: body.team,
     COLOR: "#112557",
     ALPHA: 0.4,
     BODY: {
@@ -61,6 +59,8 @@ const HTTYD_blast = {
         handler: ({ body }) => {
             let e = new Entity(body);
             e.define(HTTYD_firework);
+            e.team = body.team;
+            e.SIZE = body.size;
             setSyncedTimeout(() => e.kill(), 12);
         },
     }],
@@ -110,11 +110,8 @@ for (let i = 0; i < HTTYD_names.length; i++) {
     };
 }
 
-Class.HTTYD = {
-	PARENT: "menu",
-	LABEL: "HTTYD Dragons",
-	UPGRADES_TIER_0: HTTYD_names,
-};
+Class.HTTYD = menu("HTTYD Dragons", "black", 0);
+Class.HTTYD.UPGRADES_TIER_0 = HTTYD_names;
 Class.addons.UPGRADES_TIER_0.push("HTTYD");
 
 console.log('HTTYD addon has been registered.');
