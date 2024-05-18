@@ -1313,12 +1313,6 @@ class Entity extends EventEmitter {
             this.refreshBodyAttributes();
         }
         if (set.SPAWN_ON_DEATH) this.spawnOnDeath = set.SPAWN_ON_DEATH;
-        if (set.RESET_EVENTS) {
-            for (let { event, handler, once } of this.definitionEvents) {
-                this.removeListener(event, handler, once);
-            }
-            this.definitionEvents = [];
-        }
         if (set.REROOT_UPGRADE_TREE) this.rerootUpgradeTree = set.REROOT_UPGRADE_TREE;
         if (Array.isArray(this.rerootUpgradeTree)) {
             let finalRoot = "";
@@ -1358,6 +1352,10 @@ class Entity extends EventEmitter {
         }
 
         if (set.ON != null) {
+            for (let { event, handler, once } of this.definitionEvents) {
+                this.removeListener(event, handler, once);
+            }
+            this.definitionEvents = [];
             for (let { event, handler, once = false } of set.ON) {
                 this.definitionEvents.push({ event, handler, once });
                 this.on(event, handler, once);
@@ -1938,7 +1936,9 @@ class Entity extends EventEmitter {
             this.accel.y += engine.y * this.control.power;
         }
     reset(keepPlayerController = true) {
-        this.controllers = keepPlayerController ? [this.controllers.filter(con => con instanceof ioTypes.listenToPlayer)[0]] : [];
+        this.controllers = keepPlayerController
+            ? [this.controllers.filter(con => con instanceof ioTypes.listenToPlayer)[0]]
+            : [];
     }
     face() {
         let t = this.control.target,

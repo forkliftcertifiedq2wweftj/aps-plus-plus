@@ -2777,109 +2777,71 @@ Class.toothlessBoss.TURRETS = Class.toothlessBoss.TURRETS.concat(weaponArray([{
     TYPE: "toothlessBossTurret",
 }], 3));
 
-Class.nightFuryExplosion = {
-    PARENT: "genericEntity",
-    COLOR: "#3c1157",
-    BODY: {
-        HEALTH: 1e6,
-        DAMAGE: 9.8 * base.DAMAGE,
-    },
-    ON: [{
-        event: 'tick',
-        handler: ({ body }) => {
-            body.alpha -= 1/10;
-            body.SIZE *= 1.3;
-            for (let instance of entities) {
-                let diffX = instance.x - body.x,
-                    diffY = instance.y - body.y,
-                    dist2 = diffX ** 2 + diffY ** 2,
-                    forceMulti = 300 ** 2 / dist2,
-                    number = 1/20;
-
-                if (
-                    !instance.isArenaCloser &&
-                    !instance.invuln &&
-                    instance.id != body.id &&
-                    instance.type !== "wall" &&
-                    instance.team != body.team &&
-                    dist2 <= (body.size / 12 * 10) ** 2 &&
-                    (
-                        instance.id === instance.master.id ||
-                        instance.type === "bullet" ||
-                        instance.type === "drone" ||
-                        instance.type === "trap" ||
-                        instance.type === "minion"
-                    )
-                ) {
-                    let deathDamage = instance.health.amount / 10,
-                        damage = deathDamage < body.DAMAGE ? body.DAMAGE : deathDamage;
-
-                    instance.damageReceived += damage;
-                    if (!instance.isDominator) {
-                        instance.accel.x -= util.clamp(
-                            body.x - instance.x, -90, 90
-                        ) * instance.damp * ((1 - (1 / forceMulti ** number)) + 0.1);
-                        instance.accel.y -= util.clamp(
-                            body.y - instance.y, -90, 90
-                        ) * instance.damp * ((1 - (1 / forceMulti ** number)) + 0.1);
-                    }
-                }
-            }
-        }
-    }],
-}
 Class.nightFuryBlast = {
     PARENT: "bullet",
     COLOR: "purple",
+    GUNS: [
+        {
+            POSITION: [1, 18, 1, 0, 0, 180, 4],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, {
+                    reload: 0.2,
+                    spray: 0.5,
+                }]),
+                TYPE: ["bullet", { COLOR: "purple" }],
+                AUTOFIRE: true,
+            },
+        },
+    ],
     ON: [{
-        event: 'tick',
+        event: "death",
         handler: ({ body }) => {
             let e = new Entity(body);
-            e.define('genericEntity');
-            e.velocity.x = body.velocity.x / 4;
-            e.velocity.y = body.velocity.y / 4;
-            e.SIZE = body.size;
-            e.team = body.team;
-            e.color.base = "#112557";
-            e.alpha = 0.5;
-            setSyncedTimeout(() => e.kill(), 2);
-
-            body.SIZE += 0.12;
-        }
-    }, {
-        event: 'death',
-        handler: ({ body }) => {
-            let e = new Entity(body, body.master.master);
-            e.define('nightFuryExplosion');
-            e.SIZE = body.size + 5;
-            e.team = body.team;
-            setSyncedTimeout(() => e.kill(), 10);
-
-            for (let i = 1; i <= 10; i++) {
-                let e = new Entity(body);
-                e.define('genericEntity');
-                e.define({
-                    BODY: {
-                        HEALTH: 1e6,
-                        DAMAGE: 0,
+            e.define({
+                PARENT: "genericEntity",
+                SIZE: body.size,
+                TEAM: body.team,
+                COLOR: "#112557",
+                ALPHA: 0.4,
+                BODY: {
+                    HEALTH: 1e6,
+                    DAMAGE: 0,
+                },
+                GUNS: weaponArray([{
+                    POSITION: [1, 18, 1, 0, 0, 0, 0],
+                    PROPERTIES: {
+                        SHOOT_SETTINGS: combineStats([g.basic, g.op, {
+                            speed: 1.3,
+                            maxSpeed: 1.3,
+                            health: 1e6,
+                        }]),
+                        TYPE: "bullet",
+                        AUTOFIRE: true,
                     },
-                });
-                e.SIZE = body.size + i ** 1.6;
-                e.team = body.team;
-                e.color.base = "#112557";
-                e.alpha = 1 - 0.1 * i;
-                setSyncedTimeout(() => e.kill(), i);
-            }
-        }
+                }, {
+                    POSITION: [1, 18, 1, 0, 0, 0, 3],
+                    PROPERTIES: {
+                        SHOOT_SETTINGS: combineStats([g.basic, g.fake, {
+                            speed: 1.3,
+                            maxSpeed: 1.3,
+                            health: 1e6,
+                        }]),
+                        TYPE: "bullet",
+                        AUTOFIRE: true,
+                    },
+                }], 18),
+            });
+            setSyncedTimeout(() => e.kill(), 12);
+        },
     }],
 }
 Class.nightFury = {
     PARENT: "genericTank",
     LABEL: "Toothless",
-	UPGRADE_TOOLTIP: "A cutie",
+	UPGRADE_TOOLTIP: "A cutie. Art by felyn_de_fens",
 	BODY: {
-        HEALTH: 8 * base.HEALTH,
-        DAMAGE: 4 * base.DAMAGE,
+        HEALTH: 4 * base.HEALTH,
+        DAMAGE: 2 * base.DAMAGE,
     },
     LEVEL_CAP: 120,
     LEVEL: 120,
@@ -2895,12 +2857,13 @@ Class.nightFury = {
         {
             POSITION: [1, 3, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, {
-                    reload: 4,
-                    health: 0.82,
-                    speed: 7,
-                    maxSpeed: 7,
-                    range: 0.14,
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, {
+                    reload: 2,
+                    range: 0.2,
+                    speed: 3,
+                    maxSpeed: 3,
+                    damage: 0.4,
+                    pen: 0.2,
                 }]),
                 TYPE: "nightFuryBlast",
             },
