@@ -90,8 +90,8 @@ module.exports = {
     // When an entity reaches a level, this function is called and returns how many points that entity gets for reaching that level.
     LEVEL_SKILL_POINT_FUNCTION: level => {
         if (level < 2) return 0;
-        if (level <= 40) return 1;
-        if (level <= 45 && level & 1 == 1) return 1;
+        if (level <= 145) return 1;
+        if (level <= 150 && level & 1 == 1) return 1;
         return 0;
     },
 
