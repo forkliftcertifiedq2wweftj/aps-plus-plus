@@ -1,16 +1,16 @@
 module.exports = {
 // Bases
-    basic: { reload: 10.5, recoil: 1.4, shudder: 0.1, damage: 0.75, speed: 4.5, spray: 15 },
+    basic: { reload: 10.5, recoil: 1.4, shudder: 0.1, damage: 1.05, speed: 4.5, spray: 15 },
     drone: { reload: 36, recoil: 0.25, shudder: 0.1, size: 0.6, speed: 2, spray: 0.1 },
-    trap: { reload: 23, shudder: 0.25, size: 0.6, damage: 0.75, speed: 5, spray: 15, resist: 3 },
-    swarm: { reload: 23, recoil: 0.25, shudder: 0.05, size: 0.4, damage: 0.75, speed: 4, spray: 5 },
-    factory: { reload: 48, shudder: 0.1, size: 0.7, damage: 0.75, speed: 3, spray: 0.1 },
-    productionist: { reload: 56, recoil: 0.25, shudder: 0.05, size: 0.7, damage: 0.75, speed: 4, range: 1.5, spray: 5 },
+    trap: { reload: 23, shudder: 0.25, size: 0.6, damage: 1.2, speed: 5, spray: 15, resist: 3 },
+    swarm: { reload: 23, recoil: 0.25, shudder: 0.05, size: 0.4, damage: 1.275, speed: 4, spray: 5 },
+    factory: { reload: 48, shudder: 0.1, size: 0.7, damage: 1.35, speed: 3, spray: 0.1 },
+    productionist: { reload: 56, recoil: 0.25, shudder: 0.05, size: 0.7, damage: 1.425, speed: 4, range: 1.5, spray: 5 },
 
 // Spammers
     desmos: { shudder: 0, spray: 0, size: 0.8 },
     single: { reload: 1.05, speed: 1.05 },
-    twin: { recoil: 0.5, shudder: 0.9, health: 0.9, damage: 0.7, spray: 1.2 },
+    twin: { recoil: 0.5, shudder: 0.9, health: 0.9, damage: 1.078, spray: 1.2 },
     doubleTwin: { damage: 0.9 },
     hewnDouble: { reload: 1.25, recoil: 1.5, health: 0.9, damage: 0.85, maxSpeed: 0.9 },
     tripleShot: { reload: 1.1, shudder: 0.8, health: 0.9, pen: 0.8, density: 0.8, spray: 0.5 },
@@ -70,7 +70,7 @@ module.exports = {
 
 // Heavy cannons
     pounder: { reload: 2, recoil: 1.6, damage: 2, speed: 0.85, maxSpeed: 0.8, density: 1.5, resist: 1.15 },
-    destroyer: { reload: 2.2, recoil: 1.8, shudder: 0.5, health: 2, damage: 2, pen: 1.2, speed: 0.65, maxSpeed: 0.5, density: 2, resist: 3 },
+    destroyer: { reload: 2.2, recoil: 1.8, shudder: 0.5, health: 2, damage: 2.5, pen: 1.2, speed: 0.65, maxSpeed: 0.5, density: 2, resist: 3 },
     annihilator: { reload: 0.8, recoil: 1.25 },
     hive: { reload: 1.5, recoil: 0.8, size: 0.8, health: 0.7, damage: 0.3, maxSpeed: 0.6 },
     artillery: { reload: 1.2, recoil: 0.7, size: 0.9, speed: 1.15, maxSpeed: 1.1, density: 1.5 },
