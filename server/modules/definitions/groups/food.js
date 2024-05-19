@@ -370,7 +370,13 @@ Class.hexagon = {
         PENETRATION: 1.1,
         ACCELERATION: 0.003
     },
-    DRAW_HEALTH: true;
+    DRAW_HEALTH: true,
+};
+Class.shinyHexagon = makeRare("hexagon", 0);
+Class.legendaryHexagon = makeRare("hexagon", 1);
+Class.shadowHexagon = makeRare("hexagon", 2);
+Class.rainbowHexagon = makeRare("hexagon", 3);
+Class.transHexagon = makeRare("hexagon", 4);
 // 3D POLYGONS
 Class.sphere = {
     PARENT: "food",
