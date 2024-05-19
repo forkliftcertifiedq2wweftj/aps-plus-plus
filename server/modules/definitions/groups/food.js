@@ -370,7 +370,7 @@ Class.hexagon = {
         PENETRATION: 1.1,
         ACCELERATION: 0.003
     },
-    DRAW_HEALTH: true,
+    DRAW_HEALTH: true;
 // 3D POLYGONS
 Class.sphere = {
     PARENT: "food",
