@@ -99,7 +99,7 @@ makeCrasher = type => ({
     BODY: {
         SPEED: 1 + 5 / Math.max(2, type.TURRETS.length + type.SHAPE),
         ACCELERATION: 5,
-        DAMAGE: 5,
+        DAMAGE: 1,
         PUSHABILITY: 0.5,
         DENSITY: 10,
         RESIST: 2,
@@ -122,7 +122,7 @@ makeRare = (type, level) => {
         BODY: {
             DAMAGE: type.BODY.DAMAGE + level,
             DENSITY: type.BODY.DENSITY + level,
-            HEALTH: [10, 20, 40, 80, 100][level] * type.BODY.HEALTH,
+            HEALTH: [2, 3, 4, 5, 6][level] * type.BODY.HEALTH,
             PENETRATION: type.BODY.PENETRATION + level,
             ACCELERATION: type.BODY.ACCELERATION
         },
