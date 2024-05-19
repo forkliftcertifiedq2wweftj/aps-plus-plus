@@ -45,7 +45,7 @@ module.exports = ({ Config }) => {
 			// 6-wide dimension of the 6 shiny modifiers
 			Array(6).fill().map((_, k, c) => [
 				// Chance of spawning, set to 200mil for regular polygons and exponents of 10 otherwise
-				k ? 10 ** (c.length - k - 1) : 200_000_000,
+				k ? 10 ** (c.length - k - 1) : 25_000_000,
 
 				
 				disableCrashers ? // no crashers
