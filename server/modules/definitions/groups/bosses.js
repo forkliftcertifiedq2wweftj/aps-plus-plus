@@ -21,11 +21,11 @@ Class.elite = {
     SHAPE: 3,
     SIZE: 27,
     VARIES_IN_SIZE: true,
-    VALUE: 15e4,
+    VALUE: 210000,
     BODY: {
         FOV: 1.25,
         SPEED: 0.1 * base.SPEED,
-        HEALTH: 7 * base.HEALTH,
+        HEALTH: 3.5 * base.HEALTH,
         DAMAGE: 2.5 * base.DAMAGE,
     },
 }
