@@ -366,11 +366,11 @@ Class.sorcerer = {
     UPGRADE_COLOR: "veryLightGrey",
     SIZE: 26,
     MAX_CHILDREN: 50,
-    VALUE: 2e5,
+    VALUE: 300000,
     BODY: {
         FOV: 0.5,
         SPEED: 0.12 * base.SPEED,
-        HEALTH: 6 * base.HEALTH,
+        HEALTH: 3 * base.HEALTH,
         DAMAGE: 2 * base.DAMAGE,
     },
     GUNS: weaponArray({
@@ -394,11 +394,11 @@ Class.summoner = {
     UPGRADE_COLOR: "gold",
     SIZE: 26,
     MAX_CHILDREN: 28,
-    VALUE: 3e5,
+    VALUE: 480000,
     BODY: {
         FOV: 0.5,
         SPEED: 0.1 * base.SPEED,
-        HEALTH: 7 * base.HEALTH,
+        HEALTH: 3.5 * base.HEALTH,
         DAMAGE: 2.6 * base.DAMAGE,
     },
     GUNS: weaponArray({
@@ -422,11 +422,11 @@ Class.enchantress = {
     UPGRADE_COLOR: "orange",
     SIZE: 26,
     MAX_CHILDREN: 28,
-    VALUE: 4e5,
+    VALUE: 680000,
     BODY: {
         FOV: 0.5,
         SPEED: 0.09 * base.SPEED,
-        HEALTH: 10 * base.HEALTH,
+        HEALTH: 5 * base.HEALTH,
         DAMAGE: 3 * base.DAMAGE,
     },
     GUNS: weaponArray({
@@ -450,7 +450,7 @@ Class.exorcistor = {
     UPGRADE_COLOR: "purple",
     SIZE: 26,
     MAX_CHILDREN: 20,
-    VALUE: 5e5,
+    VALUE: 900000,
     BODY: {
         FOV: 0.5,
         SPEED: 0.08 * base.SPEED,
@@ -478,7 +478,7 @@ Class.shaman = {
     UPGRADE_COLOR: "hexagon",
     SIZE: 26,
     MAX_CHILDREN: 20,
-    VALUE: 6e5,
+    VALUE: 1140000,
     BODY: {
         FOV: 0.5,
         SPEED: 0.07 * base.SPEED,
@@ -519,7 +519,7 @@ Class.nestKeeper = {
     BODY: {
         FOV: 1.3,
         SPEED: base.SPEED * 0.25,
-        HEALTH: base.HEALTH * 9,
+        HEALTH: base.HEALTH * 3.5,
         SHIELD: base.SHIELD * 1.5,
         REGEN: base.REGEN,
         DAMAGE: base.DAMAGE * 2.5,
@@ -557,7 +557,7 @@ Class.nestWarden = {
     BODY: {
         FOV: 1.3,
         SPEED: base.SPEED * 0.25,
-        HEALTH: base.HEALTH * 9,
+        HEALTH: base.HEALTH * 4,
         SHIELD: base.SHIELD * 1.5,
         REGEN: base.REGEN,
         DAMAGE: base.DAMAGE * 2.5,
@@ -596,7 +596,7 @@ Class.nestGuardian = {
     BODY: {
         FOV: 1.3,
         SPEED: base.SPEED * 0.25,
-        HEALTH: base.HEALTH * 9,
+        HEALTH: base.HEALTH * 4,
         SHIELD: base.SHIELD * 1.5,
         REGEN: base.REGEN,
         DAMAGE: base.DAMAGE * 2.5,
@@ -630,12 +630,12 @@ Class.roguePalisade = {
     UPGRADE_COLOR: "darkGrey",
     SHAPE: 6,
     SIZE: 30,
-    VALUE: 5e5,
+    VALUE: 1000000,
     CONTROLLERS: ['nearestDifferentMaster', 'onlyAcceptInArc'],
     BODY: {
         FOV: 1.4,
         SPEED: 0.05 * base.SPEED,
-        HEALTH: 16 * base.HEALTH,
+        HEALTH: 7.5 * base.HEALTH,
         SHIELD: 3 * base.SHIELD,
         DAMAGE: 3 * base.DAMAGE,
     },
@@ -863,7 +863,7 @@ Class.celestial = {
     SIZE: 45,
     BODY: {
         FOV: 1,
-        HEALTH: 1000,
+        HEALTH: 100,
         SHIELD: 2,
         REGEN: base.REGEN * 0.1,
         SPEED: 0.75,
@@ -884,7 +884,7 @@ Class.eternal = {
     SIZE: 90,
     BODY: {
         FOV: 1,
-        HEALTH: 3000,
+        HEALTH: 300,
         SHIELD: 2,
         REGEN: base.REGEN * 0.1,
         SPEED: 0.75,
