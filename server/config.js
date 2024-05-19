@@ -156,7 +156,7 @@ module.exports = {
     // The possible food types that can spawn.
     FOOD_TYPES: [
         [1000, [
-            [1024, 'egg'], [256, 'square'], [64, 'triangle'], [16, 'pentagon'], [8, 'betaPentagon'], [4, 'alphaPentagon'], [2, 'octagon'],
+            [1024, 'egg'], [256, 'square'], [64, 'triangle'], [16, 'pentagon'], [4, 'betaPentagon'], [1, 'alphaPentagon']
         ]],
         [20, [
             [3125, 'gem'], [625, 'shinySquare'], [125, 'shinyTriangle'], [25, 'shinyPentagon'], [5, 'shinyBetaPentagon'], [1, 'shinyAlphaPentagon']
