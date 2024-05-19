@@ -168,7 +168,7 @@ makeLaby = (type, level, baseScale = 1) => {
 Class.egg = {
     PARENT: "food",
     LABEL: "Egg",
-    VALUE: 14,
+    VALUE: 22,
     SHAPE: 0,
     SIZE: 4.5,
     COLOR: "veryLightGrey",
@@ -185,7 +185,7 @@ Class.egg = {
 Class.gem = {
     PARENT: "food",
     LABEL: "Gem",
-    VALUE: 2800,
+    VALUE: 4400,
     SHAPE: 6,
     SIZE: 4.5,
     COLOR: "aqua",
@@ -205,7 +205,7 @@ Class.gem = {
 Class.jewel = {
     PARENT: "food",
     LABEL: "Jewel",
-    VALUE: 140000,
+    VALUE: 220000,
     SHAPE: 6,
     SIZE: 8,
     COLOR: "yellow",
@@ -232,7 +232,7 @@ Class.transEgg = makeRare("egg", 4); //ironic
 Class.square = {
     PARENT: "food",
     LABEL: "Square",
-    VALUE: 42,
+    VALUE: 66,
     SHAPE: 4,
     SIZE: 14,
     COLOR: "gold",
@@ -256,7 +256,7 @@ Class.transSquare = makeRare("square", 4);
 Class.triangle = {
     PARENT: "food",
     LABEL: "Triangle",
-    VALUE: 168,
+    VALUE: 264,
     SHAPE: 3,
     SIZE: 10,
     COLOR: "orange",
@@ -280,7 +280,7 @@ Class.transTriangle = makeRare("triangle", 4);
 Class.pentagon = {
     PARENT: "food",
     LABEL: "Pentagon",
-    VALUE: 560,
+    VALUE: 880,
     SHAPE: 5,
     SIZE: 21,
     COLOR: "purple",
@@ -304,7 +304,7 @@ Class.transPentagon = makeRare("pentagon", 4);
 Class.betaPentagon = {
     PARENT: "food",
     LABEL: "Beta Pentagon",
-    VALUE: 4000,
+    VALUE: 9750,
     SHAPE: 5,
     SIZE: 30,
     COLOR: "purple",
@@ -331,7 +331,7 @@ Class.transBetaPentagon = makeRare("betaPentagon", 4);
 Class.alphaPentagon = {
     PARENT: "food",
     LABEL: "Alpha Pentagon",
-    VALUE: 27000,
+    VALUE: 45000,
     SHAPE: 5,
     SIZE: 58,
     COLOR: "purple",
