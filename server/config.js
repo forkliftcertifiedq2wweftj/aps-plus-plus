@@ -3,10 +3,10 @@ module.exports = {
 
     // Game server domain.
     // If 'localhost:NUMBER', the port must equal the port setting.
-    host: "betarras-beta-001.io",
+    host: "localhost:1126666667",
 
     // Which port to run the web server on.
-    port: 26301,
+    port: 1126666667,
 
     // How often to update the list of the entities that players can see.
     // Has effects of when entities are activated.
