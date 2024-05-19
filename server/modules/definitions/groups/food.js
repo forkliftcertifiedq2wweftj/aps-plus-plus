@@ -303,15 +303,15 @@ Class.transPentagon = makeRare("pentagon", 4);
 // BETA PENTAGONS
 Class.betaPentagon = {
     PARENT: "food",
-    LABEL: "Beta Pentagon",
-    VALUE: 9750,
-    SHAPE: 5,
+    LABEL: "Hexagon",
+    VALUE: 23760,
+    SHAPE: 6,
     SIZE: 30,
-    COLOR: "purple",
+    COLOR: "gold",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 30,
-        HEALTH: 75 * basePolygonHealth,
+        HEALTH: 50 * basePolygonHealth,
         RESIST: Math.pow(1.25, 2),
         PENETRATION: 1.1,
         SHIELD: 20 * basePolygonHealth,
@@ -330,15 +330,15 @@ Class.transBetaPentagon = makeRare("betaPentagon", 4);
 // ALPHA PENTAGONS
 Class.alphaPentagon = {
     PARENT: "food",
-    LABEL: "Alpha Pentagon",
-    VALUE: 45000,
-    SHAPE: 5,
+    LABEL: "Heptagon",
+    VALUE: 48600,
+    SHAPE: 7,
     SIZE: 58,
-    COLOR: "purple",
+    COLOR: "orange",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 80,
-        HEALTH: 562.5 * basePolygonHealth,
+        HEALTH: 400 * basePolygonHealth,
         RESIST: Math.pow(1.25, 3),
         PENETRATION: 1.1,
         SHIELD: 40 * basePolygonHealth,
