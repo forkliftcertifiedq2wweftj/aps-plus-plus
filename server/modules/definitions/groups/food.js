@@ -377,24 +377,7 @@ Class.legendaryHexagon = makeRare("hexagon", 1);
 Class.shadowHexagon = makeRare("hexagon", 2);
 Class.rainbowHexagon = makeRare("hexagon", 3);
 Class.transHexagon = makeRare("hexagon", 4);
-// OCTAGONS
-Class.octagon = {
-    PARENT: "food",
-    LABEL: "Octagon",
-    VALUE: 162450,
-    SHAPE: 8,
-    SIZE: 25,
-    COLOR: "purple",
-    BODY: {
-        DAMAGE: 3 * basePolygonDamage,
-        DENSITY: 8,
-        HEALTH: 500 * basePolygonHealth,
-        RESIST: 1.3,
-        SHIELD: 50 * basePolygonHealth,
-        PENETRATION: 1.1,
-        ACCELERATION: 0.003
-    },
-    DRAW_HEALTH: true,
+
 // 3D POLYGONS
 Class.sphere = {
     PARENT: "food",
