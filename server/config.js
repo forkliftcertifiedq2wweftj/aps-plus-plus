@@ -72,7 +72,7 @@ module.exports = {
     runSpeed: 1.5,
 
     // General damage multiplier everytime damage is dealt.
-    DAMAGE_CONSTANT: 0.5,
+    DAMAGE_CONSTANT: 0.75,
 
     // General knockback multiplier everytime knockback is applied.
     KNOCKBACK_CONSTANT: 1.5,
@@ -181,7 +181,7 @@ module.exports = {
     // The possible nest food types that can spawn.
     FOOD_TYPES_NEST: [
         [1, [
-            [16, 'pentagon'], [ 4, 'betaPentagon'], [ 1, 'alphaPentagon']
+            [128, 'pentagon'], [ 32, 'betaPentagon'], [ 8, 'alphaPentagon'], [ 4, 'omegaPentagon'], [ 2, 'gammaPentagon'], [ 1, 'deltaPentagon']
         ]]
     ],
 
