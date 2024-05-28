@@ -312,7 +312,7 @@ Class.betaPentagon = {
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 30,
-        HEALTH: 50 * basePolygonHealth,
+        HEALTH: 800 * basePolygonHealth,
         RESIST: Math.pow(1.25, 2),
         PENETRATION: 1.1,
         SHIELD: 20 * basePolygonHealth,
