@@ -306,7 +306,7 @@ Class.betaPentagon = {
     PARENT: "food",
     LABEL: "Octagon",
     VALUE: 342342,
-    SHAPE: 6,
+    SHAPE: 8,
     SIZE: 104,
     COLOR: "purple",
     BODY: {
