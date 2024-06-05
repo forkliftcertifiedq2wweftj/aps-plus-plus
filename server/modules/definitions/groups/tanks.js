@@ -629,6 +629,27 @@ Class.ranger = {
         },
     ],
 }
+Class.alap = {
+    PARENT: "genericTank",
+    LABEL: "As Long As Possible",
+    DANGER: 8,
+    BODY: {
+        SPEED: 0.9 * base.SPEED,
+        FOV: 1.5 * base.FOV,
+    },
+    GUNS: [
+        {
+            POSITION: [48, 8, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, g.pounder]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [5, 8, -1.4, 8, 0, 0, 0],
+        },
+    ],
+}
 Class.stalker = {
     PARENT: "genericTank",
     DANGER: 7,
@@ -3577,3 +3598,5 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.sidewinder.UPGRADES_TIER_3 = ["coil", "python", "ranch", "oroboros", "cocci"]
         Class.undertow.UPGRADES_TIER_3 = ["riptide"]
         Class.repeater.UPGRADES_TIER_3 = ["iterator", "duplicator"]
+
+    Class.ranger.UPGRADES_TIER_4 = ["alap"]
