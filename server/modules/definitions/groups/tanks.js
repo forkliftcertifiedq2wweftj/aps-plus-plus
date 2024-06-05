@@ -1169,6 +1169,19 @@ Class.redistributor = {
         },
     ],
 }
+Class.lor = {
+    PARENT: "genericTank",
+    LABEL: "Lor",
+    GUNS: [
+        {
+            POSITION: [18, 14, 1.4, 8, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun*2]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+}
 Class.atomizer = {
     PARENT: "genericTank",
     LABEL: "Atomizer",
@@ -3600,3 +3613,4 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.repeater.UPGRADES_TIER_3 = ["iterator", "duplicator"]
 
     Class.ranger.UPGRADES_TIER_4 = ["alap"]
+    Class.machineGunner.UPGRADES_TIER_4 = ["lor"]
