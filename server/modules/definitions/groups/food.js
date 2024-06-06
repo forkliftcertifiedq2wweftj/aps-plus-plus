@@ -339,7 +339,7 @@ Class.alphaPentagon = {
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 80,
-        HEALTH: 520 * basePolygonHealth,
+        HEALTH: 580 * basePolygonHealth,
         RESIST: Math.pow(1.25, 3),
         PENETRATION: 1.1,
         SHIELD: 40 * basePolygonHealth,
