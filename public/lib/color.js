@@ -1,5 +1,7 @@
 var color = {
     "normal": {
+        "hendecagon": "#123456",
+        "dodecagon": "#023456",
         "teal": "#7ad3db",
         "lgreen": "#b9e87e",
         "orange": "#e7896d",
