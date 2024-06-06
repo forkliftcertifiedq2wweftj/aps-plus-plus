@@ -308,7 +308,7 @@ Class.betaPentagon = {
     VALUE: 2101540,
     SHAPE: 11,
     SIZE: 203,
-    COLOR: "hendecagon",
+    COLOR: "yellow",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 30,
@@ -335,7 +335,7 @@ Class.alphaPentagon = {
     VALUE: 3110279,
     SHAPE: 12,
     SIZE: 227,
-    COLOR: "dodecagon",
+    COLOR: "lavender",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 80,
