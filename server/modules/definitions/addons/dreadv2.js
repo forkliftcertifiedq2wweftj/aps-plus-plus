@@ -2222,7 +2222,7 @@ const pentanoughtWeapons = ["rapierOfficialV2", "javelinOfficialV2", "diplomatOf
 if(buildHexnoughts) {
 	for (let i of pentanoughtWeapons) {
 		for (let j of pentanoughtWeapons) {
-			Class[i].UPGRADES_TIER_0.push(mergeHexnoughtWeaponV2(i, j));
+			Class[i].UPGRADES_TIER_20.push(mergeHexnoughtWeaponV2(i, j));
 		}
 	}
 }
