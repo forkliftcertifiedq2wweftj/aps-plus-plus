@@ -4,11 +4,11 @@ const { makeRelic, makeRare, makeCrasher, makeLaby } = require('../facilitators.
 // EGGS
 Class.egg = {
     PARENT: "food",
-    LABEL: "Egg",
-    VALUE: 10,
+    LABEL: "Chaos Egg",
+    VALUE: 2500,
     SHAPE: 0,
-    SIZE: 4.5,
-    COLOR: "veryLightGrey",
+    SIZE: 25,
+    COLOR: "red",
     INTANGIBLE: true,
     BODY: {
         DAMAGE: 0,
@@ -68,10 +68,10 @@ Class.transEgg = makeRare("egg", 4); //ironic
 // SQUARES
 Class.square = {
     PARENT: "food",
-    LABEL: "Square",
-    VALUE: 30,
-    SHAPE: 4,
-    SIZE: 14,
+    LABEL: "Dodecagon",
+    VALUE: 8651442,
+    SHAPE: 12,
+    SIZE: 120,
     COLOR: "gold",
     BODY: {
         DAMAGE: basePolygonDamage,
@@ -92,15 +92,15 @@ Class.transSquare = makeRare("square", 4);
 // TRIANGLES
 Class.triangle = {
     PARENT: "food",
-    LABEL: "Triangle",
-    VALUE: 120,
-    SHAPE: 3,
-    SIZE: 10,
+    LABEL: "Tridecagon",
+    VALUE: 10381731,
+    SHAPE: 13,
+    SIZE: 130,
     COLOR: "orange",
     BODY: {
         DAMAGE: basePolygonDamage,
         DENSITY: 6,
-        HEALTH: 3 * basePolygonHealth,
+        HEALTH: 39 * basePolygonHealth,
         RESIST: 1.15,
         PENETRATION: 1.5,
         ACCELERATION: 0.005
@@ -116,15 +116,15 @@ Class.transTriangle = makeRare("triangle", 4);
 // PENTAGONS
 Class.pentagon = {
     PARENT: "food",
-    LABEL: "Pentagon",
-    VALUE: 400,
-    SHAPE: 5,
-    SIZE: 21,
+    LABEL: "Tetradecagon",
+    VALUE: 12977164,
+    SHAPE: 14,
+    SIZE: 140,
     COLOR: "purple",
     BODY: {
         DAMAGE: 1.5 * basePolygonDamage,
         DENSITY: 8,
-        HEALTH: 10 * basePolygonHealth,
+        HEALTH: 140 * basePolygonHealth,
         RESIST: 1.25,
         PENETRATION: 1.1,
         ACCELERATION: 0.0035
@@ -140,18 +140,18 @@ Class.transPentagon = makeRare("pentagon", 4);
 // BETA PENTAGONS
 Class.betaPentagon = {
     PARENT: "food",
-    LABEL: "Beta Pentagon",
-    VALUE: 2500,
-    SHAPE: 5,
-    SIZE: 30,
-    COLOR: "purple",
+    LABEL: "Pentadecagon",
+    VALUE: 16870313,
+    SHAPE: 15,
+    SIZE: 150,
+    COLOR: "yellow",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 30,
-        HEALTH: 75 * basePolygonHealth,
+        HEALTH: 337.5 * basePolygonHealth,
         RESIST: Math.pow(1.25, 2),
         PENETRATION: 1.1,
-        SHIELD: 20 * basePolygonHealth,
+        SHIELD: 75 * basePolygonHealth,
         REGEN: 0.2,
         ACCELERATION: 0.003
     },
@@ -167,15 +167,15 @@ Class.transBetaPentagon = makeRare("betaPentagon", 4);
 // ALPHA PENTAGONS
 Class.alphaPentagon = {
     PARENT: "food",
-    LABEL: "Alpha Pentagon",
-    VALUE: 15e3,
-    SHAPE: 5,
-    SIZE: 58,
-    COLOR: "purple",
+    LABEL: "Hexadecagon",
+    VALUE: 22774923,
+    SHAPE: 16,
+    SIZE: 160,
+    COLOR: "black",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 80,
-        HEALTH: 562.5 * basePolygonHealth,
+        HEALTH: 900 * basePolygonHealth,
         RESIST: Math.pow(1.25, 3),
         PENETRATION: 1.1,
         SHIELD: 40 * basePolygonHealth,
