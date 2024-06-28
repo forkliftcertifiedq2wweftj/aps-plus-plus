@@ -307,7 +307,7 @@ Class.betaPentagon = {
     VALUE: 85250,
     SHAPE: 7,
     SIZE: 30,
-    COLOR: "purple",
+    COLOR: "green",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 30,
