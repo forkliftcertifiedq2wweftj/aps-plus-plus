@@ -167,11 +167,11 @@ makeLaby = (type, level, baseScale = 1) => {
 // EGGS
 Class.egg = {
     PARENT: "food",
-    LABEL: "Egg",
-    VALUE: 10,
-    SHAPE: 0,
+    LABEL: "Triangle",
+    VALUE: 250,
+    SHAPE: 3,
     SIZE: 4.5,
-    COLOR: "veryLightGrey",
+    COLOR: "yellow",
     INTANGIBLE: true,
     BODY: {
         DAMAGE: 0,
@@ -232,10 +232,10 @@ Class.transEgg = makeRare("egg", 4); //ironic
 Class.square = {
     PARENT: "food",
     LABEL: "Square",
-    VALUE: 30,
+    VALUE: 1250,
     SHAPE: 4,
     SIZE: 14,
-    COLOR: "gold",
+    COLOR: "red",
     BODY: {
         DAMAGE: basePolygonDamage,
         DENSITY: 4,
@@ -255,11 +255,11 @@ Class.transSquare = makeRare("square", 4);
 // TRIANGLES
 Class.triangle = {
     PARENT: "food",
-    LABEL: "Triangle",
-    VALUE: 120,
-    SHAPE: 3,
+    LABEL: "Pentagon",
+    VALUE: 5250,
+    SHAPE: 5,
     SIZE: 10,
-    COLOR: "orange",
+    COLOR: "purple",
     BODY: {
         DAMAGE: basePolygonDamage,
         DENSITY: 6,
@@ -279,11 +279,11 @@ Class.transTriangle = makeRare("triangle", 4);
 // PENTAGONS
 Class.pentagon = {
     PARENT: "food",
-    LABEL: "Pentagon",
-    VALUE: 400,
-    SHAPE: 5,
+    LABEL: "Hexagon",
+    VALUE: 21250,
+    SHAPE: 6,
     SIZE: 21,
-    COLOR: "purple",
+    COLOR: "orange",
     BODY: {
         DAMAGE: 1.5 * basePolygonDamage,
         DENSITY: 8,
@@ -303,9 +303,9 @@ Class.transPentagon = makeRare("pentagon", 4);
 // BETA PENTAGONS
 Class.betaPentagon = {
     PARENT: "food",
-    LABEL: "Beta Pentagon",
-    VALUE: 2500,
-    SHAPE: 5,
+    LABEL: "Heptagon",
+    VALUE: 85250,
+    SHAPE: 7,
     SIZE: 30,
     COLOR: "purple",
     BODY: {
@@ -330,11 +330,11 @@ Class.transBetaPentagon = makeRare("betaPentagon", 4);
 // ALPHA PENTAGONS
 Class.alphaPentagon = {
     PARENT: "food",
-    LABEL: "Alpha Pentagon",
-    VALUE: 15e3,
-    SHAPE: 5,
+    LABEL: "Octagon",
+    VALUE: 341250,
+    SHAPE: 8,
     SIZE: 58,
-    COLOR: "purple",
+    COLOR: "blue",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 80,
