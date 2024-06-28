@@ -354,6 +354,33 @@ Class.shadowAlphaPentagon = makeRare("alphaPentagon", 2);
 Class.rainbowAlphaPentagon = makeRare("alphaPentagon", 3);
 Class.transAlphaPentagon = makeRare("alphaPentagon", 4);
 
+// ALPHA PENTAGONS
+Class.nonagons = {
+    PARENT: "food",
+    LABEL: "Nonagon",
+    VALUE: 1365250,
+    SHAPE: 9,
+    SIZE: 73,
+    COLOR: "purple",
+    BODY: {
+        DAMAGE: 2 * basePolygonDamage,
+        DENSITY: 80,
+        HEALTH: 984.3 * basePolygonHealth,
+        RESIST: Math.pow(1.25, 3),
+        PENETRATION: 1.1,
+        SHIELD: 40 * basePolygonHealth,
+        REGEN: 0.6,
+        ACCELERATION: 0.0025
+    },
+    DRAW_HEALTH: true,
+    GIVE_KILL_MESSAGE: true,
+};
+Class.shinyAlphaPentagon = makeRare("alphaPentagon", 0);
+Class.legendaryAlphaPentagon = makeRare("alphaPentagon", 1);
+Class.shadowAlphaPentagon = makeRare("alphaPentagon", 2);
+Class.rainbowAlphaPentagon = makeRare("alphaPentagon", 3);
+Class.transAlphaPentagon = makeRare("alphaPentagon", 4);
+
 // HEXAGONS
 Class.hexagon = {
     PARENT: "food",
