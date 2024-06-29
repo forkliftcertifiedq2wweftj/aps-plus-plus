@@ -172,7 +172,7 @@ Class.egg = {
     SHAPE: 3,
     SIZE: 4.5,
     COLOR: "yellow",
-    INTANGIBLE: true,
+    INTANGIBLE: false,
     BODY: {
         DAMAGE: 0,
         DENSITY: 2,
