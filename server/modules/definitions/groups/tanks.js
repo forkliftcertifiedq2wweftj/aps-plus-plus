@@ -2103,6 +2103,22 @@ Class.annihilator = {
     ],
 }
 
+Class.devastator = {
+    PARENT: "genericTank",
+    LABEL: "Devastator",
+    DANGER: 9,
+    GUNS: [
+        {
+            POSITION: [20.5, 22.5, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator, g.devastator]),
+                TYPE: "bullet",
+            },
+        },
+    ],
+}
+
+
 // Artillery upgrades
 Class.mortar = {
     PARENT: "genericTank",
@@ -3563,6 +3579,7 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
     Class.pounder.UPGRADES_TIER_2 = ["destroyer", "builder", "artillery", "launcher"]
         Class.pounder.UPGRADES_TIER_3 = ["shotgun", "eagle"]
         Class.destroyer.UPGRADES_TIER_3 = ["conqueror", "annihilator", "hybrid", "construct"]
+            Class.annihilator.UPGRADES_TIER_4 = ["devastator"]
         Class.artillery.UPGRADES_TIER_3 = ["mortar", "ordnance", "beekeeper", "fieldGun"]
         Class.launcher.UPGRADES_TIER_3 = ["skimmer", "twister", "swarmer", "rocketeer", "fieldGun"]
 
