@@ -597,6 +597,61 @@ Class.shadowAlphaPentagon = makeRare("alphaPentagon", 2);
 Class.rainbowAlphaPentagon = makeRare("alphaPentagon", 3);
 Class.transAlphaPentagon = makeRare("alphaPentagon", 4);
 
+// ALPHA PENTAGONS
+Class.octadecagons = {
+    PARENT: "food",
+    LABEL: "Octadecagon",
+    VALUE: 357913941250,
+    SHAPE: 18,
+    SIZE: 380,
+    COLOR: "black",
+    BODY: {
+        DAMAGE: 2 * basePolygonDamage,
+        DENSITY: 80,
+        HEALTH: 350 * basePolygonHealth,
+        RESIST: Math.pow(1.25, 3),
+        PENETRATION: 1.1,
+        SHIELD: 40 * basePolygonHealth,
+        REGEN: 0.6,
+        ACCELERATION: 0.0025
+    },
+    DRAW_HEALTH: true,
+    GIVE_KILL_MESSAGE: true,
+};
+Class.shinyAlphaPentagon = makeRare("alphaPentagon", 0);
+Class.legendaryAlphaPentagon = makeRare("alphaPentagon", 1);
+Class.shadowAlphaPentagon = makeRare("alphaPentagon", 2);
+Class.rainbowAlphaPentagon = makeRare("alphaPentagon", 3);
+Class.transAlphaPentagon = makeRare("alphaPentagon", 4);
+
+// ALPHA PENTAGONS
+Class.nonadecagons = {
+    PARENT: "food",
+    LABEL: "Nonadecagon",
+    VALUE: 89478485250,
+    SHAPE: 19,
+    SIZE: 430,
+    COLOR: "black",
+    BODY: {
+        DAMAGE: 2 * basePolygonDamage,
+        DENSITY: 80,
+        HEALTH: 375 * basePolygonHealth,
+        RESIST: Math.pow(1.25, 3),
+        PENETRATION: 1.1,
+        SHIELD: 40 * basePolygonHealth,
+        REGEN: 0.6,
+        ACCELERATION: 0.0025
+    },
+    DRAW_HEALTH: true,
+    GIVE_KILL_MESSAGE: true,
+};
+Class.shinyAlphaPentagon = makeRare("alphaPentagon", 0);
+Class.legendaryAlphaPentagon = makeRare("alphaPentagon", 1);
+Class.shadowAlphaPentagon = makeRare("alphaPentagon", 2);
+Class.rainbowAlphaPentagon = makeRare("alphaPentagon", 3);
+Class.transAlphaPentagon = makeRare("alphaPentagon", 4);
+
+
 
 
 // HEXAGONS
