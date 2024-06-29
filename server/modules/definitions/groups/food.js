@@ -517,7 +517,7 @@ Class.rainbowAlphaPentagon = makeRare("alphaPentagon", 3);
 Class.transAlphaPentagon = makeRare("alphaPentagon", 4);
 
 // ALPHA PENTAGONS
-Class.dodecagons = {
+Class.pentadecagons = {
     PARENT: "food",
     LABEL: "Pentadecagon",
     VALUE: 5592405250,
