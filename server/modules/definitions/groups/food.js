@@ -113,11 +113,11 @@ makeRare = (type, level) => {
     type = ensureIsClass(type);
     return {
         PARENT: "food",
-        LABEL: ["Radiant", "Gleaming", "Luminous", "Lustrous", "Highly Radiant"][level] + " " + type.LABEL,
-        VALUE: [25, 100, 400, 1600, 6400][level] * type.VALUE,
+        LABEL: ["Radiant", "Gleaming", "Luminous", "Lustrous", "Highly Radiant", "Highly Radiant (6)"][level] + " " + type.LABEL,
+        VALUE: [25, 100, 400, 1600, 6400, 25600][level] * type.VALUE,
         SHAPE: type.SHAPE,
         SIZE: type.SIZE + level,
-        COLOR: ["lightGreen", "green", "blue", "yellow", "rainbow"][level],
+        COLOR: ["lightGreen", "green", "blue", "yellow", "rainbow", "rainbow"][level],
         ALPHA: level == 2 ? 1 : 1,
         BODY: {
             DAMAGE: type.BODY.DAMAGE + level,
@@ -227,6 +227,7 @@ Class.legendaryEgg = makeRare("egg", 1);
 Class.shadowEgg = makeRare("egg", 2);
 Class.rainbowEgg = makeRare("egg", 3);
 Class.transEgg = makeRare("egg", 4); //ironic
+Class.rad6Egg = makeRare("egg", 5);
 
 // SQUARES
 Class.square = {
@@ -251,6 +252,7 @@ Class.legendarySquare = makeRare("square", 1);
 Class.shadowSquare = makeRare("square", 2);
 Class.rainbowSquare = makeRare("square", 3);
 Class.transSquare = makeRare("square", 4);
+Class.rad6Square = makeRare("square", 5);
 
 // TRIANGLES
 Class.triangle = {
@@ -275,6 +277,7 @@ Class.legendaryTriangle = makeRare("triangle", 1);
 Class.shadowTriangle = makeRare("triangle", 2);
 Class.rainbowTriangle = makeRare("triangle", 3);
 Class.transTriangle = makeRare("triangle", 4);
+Class.rad6Triangle = makeRare("triangle", 5);
 
 // PENTAGONS
 Class.pentagon = {
@@ -299,6 +302,7 @@ Class.legendaryPentagon = makeRare("pentagon", 1);
 Class.shadowPentagon = makeRare("pentagon", 2);
 Class.rainbowPentagon = makeRare("pentagon", 3);
 Class.transPentagon = makeRare("pentagon", 4);
+Class.rad6Pentagon = makeRare("pentagon", 5);
 
 // BETA PENTAGONS
 Class.betaPentagon = {
@@ -326,6 +330,7 @@ Class.legendaryBetaPentagon = makeRare("betaPentagon", 1);
 Class.shadowBetaPentagon = makeRare("betaPentagon", 2);
 Class.rainbowBetaPentagon = makeRare("betaPentagon", 3);
 Class.transBetaPentagon = makeRare("betaPentagon", 4);
+Class.rad6BP = makeRare("betaPentagon", 5);
 
 // ALPHA PENTAGONS
 Class.alphaPentagon = {
@@ -353,6 +358,7 @@ Class.legendaryAlphaPentagon = makeRare("alphaPentagon", 1);
 Class.shadowAlphaPentagon = makeRare("alphaPentagon", 2);
 Class.rainbowAlphaPentagon = makeRare("alphaPentagon", 3);
 Class.transAlphaPentagon = makeRare("alphaPentagon", 4);
+Class.rad6AP = makeRare("alphaPentagon", 5);
 
 // ALPHA PENTAGONS
 Class.nonagons = {
