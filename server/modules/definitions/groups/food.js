@@ -176,7 +176,7 @@ Class.egg = {
     BODY: {
         DAMAGE: 0,
         DENSITY: 2,
-        HEALTH: 0.5 * basePolygonHealth,
+        HEALTH: 3 * basePolygonHealth,
         PUSHABILITY: 0,
         ACCELERATION: 0.015
     },
@@ -239,7 +239,7 @@ Class.square = {
     BODY: {
         DAMAGE: basePolygonDamage,
         DENSITY: 4,
-        HEALTH: basePolygonHealth,
+        HEALTH: 6 * basePolygonHealth,
         PENETRATION: 2,
         ACCELERATION: 0.0075
     },
@@ -263,7 +263,7 @@ Class.triangle = {
     BODY: {
         DAMAGE: basePolygonDamage,
         DENSITY: 6,
-        HEALTH: 3 * basePolygonHealth,
+        HEALTH: 9 * basePolygonHealth,
         RESIST: 1.15,
         PENETRATION: 1.5,
         ACCELERATION: 0.005
@@ -287,7 +287,7 @@ Class.pentagon = {
     BODY: {
         DAMAGE: 1.5 * basePolygonDamage,
         DENSITY: 8,
-        HEALTH: 10 * basePolygonHealth,
+        HEALTH: 15 * basePolygonHealth,
         RESIST: 1.25,
         PENETRATION: 1.1,
         ACCELERATION: 0.0035
@@ -311,7 +311,7 @@ Class.betaPentagon = {
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 30,
-        HEALTH: 75 * basePolygonHealth,
+        HEALTH: 24 * basePolygonHealth,
         RESIST: Math.pow(1.25, 2),
         PENETRATION: 1.1,
         SHIELD: 20 * basePolygonHealth,
@@ -338,7 +338,7 @@ Class.alphaPentagon = {
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 80,
-        HEALTH: 562.5 * basePolygonHealth,
+        HEALTH: 48 * basePolygonHealth,
         RESIST: Math.pow(1.25, 3),
         PENETRATION: 1.1,
         SHIELD: 40 * basePolygonHealth,
@@ -365,7 +365,7 @@ Class.nonagons = {
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 80,
-        HEALTH: 984.3 * basePolygonHealth,
+        HEALTH: 100 * basePolygonHealth,
         RESIST: Math.pow(1.25, 3),
         PENETRATION: 1.1,
         SHIELD: 40 * basePolygonHealth,
