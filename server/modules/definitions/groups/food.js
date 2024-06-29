@@ -628,7 +628,7 @@ Class.transAlphaPentagon = makeRare("alphaPentagon", 4);
 Class.nonadecagons = {
     PARENT: "food",
     LABEL: "Nonadecagon",
-    VALUE: 89478485250,
+    VALUE: 1431655765250,
     SHAPE: 19,
     SIZE: 430,
     COLOR: "black",
@@ -636,6 +636,60 @@ Class.nonadecagons = {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 80,
         HEALTH: 375 * basePolygonHealth,
+        RESIST: Math.pow(1.25, 3),
+        PENETRATION: 1.1,
+        SHIELD: 40 * basePolygonHealth,
+        REGEN: 0.6,
+        ACCELERATION: 0.0025
+    },
+    DRAW_HEALTH: true,
+    GIVE_KILL_MESSAGE: true,
+};
+Class.shinyAlphaPentagon = makeRare("alphaPentagon", 0);
+Class.legendaryAlphaPentagon = makeRare("alphaPentagon", 1);
+Class.shadowAlphaPentagon = makeRare("alphaPentagon", 2);
+Class.rainbowAlphaPentagon = makeRare("alphaPentagon", 3);
+Class.transAlphaPentagon = makeRare("alphaPentagon", 4);
+
+// ALPHA PENTAGONS
+Class.icosagons = {
+    PARENT: "food",
+    LABEL: "Icosagon",
+    VALUE: 5726623061250,
+    SHAPE: 20,
+    SIZE: 490,
+    COLOR: "black",
+    BODY: {
+        DAMAGE: 2 * basePolygonDamage,
+        DENSITY: 80,
+        HEALTH: 400 * basePolygonHealth,
+        RESIST: Math.pow(1.25, 3),
+        PENETRATION: 1.1,
+        SHIELD: 40 * basePolygonHealth,
+        REGEN: 0.6,
+        ACCELERATION: 0.0025
+    },
+    DRAW_HEALTH: true,
+    GIVE_KILL_MESSAGE: true,
+};
+Class.shinyAlphaPentagon = makeRare("alphaPentagon", 0);
+Class.legendaryAlphaPentagon = makeRare("alphaPentagon", 1);
+Class.shadowAlphaPentagon = makeRare("alphaPentagon", 2);
+Class.rainbowAlphaPentagon = makeRare("alphaPentagon", 3);
+Class.transAlphaPentagon = makeRare("alphaPentagon", 4);
+
+// ALPHA PENTAGONS
+Class.icosikaihenagons = {
+    PARENT: "food",
+    LABEL: "Icosikaihenagon",
+    VALUE: 22906492245250,
+    SHAPE: 21,
+    SIZE: 560,
+    COLOR: "black",
+    BODY: {
+        DAMAGE: 2 * basePolygonDamage,
+        DENSITY: 80,
+        HEALTH: 425 * basePolygonHealth,
         RESIST: Math.pow(1.25, 3),
         PENETRATION: 1.1,
         SHIELD: 40 * basePolygonHealth,
