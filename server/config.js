@@ -156,7 +156,7 @@ module.exports = {
     // The possible food types that can spawn.
     FOOD_TYPES: [
         [1500, [
-            [1024, 'egg'], [256, 'square'], [64, 'triangle'], [16, 'pentagon'], [6, 'betaPentagon'], [1.5, 'alphaPentagon'], [0.75, 'nonagons'], [0.5, 'decagons'], [0.4, 'hendecagons'], [0.3, 'dodecagons']
+            [1024, 'egg'], [256, 'square'], [64, 'triangle'], [16, 'pentagon'], [6, 'betaPentagon'], [1.5, 'alphaPentagon'], [0.75, 'nonagons'], [0.5, 'decagons'], [0.4, 'hendecagons'], [0.3, 'dodecagons'], [0.2, 'tridecagons'], [0.1, 'tetradecagons'], [0.05, 'pentadecagons']
         ]],
         [133, [
             [3125, 'gem'], [625, 'shinySquare'], [125, 'shinyTriangle'], [25, 'shinyPentagon'], [5, 'shinyBetaPentagon'], [1, 'shinyAlphaPentagon']
@@ -181,7 +181,7 @@ module.exports = {
     // The possible nest food types that can spawn.
     FOOD_TYPES_NEST: [
         [1, [
-            [16, 'pentagon'], [ 4, 'betaPentagon'], [ 1, 'alphaPentagon'], [ 0.6, 'nonagons'], [ 0.4, 'decagons'], [ 0.3, 'hendecagons'], [ 0.2, 'dodecagons']
+            [16, 'pentagon'], [ 4, 'betaPentagon'], [ 1, 'alphaPentagon'], [ 0.6, 'nonagons'], [ 0.4, 'decagons'], [ 0.3, 'hendecagons'], [ 0.2, 'dodecagons'], [ 0.175, 'tridecagons'], [ 0.15, 'tetradecagons'], [ 0.125, 'pentadecagons']
         ]]
     ],
 
