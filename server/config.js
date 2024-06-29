@@ -181,7 +181,7 @@ module.exports = {
     // The possible nest food types that can spawn.
     FOOD_TYPES_NEST: [
         [1, [
-            [16, 'pentagon'], [ 4, 'betaPentagon'], [ 1, 'alphaPentagon'], [ 0.6, 'nonagons'], [ 0.4, 'decagons'], [ 0.3, 'hendecagons'], [ 0.2, 'dodecagons'], [ 0.175, 'tridecagons'], [ 0.15, 'tetradecagons'], [ 0.125, 'pentadecagons'], [ 0.12, 'hexadecagons'], [ 0.115, 'heptadecagons'], [ 0.1125, 'octadecagons'], [ 0.11, 'nonadecagons'], [ 0.1075, 'icosagons'], [ 0.105, 'icosikaihenagon']
+            [16, 'pentagon'], [ 4, 'betaPentagon'], [ 1, 'alphaPentagon'], [ 0.6, 'nonagons'], [ 0.4, 'decagons'], [ 0.3, 'hendecagons'], [ 0.2, 'dodecagons'], [ 0.175, 'tridecagons'], [ 0.15, 'tetradecagons'], [ 0.125, 'pentadecagons'], [ 0.12, 'hexadecagons'], [ 0.115, 'heptadecagons'], [ 0.1125, 'octadecagons'], [ 0.11, 'nonadecagons'], [ 0.1075, 'icosagons'], [ 0.105, 'icosikaihenagons']
         ]]
     ],
 
