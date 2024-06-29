@@ -113,16 +113,16 @@ makeRare = (type, level) => {
     type = ensureIsClass(type);
     return {
         PARENT: "food",
-        LABEL: ["Shiny", "Legendary", "Shadow", "Rainbow", "Trans"][level] + " " + type.LABEL,
-        VALUE: [100, 500, 2000, 4000, 5000][level] * type.VALUE,
+        LABEL: ["Radiant", "Gleaming", "Luminous", "Lustrous", "Highly Radiant"][level] + " " + type.LABEL,
+        VALUE: [25, 100, 400, 1600, 6400][level] * type.VALUE,
         SHAPE: type.SHAPE,
         SIZE: type.SIZE + level,
-        COLOR: ["lightGreen", "teal", "darkGrey", "rainbow", "trans"][level],
-        ALPHA: level == 2 ? 0.25 : 1,
+        COLOR: ["lightGreen", "green", "blue", "yellow", "rainbow"][level],
+        ALPHA: level == 2 ? 1 : 1,
         BODY: {
             DAMAGE: type.BODY.DAMAGE + level,
             DENSITY: type.BODY.DENSITY + level,
-            HEALTH: [10, 20, 40, 80, 100][level] * type.BODY.HEALTH,
+            HEALTH: [1, 1, 1, 1, 1][level] * type.BODY.HEALTH,
             PENETRATION: type.BODY.PENETRATION + level,
             ACCELERATION: type.BODY.ACCELERATION
         },
