@@ -69,10 +69,10 @@ module.exports = {
     // Physics
 
     // General multiplier for acceleration and max speeds.
-    runSpeed: 2.95,
+    runSpeed: 1.66667,
 
     // General damage multiplier everytime damage is dealt.
-    DAMAGE_CONSTANT: 0.7,
+    DAMAGE_CONSTANT: 0.5,
 
     // General knockback multiplier everytime knockback is applied.
     KNOCKBACK_CONSTANT: 1.5,
@@ -181,7 +181,7 @@ module.exports = {
     // The possible nest food types that can spawn.
     FOOD_TYPES_NEST: [
         [1, [
-            [16, 'pentagon'], [ 4, 'betaPentagon'], [ 1, 'alphaPentagon'], [ 0.6, 'nonagons'], [ 0.4, 'decagons'], [ 0.3, 'hendecagons'], [ 0.2, 'dodecagons'], [ 0.175, 'tridecagons'], [ 0.15, 'tetradecagons'], [ 0.125, 'pentadecagons'], [ 0.12, 'hexadecagons'], [ 0.115, 'heptadecagons'], [ 0.1125, 'octadecagons'], [ 0.11, 'nonadecagons']
+            [16, 'pentagon'], [ 4, 'betaPentagon'], [ 1, 'alphaPentagon'], [ 0.6, 'nonagons'], [ 0.4, 'decagons'], [ 0.3, 'hendecagons'], [ 0.2, 'dodecagons'], [ 0.175, 'tridecagons'], [ 0.15, 'tetradecagons'], [ 0.125, 'pentadecagons'], [ 0.12, 'hexadecagons'], [ 0.115, 'heptadecagons'], [ 0.1125, 'octadecagons'], [ 0.11, 'nonadecagons'], [ 0.1075, 'icosagons'], [ 0.105, 'icosikaihenagon']
         ]]
     ],
 
