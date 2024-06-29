@@ -388,7 +388,7 @@ Class.decagons = {
     VALUE: 5461250,
     SHAPE: 10,
     SIZE: 100,
-    COLOR: "purple",
+    COLOR: "black",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 80,
