@@ -69,7 +69,7 @@ module.exports = {
     // Physics
 
     // General multiplier for acceleration and max speeds.
-    runSpeed: 1.9,
+    runSpeed: 2.95,
 
     // General damage multiplier everytime damage is dealt.
     DAMAGE_CONSTANT: 0.7,
@@ -156,7 +156,7 @@ module.exports = {
     // The possible food types that can spawn.
     FOOD_TYPES: [
         [1500, [
-            [1024, 'egg'], [256, 'square'], [64, 'triangle'], [16, 'pentagon'], [6, 'betaPentagon'], [1.5, 'alphaPentagon'], [0.75, 'nonagons'], [0.5, 'decagons']
+            [1024, 'egg'], [256, 'square'], [64, 'triangle'], [16, 'pentagon'], [6, 'betaPentagon'], [1.5, 'alphaPentagon'], [0.75, 'nonagons'], [0.5, 'decagons'], [0.4, 'hendecagons'], [0.3, 'dodecagons']
         ]],
         [133, [
             [3125, 'gem'], [625, 'shinySquare'], [125, 'shinyTriangle'], [25, 'shinyPentagon'], [5, 'shinyBetaPentagon'], [1, 'shinyAlphaPentagon']
@@ -181,7 +181,7 @@ module.exports = {
     // The possible nest food types that can spawn.
     FOOD_TYPES_NEST: [
         [1, [
-            [16, 'pentagon'], [ 4, 'betaPentagon'], [ 1, 'alphaPentagon'], [ 0.6, 'nonagons'], [ 0.4, 'decagons']
+            [16, 'pentagon'], [ 4, 'betaPentagon'], [ 1, 'alphaPentagon'], [ 0.6, 'nonagons'], [ 0.4, 'decagons'], [ 0.3, 'hendecagons'], [ 0.2, 'dodecagons']
         ]]
     ],
 
