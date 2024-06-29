@@ -158,22 +158,25 @@ module.exports = {
         [1500, [
             [1024, 'egg'], [256, 'square'], [64, 'triangle'], [16, 'pentagon'], [6, 'betaPentagon'], [1.5, 'alphaPentagon'], [0.75, 'nonagons'], [0.5, 'decagons'], [0.4, 'hendecagons'], [0.3, 'dodecagons'], [0.2, 'tridecagons']
         ]],
-        [133*1.5, [
+        [133*1.5*2.1, [
             [3125, 'gem'], [625, 'shinySquare'], [125, 'shinyTriangle'], [25, 'shinyPentagon'], [5, 'shinyBetaPentagon'], [1, 'shinyAlphaPentagon']
         ]],
-        [13*1.5, [
+        [13*1.5*2.1, [
             [6836, 'jewel'], [1296, 'legendarySquare'], [216, 'legendaryTriangle'], [36, 'legendaryPentagon'], [6, 'legendaryBetaPentagon'], [1, 'legendaryAlphaPentagon']
         ]],
-        [6*1.5, [
+        [6*1.5*2.1, [
             /*[16807, 'egg'], */[2401, 'shadowSquare'], [343, 'shadowTriangle'], [49, 'shadowPentagon'], [7, 'shadowBetaPentagon'], [1, 'shadowAlphaPentagon']
         ]],
-        [1.3*1.5, [
+        [1.3*1.5*2.1, [
             /*[65536, 'egg'], */[8192, 'rainbowSquare'], [1024, 'rainbowTriangle'], [64, 'rainbowPentagon'], [8, 'rainbowBetaPentagon'], [1, 'rainbowAlphaPentagon']
         ]],
-        [0.065*1.5, [
+        [0.065*1.5*2.1, [
             [59549, 'egg'], [6561, 'transSquare'], [729, 'transTriangle'], [81, 'transPentagon'], [9, 'transBetaPentagon'], [1, 'transAlphaPentagon']
         ]],
-        [0.013*1.5, [
+        [0.0375*1.5*2.1, [
+            [59549, 'rad6Egg'], [6561, 'rad6Square'], [729, 'rad6Triangle'], [81, 'rad6Pentagon'], [9, 'rad6BP'], [1, 'rad6AP']
+        ]],
+        [0.013*1.5*2.1, [
             [100000, 'sphere'], [10000, 'cube'], [1000, 'tetrahedron'], [100, 'octahedron'], [10, 'dodecahedron'], [1, 'icosahedron']
         ]]
     ],
