@@ -2111,7 +2111,7 @@ Class.devastator = {
         {
             POSITION: [20.5, 22.5, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator, g.annihilator]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator, g.lotsofdmg]),
                 TYPE: "bullet",
             },
         },
