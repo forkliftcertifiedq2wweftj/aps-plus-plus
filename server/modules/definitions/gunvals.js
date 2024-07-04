@@ -6,7 +6,7 @@ module.exports = {
     swarm: { reload: 23, recoil: 0.25, shudder: 0.05, size: 0.4, damage: 0.75, speed: 4, spray: 5 },
     factory: { reload: 48, shudder: 0.1, size: 0.7, damage: 0.75, speed: 3, spray: 0.1 },
     productionist: { reload: 56, recoil: 0.25, shudder: 0.05, size: 0.7, damage: 0.75, speed: 4, range: 1.5, spray: 5 },
-    lotsofdmg: { reload: 5, recoil: 1.4, shudder: 0.1, damage: 3.5, speed: 4.5, spray: 15 },
+    lotsofdmg: { reload: 1, recoil: 1.4, shudder: 0.1, damage: 3.5, speed: 4.5, spray: 15 },
 
 // Spammers
     desmos: { shudder: 0, spray: 0, size: 0.8 },
