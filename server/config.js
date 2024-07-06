@@ -117,7 +117,7 @@ module.exports = {
     BOT_XP: 125,
 
     // How much XP player-bots will receive when first created.
-    BOT_START_XP: 0,
+    BOT_START_XP: 781805,
 
     // The chances of a player-bot upgrading a specific skill when skill upgrades are available.
     BOT_SKILL_UPGRADE_CHANCES: [ 1, 1, 3, 4, 4, 4, 4, 2, 1, 1],
