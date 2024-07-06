@@ -113,11 +113,11 @@ makeRare = (type, level) => {
     type = ensureIsClass(type);
     return {
         PARENT: "food",
-        LABEL: ["Shiny", "Legendary", "Shadow", "Rainbow", "Trans"][level] + " " + type.LABEL,
-        VALUE: [168, 840, 3360, 6720, 8400][level] * type.VALUE,
+        LABEL: ["Unusual", "Rare", "Epic", "Legendary", "Mythic", "Ultra", "Super"][level] + " " + type.LABEL,
+        VALUE: [250, 1250, 5250, 21250, 85250, 341250, 1365250][level] * type.VALUE,
         SHAPE: type.SHAPE,
-        SIZE: type.SIZE + level,
-        COLOR: ["lightGreen", "teal", "darkGrey", "rainbow", "trans"][level],
+        SIZE: type.SIZE + level*3,
+        COLOR: ["yellow", "blue", "purple", "red", "cyan", "red", "teal"][level],
         ALPHA: level == 2 ? 0.25 : 1,
         BODY: {
             DAMAGE: type.BODY.DAMAGE + level,
@@ -168,27 +168,27 @@ makeLaby = (type, level, baseScale = 1) => {
 // EGGS
 Class.egg = {
     PARENT: "food",
-    LABEL: "Egg",
-    VALUE: 48,
-    SHAPE: 0,
-    SIZE: 4.5,
+    LABEL: "White Cube",
+    VALUE: 5,
+    SHAPE: 4,
+    SIZE: 10,
     COLOR: "veryLightGrey",
     INTANGIBLE: true,
     BODY: {
         DAMAGE: 0,
         DENSITY: 2,
-        HEALTH: 0.5 * basePolygonHealth,
+        HEALTH: 2 * basePolygonHealth,
         PUSHABILITY: 0,
         ACCELERATION: 0.015
     },
-    DRAW_HEALTH: false,
+    DRAW_HEALTH: true,
 };
 Class.gem = {
     PARENT: "food",
-    LABEL: "Gem",
-    VALUE: 10138,
-    SHAPE: 6,
-    SIZE: 4.5,
+    LABEL: "Enriched White Cube",
+    VALUE: 150,
+    SHAPE: 4,
+    SIZE: 11.5,
     COLOR: "aqua",
     BODY: {
         DAMAGE: basePolygonDamage / 4,
@@ -205,10 +205,10 @@ Class.gem = {
 };
 Class.jewel = {
     PARENT: "food",
-    LABEL: "Jewel",
-    VALUE: 577720,
-    SHAPE: 6,
-    SIZE: 8,
+    LABEL: "Enrichment Cube",
+    VALUE: 2250,
+    SHAPE: 4,
+    SIZE: 13,
     COLOR: "yellow",
     BODY: {
         DAMAGE: basePolygonDamage / 4,
@@ -232,15 +232,15 @@ Class.transEgg = makeRare("egg", 4); //ironic
 // SQUARES
 Class.square = {
     PARENT: "food",
-    LABEL: "Square",
-    VALUE: 144,
+    LABEL: "Shell",
+    VALUE: 6,
     SHAPE: 4,
     SIZE: 14,
     COLOR: "gold",
     BODY: {
         DAMAGE: basePolygonDamage,
         DENSITY: 4,
-        HEALTH: basePolygonHealth,
+        HEALTH: 5 * basePolygonHealth,
         PENETRATION: 2,
         ACCELERATION: 0.0075
     },
@@ -256,15 +256,15 @@ Class.transSquare = makeRare("square", 4);
 // TRIANGLES
 Class.triangle = {
     PARENT: "food",
-    LABEL: "Triangle",
-    VALUE: 576,
-    SHAPE: 3,
-    SIZE: 10,
+    LABEL: "Bubble",
+    VALUE: 11,
+    SHAPE: 0,
+    SIZE: 10.5,
     COLOR: "orange",
     BODY: {
         DAMAGE: basePolygonDamage,
         DENSITY: 6,
-        HEALTH: 3 * basePolygonHealth,
+        HEALTH: 0.4 * basePolygonHealth,
         RESIST: 1.15,
         PENETRATION: 1.5,
         ACCELERATION: 0.005
@@ -280,11 +280,11 @@ Class.transTriangle = makeRare("triangle", 4);
 // PENTAGONS
 Class.pentagon = {
     PARENT: "food",
-    LABEL: "Pentagon",
-    VALUE: 1922,
-    SHAPE: 5,
+    LABEL: "Rock",
+    VALUE: 3,
+    SHAPE: 7,
     SIZE: 21,
-    COLOR: "purple",
+    COLOR: "gray",
     BODY: {
         DAMAGE: 1.5 * basePolygonDamage,
         DENSITY: 8,
@@ -304,15 +304,15 @@ Class.transPentagon = makeRare("pentagon", 4);
 // BETA PENTAGONS
 Class.betaPentagon = {
     PARENT: "food",
-    LABEL: "Hendecagon",
-    VALUE: 2101540,
-    SHAPE: 11,
-    SIZE: 203,
+    LABEL: "Square",
+    VALUE: 1,
+    SHAPE: 4,
+    SIZE: 15,
     COLOR: "yellow",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 30,
-        HEALTH: 550 * basePolygonHealth,
+        HEALTH: 4 * basePolygonHealth,
         RESIST: Math.pow(1.25, 2),
         PENETRATION: 1.1,
         SHIELD: 20 * basePolygonHealth,
@@ -331,15 +331,15 @@ Class.transBetaPentagon = makeRare("betaPentagon", 4);
 // ALPHA PENTAGONS
 Class.alphaPentagon = {
     PARENT: "food",
-    LABEL: "Dodecagon",
-    VALUE: 3110279,
-    SHAPE: 12,
-    SIZE: 227,
+    LABEL: "Ladybug",
+    VALUE: 7,
+    SHAPE: 0,
+    SIZE: 15,
     COLOR: "lavender",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 80,
-        HEALTH: 580 * basePolygonHealth,
+        HEALTH: 5 * basePolygonHealth,
         RESIST: Math.pow(1.25, 3),
         PENETRATION: 1.1,
         SHIELD: 40 * basePolygonHealth,
@@ -357,15 +357,15 @@ Class.transAlphaPentagon = makeRare("alphaPentagon", 4);
 // HEXAGONS
 Class.hexagon = {
     PARENT: "food",
-    LABEL: "Hexagon",
-    VALUE: 45927,
-    SHAPE: 6,
+    LABEL: "Shiny",
+    VALUE: 15,
+    SHAPE: 0,
     SIZE: 25,
-    COLOR: "hexagon",
+    COLOR: "red",
     BODY: {
         DAMAGE: 3 * basePolygonDamage,
         DENSITY: 8,
-        HEALTH: 20 * basePolygonHealth,
+        HEALTH: 6 * basePolygonHealth,
         RESIST: 1.3,
         SHIELD: 50 * basePolygonHealth,
         PENETRATION: 1.1,
