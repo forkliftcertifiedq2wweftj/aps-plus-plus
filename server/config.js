@@ -129,7 +129,7 @@ module.exports = {
     BOT_NAME_PREFIX: "[AI] ",
 
     // The class that players and player-bots spawn as.
-    SPAWN_CLASS: "basic",
+    SPAWN_CLASS: "dreadOfficialV1",
 
 
 
@@ -181,7 +181,7 @@ module.exports = {
     // The possible nest food types that can spawn.
     FOOD_TYPES_NEST: [
         [1, [
-            [32, 'pentagon'], [ 8, 'betaPentagon'], [ 2, 'alphaPentagon']
+            [32, 'pentagon'], [ 8, 'betaPentagon'], [ 2, 'alphaPentagon'], [ 1, 'hexagonv1'], [ 0.5, 'septagonv1'], [ 0.375, 'octogonv1'], [ 0.25, 'nonagonv1']
         ]]
     ],
 
