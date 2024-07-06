@@ -306,7 +306,7 @@ Class.betaPentagon = {
     PARENT: "food",
     LABEL: "Beta Pentagon",
     VALUE: 3750,
-    SHAPE: 11,
+    SHAPE: 5,
     SIZE: 50,
     COLOR: "purple",
     BODY: {
