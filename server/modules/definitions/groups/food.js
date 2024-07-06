@@ -118,7 +118,7 @@ makeRare = (type, level) => {
         SHAPE: type.SHAPE,
         SIZE: type.SIZE + level*3,
         COLOR: ["yellow", "blue", "purple", "red", "cyan", "red", "teal"][level],
-        ALPHA: level == 2 ? 0.25 : 1,
+        ALPHA: level == 2 ? 1 : 1,
         BODY: {
             DAMAGE: type.BODY.DAMAGE + level,
             DENSITY: type.BODY.DENSITY + level,
@@ -234,7 +234,7 @@ Class.square = {
     PARENT: "food",
     LABEL: "Shell",
     VALUE: 6,
-    SHAPE: 4,
+    SHAPE: 3,
     SIZE: 14,
     COLOR: "gold",
     BODY: {
@@ -260,7 +260,7 @@ Class.triangle = {
     VALUE: 11,
     SHAPE: 0,
     SIZE: 10.5,
-    COLOR: "orange",
+    COLOR: "white",
     BODY: {
         DAMAGE: basePolygonDamage,
         DENSITY: 6,
@@ -332,17 +332,17 @@ Class.transBetaPentagon = makeRare("betaPentagon", 4);
 Class.alphaPentagon = {
     PARENT: "food",
     LABEL: "Ladybug",
-    VALUE: 7,
+    VALUE: 0,
     SHAPE: 0,
     SIZE: 15,
-    COLOR: "lavender",
+    COLOR: "red",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 80,
-        HEALTH: 5 * basePolygonHealth,
+        HEALTH: 3 * basePolygonHealth,
         RESIST: Math.pow(1.25, 3),
         PENETRATION: 1.1,
-        SHIELD: 40 * basePolygonHealth,
+        SHIELD: 0 * basePolygonHealth,
         REGEN: 0.6,
         ACCELERATION: 0.0025
     },
