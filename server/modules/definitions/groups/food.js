@@ -367,7 +367,7 @@ Class.alphaPentagon = {
     PARENT: "food",
     LABEL: "Ladybug",
     VALUE: 0,
-    SHAPE: 10
+    SHAPE: 5,
     SIZE: 15,
     COLOR: "red",
     BODY: {
