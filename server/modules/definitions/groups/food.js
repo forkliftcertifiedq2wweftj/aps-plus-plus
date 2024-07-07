@@ -316,7 +316,7 @@ Class.thorn = {
     SIZE: 21,
     COLOR: "black",
     BODY: {
-        DAMAGE: 1.5 * basePolygonDamage,
+        DAMAGE: 5 * basePolygonDamage,
         DENSITY: 8,
         HEALTH: 10 * basePolygonHealth,
         RESIST: 1.25,
