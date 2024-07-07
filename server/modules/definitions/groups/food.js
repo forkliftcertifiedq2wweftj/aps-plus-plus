@@ -366,7 +366,7 @@ Class.sbp = makeRare("betaPentagon", 6);
 Class.alphaPentagon = {
     PARENT: "food",
     LABEL: "Ladybug",
-    VALUE: 0,
+    VALUE: 10,
     SHAPE: 5,
     SIZE: 15,
     COLOR: "red",
