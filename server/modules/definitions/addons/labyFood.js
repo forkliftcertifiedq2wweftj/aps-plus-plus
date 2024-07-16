@@ -35,7 +35,7 @@ module.exports = ({ Config }) => {
 	//laby_${poly}_${tier}_${shiny}_${rank}
 
 	// 2-wide dimension of the 2 base shape types - pentagon, hexagon, heptagon andoctagon
-	Config.FOOD_TYPES_NEST = Array(4).fill().map((_, i, a) => [
+	Config.FOOD_TYPES_NEST = Array(2).fill().map((_, i, a) => [
 		// Chance of spawning in exponents of 4
 		4 ** (a.length - i),
 		// 4-wide dimension of the 4 shape tiers - regular, beta, alpha, omega
