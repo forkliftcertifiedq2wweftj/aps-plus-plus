@@ -3,10 +3,10 @@ module.exports = {
 
     // Game server domain.
     // If 'localhost:NUMBER', the port must equal the port setting.
-    host: "localhost:11266",
+    host: "localhost:8080",
 
     // Which port to run the web server on.
-    port: 11266,
+    port: 8080,
 
     // How often to update the list of the entities that players can see.
     // Has effects of when entities are activated.
@@ -156,7 +156,7 @@ module.exports = {
     // The possible food types that can spawn.
     FOOD_TYPES: [
         [1000, [
-            [1024, 'egg'], [256, 'square'], [64, 'triangle'], [16, 'pentagon'], [4, 'betaPentagon'], [1, 'alphaPentagon']
+            [1024, 'egg'], [256, 'square'], [64, 'triangle'], [16, 'pentagon'], [4, 'betaPentagon'], [1, 'alphaPentagon'], [0.75, 'shape8']
         ]],
         [22.222222, [
             [3125, 'gem'], [625, 'shinySquare'], [125, 'shinyTriangle'], [25, 'shinyPentagon'], [5, 'shinyBetaPentagon'], [1, 'shinyAlphaPentagon']
@@ -181,7 +181,7 @@ module.exports = {
     // The possible nest food types that can spawn.
     FOOD_TYPES_NEST: [
         [1, [
-            [32, 'pentagon'], [ 8, 'betaPentagon'], [ 2, 'alphaPentagon']
+            [32, 'pentagon'], [ 8, 'betaPentagon'], [ 2, 'alphaPentagon'], [ 1.5, 'shape8']
         ]]
     ],
 
