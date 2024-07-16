@@ -1,63 +1,88 @@
 const { combineStats, addAura, makeAuto, weaponArray, dereference } = require('../facilitators.js');
-const { gunCalcNames, smshskl, base } = require('../constants.js');
+const { smshskl, base } = require('../constants.js');
 const g = require('../gunvals.js');
 
 const eggnoughtBody = {
-    SPEED: base.SPEED * 0.0,
-    HEALTH: base.HEALTH * 1.75,
-	SHIELD: base.SHIELD * 1.5,
-	REGEN: base.REGEN * 1.5,
-    FOV: base.FOV,
-	RESIST: base.RESIST,
-	DENSITY: base.DENSITY * 1.5,
-};
-const squarenoughtBody = {
-    SPEED: base.SPEED * 0.675,
-    HEALTH: base.HEALTH * 2.5,
-	SHIELD: base.SHIELD * 2,
-	REGEN: base.REGEN * 2,
-    FOV: base.FOV * 0.95,
-	RESIST: base.RESIST,
-	DENSITY: base.DENSITY * 2,
-};
-const trinoughtBody = {
-    SPEED: base.SPEED * 0.55,
-    HEALTH: base.HEALTH * 3.5,
+	SPEED: base.SPEED * 0.65,
+	HEALTH: base.HEALTH * 1.75,
 	SHIELD: base.SHIELD * 2.5,
-	REGEN: base.REGEN * 2.5,
-    FOV: base.FOV * 0.95,
+	REGEN: base.REGEN * 1.25,
+	FOV: base.FOV,
 	RESIST: base.RESIST,
 	DENSITY: base.DENSITY * 2.5,
+	ACCELERATION: base.ACCEL * 0.8,
 };
-const pentanoughtBody = {
-    SPEED: base.SPEED * 0.425,
-    HEALTH: base.HEALTH * 4.25,
-	SHIELD: base.SHIELD * 3,
-	REGEN: base.REGEN * 3,
-    FOV: base.FOV * 0.95,
+const squarenoughtBody = {
+	SPEED: base.SPEED * 0.6,
+	HEALTH: base.HEALTH * 2.5,
+	SHIELD: base.SHIELD * 2.7,
+	REGEN: base.REGEN * 1.4,
+	FOV: base.FOV * 0.95,
+	RESIST: base.RESIST,
+	DENSITY: base.DENSITY * 2.75,
+	ACCELERATION: base.ACCEL * 0.65,
+};
+const trinoughtBody = {
+	SPEED: base.SPEED * 0.55,
+	HEALTH: base.HEALTH * 3.5,
+	SHIELD: base.SHIELD * 2.9,
+	REGEN: base.REGEN * 1.5,
+	FOV: base.FOV * 0.95,
 	RESIST: base.RESIST,
 	DENSITY: base.DENSITY * 3,
+	ACCELERATION: base.ACCEL * 0.55,
+};
+const pentanoughtBody = {
+	SPEED: base.SPEED * 0.5,
+	HEALTH: base.HEALTH * 4.25,
+	SHIELD: base.SHIELD * 3.1,
+	REGEN: base.REGEN * 1.55,
+	FOV: base.FOV * 0.95,
+	RESIST: base.RESIST,
+	DENSITY: base.DENSITY * 3.25,
+	ACCELERATION: base.ACCEL * 0.45,
 };
 const hexnoughtBody = {
-    SPEED: base.SPEED * 0.3,
-    HEALTH: base.HEALTH * 5,
-	SHIELD: base.SHIELD * 3.5,
-	REGEN: base.REGEN * 3.5,
-    FOV: base.FOV * 0.95,
+	SPEED: base.SPEED * 0.45,
+	HEALTH: base.HEALTH * 5,
+	SHIELD: base.SHIELD * 3.3,
+	REGEN: base.REGEN * 1.6,
+	FOV: base.FOV * 0.95,
 	RESIST: base.RESIST,
 	DENSITY: base.DENSITY * 3.5,
+	ACCELERATION: base.ACCEL * 0.4,
 };
 const hpBuffBodyStats = [
-	{ HEALTH: 1.65, SPEED: 1.2,  SHIELD: 1.4,  REGEN: 1.3  },
-	{ HEALTH: 2,    SPEED: 1.33, SHIELD: 1.65, REGEN: 1.45 },
-	{ HEALTH: 2.3,  SPEED: 1.45, SHIELD: 1.9,  REGEN: 1.6  },
-	{ HEALTH: 2.55, SPEED: 1.55, SHIELD: 2.15, REGEN: 1.7  },
+	{ HEALTH: 1.4, SPEED: 1.25, SHIELD: 1.4,  REGEN: 1.3  },
+	{ HEALTH: 1.7, SPEED: 1.1,  SHIELD: 1.65, REGEN: 1.45 },
+	{ HEALTH: 1.8, SPEED: 1.17, SHIELD: 1.9,  REGEN: 1.6  },
+	{ HEALTH: 1.9, SPEED: 1.17, SHIELD: 2.15, REGEN: 1.7  },
 ];
 const speedBuffBodyStats = [
-	{ HEALTH: 0.75, SPEED: 2.1,  SHIELD: 0.05, REGEN: 1   },
-	{ HEALTH: 0.62, SPEED: 2.45, SHIELD: 0.72, REGEN: 0.9 },
-	{ HEALTH: 0.55, SPEED: 2.75, SHIELD: 0.6,  REGEN: 0.0 },
+	{ HEALTH: 0.85, SPEED: 1.4, SHIELD: 0.9,  REGEN: 1   },
+	{ HEALTH: 0.8,  SPEED: 1.5, SHIELD: 0.83, REGEN: 0.9 },
+	{ HEALTH: 0.75, SPEED: 1.6, SHIELD: 0.75, REGEN: 0.8 },
 ];
+const healerBodyStats = [
+	{ HEALTH: 1.1,  SPEED: 1.04, SHIELD: 1.2,  REGEN: 1.15 },
+	{ HEALTH: 1,    SPEED: 0.98, SHIELD: 1.28, REGEN: 1.2  },
+	{ HEALTH: 0.92, SPEED: 0.94, SHIELD: 1.35, REGEN: 1.25 },
+];
+
+function combineBodyStats(...bodies) {
+	let output = {
+		HEALTH: 1,
+		SPEED: 1,
+		SHIELD: 1,
+		REGEN: 1,
+	}
+	for (let body of bodies) {
+		for (let k in body) {
+			output[k] *= body[k];
+		}
+	}
+	return output;
+}
 
 // Comment out the line below to enable this addon, uncomment it to disable this addon.
 // return console.log('--- Dreadnoughts v2 addon [dreadv2.js] is disabled. See lines 60-61 to enable it. ---');
@@ -83,14 +108,14 @@ Class.genericEggnought = {
 	SHAPE: 0,
 	COLOR: 'egg',
 	SIZE: 16,
-	DANGER: 0,
+	DANGER: 8,
 }
 Class.genericSquarenought = {
 	PARENT: "genericDreadnoughtOfficialV2",
 	BODY: squarenoughtBody,
 	SHAPE: 4,
 	COLOR: 'square',
-	SIZE: 0,
+	SIZE: 20,
 	DANGER: 9,
 }
 Class.genericTrinought = {
@@ -115,7 +140,7 @@ Class.genericHexnought = {
 	SHAPE: 6,
 	COLOR: 'hexagon',
 	SIZE: 26,
-	DANGER: 0,
+	DANGER: 12,
 }
 
 Class.spamAutoTurret = {
@@ -125,20 +150,7 @@ Class.spamAutoTurret = {
 		{
 			POSITION: [22, 10, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.autoTurret, {recoil: 0.2}]),
-				TYPE: "bullet",
-			},
-		},
-	],
-}
-Class.spamAutoTurretWeak = {
-	PARENT: "autoTankGun",
-	INDEPENDENT: true,
-	GUNS: [
-		{
-			POSITION: [22, 10, 1, 0, 0, 0, 0],
-			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.autoTurret, {reload: 1.1, health: 0.9, damage: 0.0, recoil: 0.2}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.flankGuard, g.autoTurret, {recoil: 0.2}]),
 				TYPE: "bullet",
 			},
 		},
@@ -149,30 +161,30 @@ Class.supermissile = {
 	LABEL: "Missile",
 	INDEPENDENT: true,
 	BODY: {
-		RANGE: 00,
+		RANGE: 120,
 	},
 	GUNS: [
 		{
-			POSITION: [0, 6, 1, 0, -2, 130, 0],
+			POSITION: [14, 6, 1, 0, -2, 130, 0],
 			PROPERTIES: {
 				AUTOFIRE: true,
-				SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {speed: 1.3, maxSpeed: 1.3}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {reload: 1.15, speed: 1.3, maxSpeed: 1.3, recoil: 0.75}]),
 				TYPE: ["bullet", {PERSISTS_AFTER_DEATH: true}],
-				STAT_CALCULATOR: gunCalcNames.thruster,
+				STAT_CALCULATOR: "thruster",
 			},
 		}, {
-			POSITION: [0, 6, 1, 0, 2, 230, 0],
+			POSITION: [14, 6, 1, 0, 2, 230, 0],
 			PROPERTIES: {
 				AUTOFIRE: true,
-				SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {speed: 1.3, maxSpeed: 1.3}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {reload: 1.15, speed: 1.3, maxSpeed: 1.3, recoil: 0.75}]),
 				TYPE: ["bullet", {PERSISTS_AFTER_DEATH: true}],
-				STAT_CALCULATOR: gunCalcNames.thruster,
+				STAT_CALCULATOR: "thruster",
 			},
 		}, {
-			POSITION: [0, 6, 1, 0, 0, 0, 0.2],
+			POSITION: [14, 6, 1, 0, 0, 0, 0.2],
 			PROPERTIES: {
 				AUTOFIRE: true,
-				SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, g.skimmer, {speed: 1.3, maxSpeed: 1.3}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, g.skimmer, {reload: 1.15, speed: 1.15, maxSpeed: 1.15, recoil: 0.75}]),
 				TYPE: ["bullet", {PERSISTS_AFTER_DEATH: true}],
 			},
 		},
@@ -180,13 +192,39 @@ Class.supermissile = {
 };
 Class.betadrone = {
 	PARENT: "drone",
-	TURRETS: [
+	PROPS: [
 		{
-			POSITION: [10, 0, 0, 100, 0, 1],
+			POSITION: [10, 0, 0, 180, 1],
 			TYPE: ["triangle", {COLOR: -1}],
 		},
 	]
 }
+
+// Auras
+Class.atmosphereAuraOfficialV2 = addAura(1, 1, 0.15);
+Class.coronaAuraOfficialV2 = addAura(1.15, 0.8, 0.15);
+Class.trinoughtBigAura = addAura(0.7, 1.5);
+Class.trinoughtSmallAura = addAura(0.7, 2.1, 0.15);
+Class.pentanoughtBigAura = addAura(1.2, 1.45);
+Class.pentanoughtSmallAura = addAura(1.2, 1.6, 0.15);
+if (useOldPhotosphere) {
+	Class.photosphereSmallAuraOfficialV2 = addAura(1.25, 1.85, 0.15);
+	Class.photosphereBigAuraOfficialV2 = addAura(0.25, 4);
+}
+Class.gladiatorAuraMinionAuraOfficialV2 = addAura(0.333, 1.2);
+
+Class.thermosphereAuraOfficialV2 = addAura(-1, 1.5);
+Class.trinoughtBigHealAura = addAura(-0.7, 1.5);
+Class.trinoughtSmallHealAura = addAura(-0.7, 2.1, 0.15);
+Class.pentanoughtBigHealAura = addAura(-0.8, 1.45);
+Class.pentanoughtSmallHealAura = addAura(-0.8, 1.6, 0.15);
+Class.gladiatorHealAuraMinionAuraOfficialV2 = addAura(-0.333, 1.2);
+
+// gStat turret modifiers
+g.triSecondaryAuto = {reload: 1.1, health: 0.83};
+g.pentaSecondaryAuto = {reload: 1.1, health: 0.88}
+g.triKilobyte = {reload: 1.05, health: 0.9, speed: 0.95, maxSpeed: 0.95};
+g.pentaMegabyte = {reload: 1.05, health: 0.95, speed: 0.9, maxSpeed: 0.9};
 
 // T0
 Class.dreadOfficialV2 = {
@@ -194,16 +232,16 @@ Class.dreadOfficialV2 = {
 	LABEL: "Dreadnought",
 	UPGRADE_LABEL: "Dreads V2",
 	LEVEL: 90,
-	EXTRA_SKILL: 10,
+	EXTRA_SKILL: 18,
 }
 Class.dreadWeaponOfficialV2 = {
 	LABEL: "",
-	COLOR: 6,
+	COLOR: 'egg',
 	REROOT_UPGRADE_TREE: "dreadWeaponOfficialV2",
 }
 Class.dreadBodyOfficialV2 = {
 	LABEL: "",
-	COLOR: 6,
+	COLOR: 'egg',
 	REROOT_UPGRADE_TREE: "dreadBodyOfficialV2",
 }
 
@@ -211,10 +249,13 @@ Class.dreadBodyOfficialV2 = {
 Class.swordOfficialV2 = {
 	PARENT: "genericEggnought",
 	LABEL: "Sword",
+	BODY: {
+		FOV: eggnoughtBody.FOV * 1.2
+	},
 	GUNS: weaponArray({
-		POSITION: [0, 7, 1, 0, 0, 0, 0],
+		POSITION: [20, 7, 1, 0, 0, 0, 0],
 		PROPERTIES: {
-			SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, {reload: 1.1, health: 1.2}]),
+			SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, {reload: 1.1, health: 1.2, range: 0.65}]),
 			TYPE: "bullet",
 		},
 	}, 2),
@@ -244,7 +285,7 @@ Class.peacekeeperOfficialV2 = {
 	GUNS: weaponArray({
 		POSITION: [17, 9, 1, 0, 0, 0, 0],
 		PROPERTIES: {
-			SHOOT_SETTINGS: combineStats([g.basic, g.pounder, {reload: 0.9, damage: 0.96}]),
+			SHOOT_SETTINGS: combineStats([g.basic, g.pounder, {reload: 0.9, damage: 0.96, range: 0.9}]),
 			TYPE: "bullet",
 		},
 	}, 2),
@@ -256,15 +297,19 @@ Class.peacekeeper2OfficialV2 = {
 Class.invaderOfficialV2 = {
 	PARENT: "genericEggnought",
 	LABEL: "Invader",
+	BODY: { 
+		FOV: eggnoughtBody.FOV * 1.1,
+		SPEED: eggnoughtBody.SPEED * 0.9,
+	},
 	GUNS: weaponArray({
-		POSITION: [5, 9, 1.2, 0, 0, 0, 0],
+		POSITION: [5, 9, 1.2, 8, 0, 0, 0],
 		PROPERTIES: {
-			SHOOT_SETTINGS: combineStats([g.drone, g.overseer, {reload: 0.9, health: 1.05}]),
+			SHOOT_SETTINGS: combineStats([g.drone, g.overseer, {reload: 0.85, health: 1.08, maxSpeed: 0.95}]),
 			TYPE: "drone",
 			MAX_CHILDREN: 4,
 			AUTOFIRE: true,
 			SYNCS_SKILLS: true,
-			STAT_CALCULATOR: gunCalcNames.drone,
+			STAT_CALCULATOR: "drone",
 			WAIT_TO_CYCLE: true,
 		},
 	}, 2),
@@ -282,9 +327,9 @@ Class.centaurOfficialV2 = {
 		}, {
 			POSITION: [3, 7, 1.5, 13, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.trap, g.pounder, {shudder: 0.4}]),
+				SHOOT_SETTINGS: combineStats([g.trap, g.pounder, {health: 1.15, shudder: 0.4, speed: 0.85, range: 0.85}]),
 				TYPE: "trap",
-				STAT_CALCULATOR: gunCalcNames.trap,
+				STAT_CALCULATOR: "trap",
 			},
 		},
 	], 2),
@@ -302,7 +347,7 @@ Class.byteTurretOfficialV2 = {
 		{
 			POSITION: [22, 10, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.turret, {health: 1.2, speed: 0.05, recoil: 1.15}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.turret, {health: 1.2, speed: 0.85, recoil: 1.15}]),
 				TYPE: "bullet",
 			},
 		},
@@ -324,7 +369,6 @@ Class.byteOfficialV2 = {
 		}
 	]
 }
-Class.atmosphereAuraOfficialV2 = addAura(1, 1, 0.15);
 Class.atmosphereOfficialV2 = {
 	PARENT: "genericEggnought",
 	LABEL: "Atmosphere",
@@ -336,7 +380,7 @@ Class.atmosphereOfficialV2 = {
 	],
 	PROPS: [
 		{
-			POSITION: [0, 0, 0, 0, 1],
+			POSITION: [14, 0, 0, 0, 1],
 			TYPE: 'egg',
 		}
 	]
@@ -360,13 +404,16 @@ Class.juggernautOfficialV2 = {
 Class.gladiusOfficialV2 = {
 	PARENT: "genericSquarenought",
 	LABEL: "Gladius",
+	BODY: { 
+		FOV: squarenoughtBody.FOV * 1.225,
+	},
 	GUNS: weaponArray([
 		{
-			POSITION: [17, 0, 1, 0, 0, 0, 0],
+			POSITION: [17, 8, 1, 0, 0, 0, 0],
 		}, {
 			POSITION: [19.5, 5, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, {speed: 1.05, maxSpeed: 1.05, health: 1.0, damage: 1.5}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, {speed: 1.05, maxSpeed: 1.05, damage: 1.12, range: 0.65, damage: 1.4}]),
 				TYPE: "bullet",
 			},
 		},
@@ -375,11 +422,15 @@ Class.gladiusOfficialV2 = {
 Class.sabreOfficialV2 = {
 	PARENT: "genericSquarenought",
 	LABEL: "Sabre",
+	BODY: {
+		FOV: squarenoughtBody.FOV * 1.4,
+		SPEED: squarenoughtBody.SPEED * 0.9,
+	},
 	GUNS: weaponArray([
 		{
 			POSITION: [24, 7, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, {reload: 1.23, health: 1.30, speed: 1.1, maxSpeed: 1.1, density: 1.2, damage: 2}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, {reload: 1.23, health: 1.33, speed: 1.1, maxSpeed: 1.1, density: 1.2, range: 0.65}]),
 				TYPE: "bullet",
 			},
 		}, {
@@ -394,13 +445,13 @@ Class.mediatorOfficialV2 = {
 		{
 			POSITION: [15, 7, 1, 0, 4.25, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.twin, {health: 1.09, damage: 1.4}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.twin, {health: 1.09, range: 0.9}]),
 				TYPE: "bullet",
 			},
 		}, {
 			POSITION: [15, 7, 1, 0, -4.25, 0, 0.5],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.twin, {health: 1.09, damage: 1.4}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.twin, {health: 1.09, range: 0.9}]),
 				TYPE: "bullet",
 			},
 		},
@@ -410,9 +461,9 @@ Class.negotiatorOfficialV2 = {
 	PARENT: "genericSquarenought",
 	LABEL: "Negotiator",
 	GUNS: weaponArray({
-		POSITION: [9, 0, 1.4, 6, 0, 0, 0],
+		POSITION: [9, 8, 1.4, 6, 0, 0, 0],
 		PROPERTIES: {
-			SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, {size: 0.0, speed: 0.05, maxSpeed: 0.05, health: 1.23, damage: 1.25}]),
+			SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, {size: 0.85, speed: 0.85, maxSpeed: 0.75, health: 1.23, range: 0.75}]),
 			TYPE: "bullet",
 		},
 	}, 4),
@@ -423,7 +474,7 @@ Class.enforcerOfficialV2 = {
 	GUNS: weaponArray({
 		POSITION: [17, 9, 1, 0, 0, 0, 0],
 		PROPERTIES: {
-			SHOOT_SETTINGS: combineStats([g.basic, g.pounder, {reload: 1.13, health: 1.27, damage: 3}]),
+			SHOOT_SETTINGS: combineStats([g.basic, g.pounder, {reload: 1.25, health: 1.37, range: 0.9}]),
 			TYPE: "bullet",
 		},
 	}, 4),
@@ -433,11 +484,11 @@ Class.executorOfficialV2 = {
 	LABEL: "Executor",
 	GUNS: weaponArray([
 		{
-			POSITION: [11, 6, 1, 0, 0, 0, 0],
+			POSITION: [11, 6, 1, 8, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery, g.skimmer, {reload: 1.1, health: 1.25, damage: 2.75}]),
-				TYPE: "missile",
-				STAT_CALCULATOR: gunCalcNames.sustained,
+				SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery, g.skimmer, {reload: 1.1, health: 1.35, speed: 0.7, maxSpeed: 0.65, range: 0.33}]),
+				TYPE: ["missile", {GUN_STAT_SCALE: {recoil: 0.6}}],
+				STAT_CALCULATOR: "sustained",
 			},
 		}, {
 			POSITION: [17, 9, 1, 0, 0, 0, 0],	
@@ -447,15 +498,19 @@ Class.executorOfficialV2 = {
 Class.inquisitorOfficialV2 = {
 	PARENT: "genericSquarenought",
 	LABEL: "Inquisitor",
+	BODY: { 
+		FOV: squarenoughtBody.FOV * 1.1,
+		SPEED: squarenoughtBody.SPEED * 0.9,
+	},
 	GUNS: weaponArray({
-		POSITION: [5, 11, 1.1, 0, 0, 0, 0],
+		POSITION: [5, 11, 1.1, 8, 0, 0, 0],
 		PROPERTIES: {
-			SHOOT_SETTINGS: combineStats([g.drone, g.overseer, {reload: 0.9, health: 0.75}]),
+			SHOOT_SETTINGS: combineStats([g.drone, g.overseer, {reload: 0.9, health: 0.8, maxSpeed: 0.9}]),
 			TYPE: "drone",
 			MAX_CHILDREN: 3,
 			AUTOFIRE: true,
 			SYNCS_SKILLS: true,
-			STAT_CALCULATOR: gunCalcNames.drone,
+			STAT_CALCULATOR: "drone",
 			WAIT_TO_CYCLE: true,
 		},
 	}, 4),
@@ -467,7 +522,7 @@ Class.assailantMinionOfficialV2 = {
 	GUNS: weaponArray({
 		POSITION: [15, 7.5, 1, 0, 0, 0, 0],
 		PROPERTIES: {
-			SHOOT_SETTINGS: combineStats([g.basic, g.assassin, g.minionGun, {reload: 1.7, health: 1.1}]),
+			SHOOT_SETTINGS: combineStats([g.basic, g.assassin, g.minionGun, {reload: 1.8, health: 1.1}]),
 			WAIT_TO_CYCLE: true,
 			TYPE: "bullet",
 		},
@@ -476,6 +531,10 @@ Class.assailantMinionOfficialV2 = {
 Class.assailantOfficialV2 = {
 	PARENT: "genericSquarenought",
 	LABEL: "Assailant",
+	BODY: { 
+		FOV: squarenoughtBody.FOV * 1.1,
+		SPEED: squarenoughtBody.SPEED * 0.85,
+	},
 	GUNS: weaponArray([
 		{
 			POSITION: [5, 10, 1, 10.5, 0, 0, 0],
@@ -483,15 +542,16 @@ Class.assailantOfficialV2 = {
 			POSITION: [1.5, 11, 1, 15, 0, 0, 0],
 			PROPERTIES: {
 				MAX_CHILDREN: 4,
-				SHOOT_SETTINGS: combineStats([g.factory, {size: 0.9, reload: 1.65, health: 1.3, damage: 0.90, speed: 0.0, maxSpeed: 0.0}]),
+				SHOOT_SETTINGS: combineStats([g.factory, {size: 0.9, reload: 1.95, health: 1.3, damage: 0.65, pen: 0.9, speed: 0.8, maxSpeed: 0.8, density: 1.5}]),
 				TYPE: "assailantMinionOfficialV2",
-				STAT_CALCULATOR: gunCalcNames.drone,
+				STAT_CALCULATOR: "drone",
 				AUTOFIRE: true,
 				SYNCS_SKILLS: true,
 				MAX_CHILDREN: 2,
+				WAIT_TO_CYCLE: true,
 			},
 		}, {
-			POSITION: [0, 11, 1, 0, 0, 0, 0],
+			POSITION: [12, 11, 1, 0, 0, 0, 0],
 		},
 	], 4),
 }
@@ -504,18 +564,18 @@ Class.daemonOfficialV2 = {
 		}, {
 			POSITION: [2, 4.5, 1.7, 11, 4.5, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, {health: 0.7, speed: 0.7, maxSpeed: 0.7, range: 0.7, shudder: 0.5, damage: 1.5}]),
+				SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, {health: 0.73, speed: 0.7, maxSpeed: 0.7, range: 0.67, shudder: 0.5}]),
 				TYPE: "trap",
-				STAT_CALCULATOR: gunCalcNames.trap,
+				STAT_CALCULATOR: "trap",
 			},
 		}, {
 			POSITION: [11.5, 4.5, 1, 0, -4.5, 0, 0],
 		}, {
 			POSITION: [2, 4.5, 1.7, 11, -4.5, 0, 0.5],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, {health: 0.7, speed: 0.7, maxSpeed: 0.7, range: 0.7, shudder: 0.5, damage: 1.5}]),
+				SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, {health: 0.73, speed: 0.7, maxSpeed: 0.7, range: 0.67, shudder: 0.5}]),
 				TYPE: "trap",
-				STAT_CALCULATOR: gunCalcNames.trap,
+				STAT_CALCULATOR: "trap",
 			},
 		},
 	], 4),
@@ -529,9 +589,9 @@ Class.minotaurOfficialV2 = {
 		}, {
 			POSITION: [3.75, 7, 1.75, 13, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.pounder, {shudder: 0.7, range: 0.6, damage: 3}]),
+				SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.pounder, {health: 0.85, shudder: 0.7, range: 0.67}]),
 				TYPE: "unsetTrap",
-				STAT_CALCULATOR: gunCalcNames.block
+				STAT_CALCULATOR: "block"
 			},
 		},
 	], 4),
@@ -542,8 +602,8 @@ Class.automationOfficialV2 = {
 	PARENT: "genericSquarenought",
 	LABEL: "Automation",
 	TURRETS: weaponArray({
-		POSITION: [4, 9, 0, 45, 100, 2],
-		TYPE: "spamAutoTurret",
+		POSITION: [4, 9, 0, 45, 180, 2],
+		TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: {reload: 0.9, health: 1.2}}],
 	}, 4), 
 	PROPS: [
 		{
@@ -559,7 +619,7 @@ Class.kilobyteTurretOfficialV2 = {
 		{
 			POSITION: [26, 10, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.turret, g.assassin, {health: 1.24, speed: 0.77, recoil: 1.15}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.turret, g.assassin, {health: 1.39, speed: 0.63, recoil: 1.8, range: 0.55}]),
 				TYPE: "bullet",
 			},
 		},
@@ -576,12 +636,11 @@ Class.kilobyteOfficialV2 = {
 	],
 	PROPS: [
 		{
-			POSITION: [0, 0, 0, 0, 1],
+			POSITION: [12, 0, 0, 0, 1],
 			TYPE: "square"
 		},
 	]
 }
-Class.coronaAuraOfficialV2 = addAura(1.5, 0.0, 0.15);
 Class.coronaOfficialV2 = {
 	PARENT: "genericSquarenought",
 	LABEL: "Corona",
@@ -593,15 +652,15 @@ Class.coronaOfficialV2 = {
 	],
 	PROPS: [
 		{
-			POSITION: [0, 0, 0, 0, 1],
+			POSITION: [14, 0, 0, 0, 1],
 			TYPE: "square"
 		},
 	]
 }
-Class.thermosphereAuraOfficialV2 = addAura(-1, 1.5);
 Class.thermosphereOfficialV2 = {
 	PARENT: "genericSquarenought",
 	LABEL: "Thermosphere",
+	BODY: healerBodyStats[0],
 	TURRETS: [
 		{
 			POSITION: [11, 0, 0, 0, 360, 2],
@@ -610,7 +669,7 @@ Class.thermosphereOfficialV2 = {
 	],
 	PROPS: [
 		{
-			POSITION: [0, 0, 0, 0, 1],
+			POSITION: [14, 0, 0, 0, 1],
 			TYPE: "square"
 		},
 	]
@@ -645,14 +704,14 @@ Class.colossusBottomOfficialV2 = {
 }
 Class.colossusOfficialV2 = {
 	PARENT: "genericSquarenought",
-	LABEL: "colossus",
+	LABEL: "Colossus",
 	BODY: speedBuffBodyStats[0],
 	PROPS: [
 		{
 			POSITION: [13, 0, 0, 0, 1],
 			TYPE: 'colossusTopOfficialV2'
 		}, {
-			POSITION: [0, 0, 0, 0, 0],
+			POSITION: [20, 0, 0, 0, 0],
 			TYPE: 'colossusBottomOfficialV2'
 		},
 	],
@@ -661,21 +720,24 @@ Class.colossusOfficialV2 = {
 Class.bladeOfficialV2 = {
 	PARENT: "genericTrinought",
 	LABEL: "Blade",
+	BODY: { 
+		FOV: trinoughtBody.FOV * 1.225,
+	},
 	GUNS: weaponArray([
 		{
 			POSITION: [17, 1, 1, 0, 6, 0, 0],
 		}, {
 			POSITION: [17, 1, 1, 0, -6, 0, 0],
 		}, {
-			POSITION: [10, 5, 1, 0, 3, 0, 0],
+			POSITION: [18, 5, 1, 0, 3, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.09, maxSpeed: 1.09, health: 1.15, damage: 2.6}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.09, maxSpeed: 1.09, health: 1.09, range: 0.65, damage: 1.6}]),
 				TYPE: "bullet",
 			},
 		}, {
-			POSITION: [10, 5, 1, 0, -3, 0, 0.5],
+			POSITION: [18, 5, 1, 0, -3, 0, 0.5],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.09, maxSpeed: 1.09, health: 1.15, damage: 2.6}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.09, maxSpeed: 1.09, health: 1.09, range: 0.65, damage: 1.6}]),
 				TYPE: "bullet",
 			},
 		},
@@ -684,11 +746,15 @@ Class.bladeOfficialV2 = {
 Class.bayonetOfficialV2 = {
 	PARENT: "genericTrinought",
 	LABEL: "Bayonet",
+	BODY: {
+		FOV: trinoughtBody.FOV * 1.5,
+		SPEED: trinoughtBody.SPEED * 0.85,
+	},
 	GUNS: weaponArray([
 		{
-			POSITION: [0, 7, 1, 0, 0, 0, 0],
+			POSITION: [28, 7, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, g.assassin, {reload: 1.05, health: 0.90, density: 0.45, damage: 3.9}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, g.assassin, {reload: 1.05, health: 0.98, density: 0.45, range: 0.65}]),
 				TYPE: "bullet",
 			},
 		}, {
@@ -701,15 +767,15 @@ Class.mitigatorOfficialV2 = {
 	LABEL: "Mitigator",
 	GUNS: weaponArray([
 		{
-			POSITION: [10, 0, 1, 3, 5, 0, 0],
+			POSITION: [10, 8, 1, 3, 5, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.twin, {health: 1.15, damage: 2.1}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.twin, {health: 1.15, range: 0.9}]),
 				TYPE: "bullet",
 			},
 		}, {
-			POSITION: [10, 0, 1, 3, -5, 0, 0.5],
+			POSITION: [10, 8, 1, 3, -5, 0, 0.5],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.twin, {health: 1.15, damage: 2.1}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.twin, {health: 1.15, range: 0.9}]),
 				TYPE: "bullet",
 			},
 		},
@@ -722,13 +788,13 @@ Class.appeaserOfficialV2 = {
 		{
 			POSITION: [7, 11, 1.35, 6, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.spam, {size: 0.7, health: 0.96}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.spam, {size: 0.7, health: 1.03, range: 0.75}]),
 				TYPE: "bullet",
 			},
 		}, {
-			POSITION: [7, 10, 1.3, 0, 0, 0, 0],
+			POSITION: [7, 10, 1.3, 8, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.spam, {size: 0.6, health: 0.95, reload: 1.1}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.spam, {size: 0.6, health: 1.03, range: 0.75, reload: 1.05}]),
 				TYPE: "bullet",
 			},
 		},
@@ -740,7 +806,7 @@ Class.suppressorOfficialV2 = {
 	GUNS: weaponArray({
 		POSITION: [16.5, 11.5, 1, 0, 0, 0, 0],
 		PROPERTIES: {
-			SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, {reload: 1.1, health: 1.19, damage: 4.0}]),
+			SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, {reload: 1.1, health: 1.19}]),
 			TYPE: "bullet",
 		},
 	}, 3),
@@ -750,13 +816,13 @@ Class.inhibitorOfficialV2 = {
 	LABEL: "Inhibitor",
 	GUNS: weaponArray([
 		{
-			POSITION: [10, 0, -0.75, 7, 0, 0, 0],
+			POSITION: [10, 14, -0.75, 7, 0, 0, 0],
 		}, {
 			POSITION: [15, 15, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery, g.skimmer, {reload: 1.15, health: 1.33, damage: 4}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery, g.skimmer, {reload: 1.15, health: 1.33, speed: 0.7, maxSpeed: 0.7, range: 0.4}]),
 				TYPE: "supermissile",
-				STAT_CALCULATOR: gunCalcNames.sustained,
+				STAT_CALCULATOR: "sustained",
 			},
 		},
 	], 3),
@@ -764,38 +830,42 @@ Class.inhibitorOfficialV2 = {
 Class.infiltratorOfficialV2 = {
 	PARENT: "genericTrinought",
 	LABEL: "Infiltrator",
+	BODY: { 
+		FOV: trinoughtBody.FOV * 1.1,
+		SPEED: trinoughtBody.SPEED * 0.9,
+	},
 	GUNS: weaponArray([
 		{
 			POSITION: [5, 6, 1.4, 6, 5.5, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.overseer, {maxSpeed: 0.9, size: 1.5, reload: 0.9}]),
+				SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.overseer, {maxSpeed: 0.9, size: 1.5, reload: 1.4}]),
 				TYPE: "drone",
 				MAX_CHILDREN: 2,
 				AUTOFIRE: true,
 				SYNCS_SKILLS: true,
-				STAT_CALCULATOR: gunCalcNames.drone,
+				STAT_CALCULATOR: "drone",
 				WAIT_TO_CYCLE: true,
 			},
 		}, {
 			POSITION: [5, 6, 1.4, 6, -5.5, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.overseer, {maxSpeed: 0.9, size: 1.5, reload: 0.9}]),
+				SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.overseer, {maxSpeed: 0.9, size: 1.5, reload: 1.4}]),
 				TYPE: "drone",
 				MAX_CHILDREN: 2,
 				AUTOFIRE: true,
 				SYNCS_SKILLS: true,
-				STAT_CALCULATOR: gunCalcNames.drone,
+				STAT_CALCULATOR: "drone",
 				WAIT_TO_CYCLE: true,
 			},
 		}, {
-			POSITION: [5, 6, 1.4, 0, 0, 0, 0],
+			POSITION: [5, 6, 1.4, 8, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.overseer, g.pounder, {damage: 0.05, maxSpeed: 0.9, size: 2, reload: 0.0}]),
+				SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.overseer, g.pounder, {damage: 0.85, maxSpeed: 0.9, size: 2, reload: 1.4}]),
 				TYPE: "betadrone",
 				MAX_CHILDREN: 2,
 				AUTOFIRE: true,
 				SYNCS_SKILLS: true,
-				STAT_CALCULATOR: gunCalcNames.drone,
+				STAT_CALCULATOR: "drone",
 				WAIT_TO_CYCLE: true,
 			},
 		},
@@ -806,9 +876,9 @@ Class.aggressorMinionOfficialV2 = {
 	SHAPE: 3.5,
 	COLOR: "triangle",
 	GUNS: weaponArray({
-		POSITION: [16, 0.5, 1, 0, 0, 0, 0],
+		POSITION: [16, 8.5, 1, 0, 0, 0, 0],
 		PROPERTIES: {
-			SHOOT_SETTINGS: combineStats([g.basic, g.assassin, g.minionGun, {speed: 1.06, maxSpeed: 1.06, reload: 1.0, health: 1.25}]),
+			SHOOT_SETTINGS: combineStats([g.basic, g.assassin, g.minionGun, {speed: 1.06, maxSpeed: 1.06, reload: 1.75, health: 1.25}]),
 			WAIT_TO_CYCLE: true,
 			TYPE: "bullet",
 		},
@@ -817,21 +887,26 @@ Class.aggressorMinionOfficialV2 = {
 Class.aggressorOfficialV2 = {
 	PARENT: "genericTrinought",
 	LABEL: "Aggressor",
+	BODY: { 
+		FOV: trinoughtBody.FOV * 1.1,
+		SPEED: trinoughtBody.SPEED * 0.85,
+	},
 	GUNS: weaponArray([
 		{
-			POSITION: [5, 0, 1, 10, 0, 0, 0],
+			POSITION: [5, 12, 1, 10, 0, 0, 0],
 		}, {
 			POSITION: [1.5, 13, 1, 15, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.factory, {size: 0.9, reload: 1.65, health: 1.72, damage: 0.7, speed: 0.0, maxSpeed: 0.0}]),
+				SHOOT_SETTINGS: combineStats([g.factory, {size: 0.9, reload: 1.8, health: 1.72, damage: 0.67, pen: 0.9, speed: 0.8, maxSpeed: 0.8, density: 1.6}]),
 				TYPE: "aggressorMinionOfficialV2",
-				STAT_CALCULATOR: gunCalcNames.drone,
+				STAT_CALCULATOR: "drone",
 				AUTOFIRE: true,
 				SYNCS_SKILLS: true,
 				MAX_CHILDREN: 2,
+				WAIT_TO_CYCLE: true,
 			},
 		}, {
-			POSITION: [0, 13, 1, 0, 0, 0, 0],
+			POSITION: [12, 13, 1, 0, 0, 0, 0],
 		},
 	], 3),
 }
@@ -840,31 +915,31 @@ Class.hydraOfficialV2 = {
 	LABEL: "Hydra",
 	GUNS: weaponArray([
 		{
-			POSITION: [6, 3.5, 1, 4, 0.5, 0, 0],
+			POSITION: [6, 3.5, 1, 4, 8.5, 0, 0],
 		}, {
-			POSITION: [2, 3.5, 1.0, 10, 0.5, 0, 0.5],
+			POSITION: [2, 3.5, 1.8, 10, 8.5, 0, 0.5],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, {shudder: 0.6, health: 0.7, speed: 1.15, maxSpeed: 1.15, range: 0.05, damage: 2.5}]),
+				SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, {shudder: 0.6, health: 0.7, speed: 1.15, maxSpeed: 1.15, range: 0.85}]),
 				TYPE: "trap",
-				STAT_CALCULATOR: gunCalcNames.trap,
+				STAT_CALCULATOR: "trap",
 			},
 		}, {
-			POSITION: [6, 3.5, 1, 4, -0.5, 0, 0],
+			POSITION: [6, 3.5, 1, 4, -8.5, 0, 0],
 		}, {
-			POSITION: [2, 3.5, 1.0, 10, -0.5, 0, 0.5],
+			POSITION: [2, 3.5, 1.8, 10, -8.5, 0, 0.5],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, {shudder: 0.6, health: 0.7, speed: 1.15, maxSpeed: 1.15, range: 0.05}]),
+				SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, {shudder: 0.6, health: 0.7, speed: 1.15, maxSpeed: 1.15, range: 0.85}]),
 				TYPE: "trap",
-				STAT_CALCULATOR: gunCalcNames.trap,
+				STAT_CALCULATOR: "trap",
 			},
 		}, {
-			POSITION: [0, 5, 1, 0, 0, 0, 0],
+			POSITION: [12, 5, 1, 0, 0, 0, 0],
 		}, {
-			POSITION: [2.5, 5, 1.7, 0, 0, 0, 0],
+			POSITION: [2.5, 5, 1.7, 12, 0, 0, 0],
 			PROPERTIES: {
 				SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.twin, g.pounder, {reload: 1.1, health: 1.02, speed: 0.75, maxSpeed: 0.75, range: 0.65}]),
 				TYPE: "unsetTrap",
-				STAT_CALCULATOR: gunCalcNames.block
+				STAT_CALCULATOR: "block"
 			},
 		},
 	], 3),
@@ -878,9 +953,9 @@ Class.beelzebubOfficialV2 = {
 		}, {
 			POSITION: [3.5, 10, 1.6, 13, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.pounder, {health: 1.4, speed: 1.2, maxSpeed: 1.2, size: 1.2, shudder: 0.65, range: 0.55, damage: 4.0}]),
+				SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.pounder, {health: 1.4, speed: 1.16, maxSpeed: 1.16, size: 1.2, shudder: 0.65, range: 0.55}]),
 				TYPE: "unsetTrap",
-				STAT_CALCULATOR: gunCalcNames.block
+				STAT_CALCULATOR: "block"
 			},
 		},
 	], 3),
@@ -892,28 +967,27 @@ Class.mechanismOfficialV2 = {
 	LABEL: "Mechanism",
 	TURRETS: weaponArray([
 		{
-			POSITION: [3.5, 6, 0, 0, 100, 2],
+			POSITION: [3.5, 6, 0, 0, 180, 2],
 			TYPE: "spamAutoTurret",
 		}, {
-			POSITION: [3.5, 10, 0, 60, 100, 2],
+			POSITION: [3.5, 10, 0, 60, 180, 2],
 			TYPE: "spamAutoTurret",
 		},
 	], 3),
 	PROPS: [
 		{
-			POSITION: [10, 0, 0, 100, 1],
+			POSITION: [10, 0, 0, 180, 1],
 			TYPE: "triangle"
 		},
 	],
 }
-Class.trinoughtBigAura = addAura(2, 1.5);
 Class.fusionOfficialV2 = {
 	PARENT: "genericTrinought",
 	LABEL: "Fusion",
 	TURRETS: [
 		...weaponArray({
-			POSITION: [3.5, 10.5, 0, 60, 100, 2],
-			TYPE: "spamAutoTurret",
+			POSITION: [3.5, 10.5, 0, 60, 180, 2],
+			TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: g.triSecondaryAuto}],
 		}, 3),
 		{
 			POSITION: [9.5, 0, 0, 0, 360, 2],
@@ -922,7 +996,7 @@ Class.fusionOfficialV2 = {
 	],
 	PROPS: [
 		{
-			POSITION: [13, 0, 0, 100, 1],
+			POSITION: [13, 0, 0, 180, 1],
 			TYPE: "triangle"
 		},
 	]
@@ -932,29 +1006,29 @@ Class.binaryOfficialV2 = {
 	LABEL: "Binary",
 	TURRETS: [
 		...weaponArray({
-			POSITION: [3.5, 10.5, 0, 60, 100, 2],
-			TYPE: "spamAutoTurret",
+			POSITION: [3.5, 10.5, 0, 60, 180, 2],
+			TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: g.triSecondaryAuto}],
 		}, 3),
 		{
 			POSITION: [10, 0, 0, 0, 360, 2],
-			TYPE: "kilobyteTurretOfficialV2",
+			TYPE: ["kilobyteTurretOfficialV2", {GUN_STAT_SCALE: g.triKilobyte}],
 		},
 	],
 	PROPS: [
 		{
-			POSITION: [13, 0, 0, 100, 1],
+			POSITION: [13, 0, 0, 180, 1],
 			TYPE: "triangle"
 		},
 	],
 }
-Class.trinoughtBigHealAura = addAura(-1.5, 1.5);
 Class.exosphereOfficialV2 = {
 	PARENT: "genericTrinought",
 	LABEL: "Exosphere",
+	BODY: healerBodyStats[0],
 	TURRETS: [
 		...weaponArray({
-			POSITION: [3.5, 10.5, 0, 60, 100, 2],
-			TYPE: "spamAutoTurret",
+			POSITION: [3.5, 10.5, 0, 60, 180, 2],
+			TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: g.triSecondaryAuto}],
 		}, 3),
 		{
 			POSITION: [9.5, 0, 0, 0, 360, 2],
@@ -963,7 +1037,7 @@ Class.exosphereOfficialV2 = {
 	],
 	PROPS: [
 		{
-			POSITION: [13, 0, 0, 100, 1],
+			POSITION: [13, 0, 0, 180, 1],
 			TYPE: "triangle"
 		},
 	]
@@ -975,7 +1049,7 @@ Class.megabyteTurretOfficialV2 = {
 		{
 			POSITION: [26, 13, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.turret, g.assassin, g.pounder, {health: 1.10, speed: 0.73, recoil: 1.15}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.turret, g.assassin, g.pounder, {size: 0.9, health: 1.31, speed: 0.62, recoil: 2, range: 0.6}]),
 				TYPE: "bullet",
 			},
 		},
@@ -986,18 +1060,17 @@ Class.megabyteOfficialV2 = {
 	LABEL: "Megabyte",
 	TURRETS: [
 		{
-			POSITION: [0, 0, 0, 0, 360, 2],
+			POSITION: [12, 0, 0, 0, 360, 2],
 			TYPE: "megabyteTurretOfficialV2",
 		},
 	],
 	PROPS: [
 		{
-			POSITION: [15, 0, 0, 100, 1],
+			POSITION: [15, 0, 0, 180, 1],
 			TYPE: "triangle"
 		},
 	]
 }
-Class.trinoughtSmallAura = addAura(1, 2.1, 0.15);
 Class.trojanOfficialV2 = {
 	PARENT: "genericTrinought",
 	LABEL: "Trojan",
@@ -1008,20 +1081,20 @@ Class.trojanOfficialV2 = {
 		}, 3),
 		{
 			POSITION: [10, 0, 0, 0, 360, 2],
-			TYPE: "kilobyteTurretOfficialV2",
+			TYPE: ["kilobyteTurretOfficialV2", {GUN_STAT_SCALE: g.triKilobyte}],
 		},
 	],
 	PROPS: [
 		{
-			POSITION: [13, 0, 0, 100, 1],
+			POSITION: [13, 0, 0, 180, 1],
 			TYPE: "triangle"
 		},
 	]
 }
-Class.trinoughtSmallHealAura = addAura(-2/3, 2.1, 0.15);
 Class.hardwareOfficialV2 = {
 	PARENT: "genericTrinought",
 	LABEL: "Hardware",
+	BODY: healerBodyStats[0],
 	TURRETS: [
 		...weaponArray({
 			POSITION: [3.5, 11, 0, 60, 360, 2],
@@ -1029,12 +1102,12 @@ Class.hardwareOfficialV2 = {
 		}, 3),
 		{
 			POSITION: [10, 0, 0, 0, 360, 2],
-			TYPE: "kilobyteTurretOfficialV2",
+			TYPE: ["kilobyteTurretOfficialV2", {GUN_STAT_SCALE: g.triKilobyte}],
 		},
 	],
 	PROPS: [
 		{
-			POSITION: [13, 0, 0, 100, 1],
+			POSITION: [13, 0, 0, 180, 1],
 			TYPE: "triangle"
 		},
 	]
@@ -1054,7 +1127,7 @@ Class.chromosphereOfficialV2 = {
 	],
 	PROPS: [
 		{
-			POSITION: [13, 0, 0, 100, 1],
+			POSITION: [13, 0, 0, 180, 1],
 			TYPE: "triangle"
 		},
 	]
@@ -1062,6 +1135,7 @@ Class.chromosphereOfficialV2 = {
 Class.mesosphereOfficialV2 = {
 	PARENT: "genericTrinought",
 	LABEL: "Mesosphere",
+	BODY: healerBodyStats[1],
 	TURRETS: [
 		...weaponArray({
 			POSITION: [3.5, 10.5, 0, 60, 360, 2],
@@ -1074,7 +1148,7 @@ Class.mesosphereOfficialV2 = {
 	],
 	PROPS: [
 		{
-			POSITION: [13, 0, 0, 100, 1],
+			POSITION: [13, 0, 0, 180, 1],
 			TYPE: "triangle"
 		},
 	]
@@ -1085,10 +1159,10 @@ Class.goliathOfficialV2 = {
 	BODY: hpBuffBodyStats[2],
 	PROPS: [
 		{
-			POSITION: [0, 0, 0, 100, 1],
+			POSITION: [14, 0, 0, 180, 1],
 			TYPE: ['triangle', {COLOR: 9}]
 		}, {
-			POSITION: [24, 0, 0, 100, 0],
+			POSITION: [24, 0, 0, 180, 0],
 			TYPE: ['triangle', {COLOR: 9}]
 		},
 	],
@@ -1103,10 +1177,10 @@ Class.planetOfficialV2 = {
 	}, 3),
 	PROPS: [
 		{
-			POSITION: [24, 0, 0, 100, 0],
+			POSITION: [24, 0, 0, 180, 0],
 			TYPE: ['triangle', {COLOR: 9}]
 		}, {
-			POSITION: [0, 0, 0, 100, 1],
+			POSITION: [12, 0, 0, 180, 1],
 			TYPE: "triangle"
 		}
 	],
@@ -1114,17 +1188,17 @@ Class.planetOfficialV2 = {
 Class.moonOfficialV2 = {
 	PARENT: "genericTrinought",
 	LABEL: "Moon",
-	BODY: hpBuffBodyStats[1],
+	BODY: combineBodyStats(hpBuffBodyStats[1], healerBodyStats[0]),
 	TURRETS: weaponArray({
 		POSITION: [3.5, 10.5, 0, 60, 360, 2],
 		TYPE: "trinoughtSmallHealAura",
 	}, 3),
 	PROPS: [
 		{
-			POSITION: [24, 0, 0, 100, 0],
+			POSITION: [24, 0, 0, 180, 0],
 			TYPE: ['triangle', {COLOR: 9}]
 		}, {
-			POSITION: [0, 0, 0, 100, 1],
+			POSITION: [12, 0, 0, 180, 1],
 			TYPE: "triangle"
 		}
 	],
@@ -1132,7 +1206,7 @@ Class.moonOfficialV2 = {
 Class.titanTopOfficialV2 = {
 	PARENT: "genericTrinought",
 	GUNS: weaponArray({
-		POSITION: [5, 26, 0.001, 0, 0, 0, 0],
+		POSITION: [5, 26, 0.001, 8, 0, 0, 0],
 		PROPERTIES: {COLOR: 9},
 	}, 3),
 }
@@ -1145,7 +1219,7 @@ Class.titanOfficialV2 = {
 			POSITION: [11, 0, 0, 0, 1],
 			TYPE: "titanTopOfficialV2"
 		}, {
-			POSITION: [0, 0, 0, 0, 0],
+			POSITION: [20, 0, 0, 0, 0],
 			TYPE: "titanTopOfficialV2"
 		},
 	],
@@ -1160,10 +1234,10 @@ Class.sirenOfficialV2 = {
 	}, 3),
 	PROPS: [
 		{
-			POSITION: [0, 0, 0, 100, 1],
+			POSITION: [12, 0, 0, 180, 1],
 			TYPE: "triangle"
 		}, {
-			POSITION: [0, 0, 0, 0, 0],
+			POSITION: [20, 0, 0, 0, 0],
 			TYPE: "titanTopOfficialV2"
 		},
 	],
@@ -1171,17 +1245,17 @@ Class.sirenOfficialV2 = {
 Class.harpyOfficialV2 = {
 	PARENT: "genericTrinought",
 	LABEL: "Harpy",
-	BODY: speedBuffBodyStats[0],
+	BODY: combineBodyStats(speedBuffBodyStats[0], healerBodyStats[0]),
 	TURRETS: weaponArray({
 		POSITION: [3.5, 10.5, 0, 60, 360, 1],
 			TYPE: "trinoughtSmallHealAura",
 	}, 3),
 	PROPS: [
 		{
-			POSITION: [0, 0, 0, 100, 1],
+			POSITION: [12, 0, 0, 180, 1],
 			TYPE: "triangle"
 		}, {
-			POSITION: [0, 0, 0, 0, 0],
+			POSITION: [20, 0, 0, 0, 0],
 			TYPE: "titanTopOfficialV2"
 		},
 	],
@@ -1191,21 +1265,24 @@ Class.harpyOfficialV2 = {
 Class.rapierOfficialV2 = {
 	PARENT: "genericPentanought",
 	LABEL: "Rapier",
+	BODY: { 
+		FOV: pentanoughtBody.FOV * 1.225,
+	},
 	GUNS: weaponArray([
 		{
 			POSITION: [17, 1, 1, 0, 6, 0, 0],
 		}, {
 			POSITION: [17, 1, 1, 0, -6, 0, 0],
 		}, {
-			POSITION: [10, 5, 1, 0, 3, 0, 0],
+			POSITION: [18, 5, 1, 0, 3, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.13, maxSpeed: 1.13, health: 1.21, damage: 4.40}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.13, maxSpeed: 1.13, health: 1.15, range: 0.65, damage: 2.4}]),
 				TYPE: "bullet",
 			},
 		}, {
-			POSITION: [10, 5, 1, 0, -3, 0, 0.5],
+			POSITION: [18, 5, 1, 0, -3, 0, 0.5],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.13, maxSpeed: 1.13, health: 1.21, damage: 4.40}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.13, maxSpeed: 1.13, health: 1.15, range: 0.65, damage: 2.4}]),
 				TYPE: "bullet",
 			},
 		},
@@ -1214,11 +1291,15 @@ Class.rapierOfficialV2 = {
 Class.javelinOfficialV2 = {
 	PARENT: "genericPentanought",
 	LABEL: "Javelin",
+	BODY: {
+		FOV: pentanoughtBody.FOV * 1.5,
+		SPEED: pentanoughtBody.SPEED * 0.85,
+	},
 	GUNS: weaponArray([
 		{
-			POSITION: [0, 7, 1, 0, 0, 0, 0],
+			POSITION: [28, 7, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, g.assassin, {reload: 1.13, health: 1.0, density: 0.55, damage: 4.9}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, g.assassin, {reload: 1.13, health: 1.1, density: 0.55, range: 0.65}]),
 				TYPE: "bullet",
 			},
 		}, {
@@ -1233,19 +1314,19 @@ Class.diplomatOfficialV2 = {
 		{
 			POSITION: [13, 7, 1, 0, 3.25, 0, 0.5],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, {health: 1.24, damage: 4}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, {health: 1.15}]),
 				TYPE: "bullet",
 			},
 		}, {
 			POSITION: [13, 7, 1, 0, -3.25, 0, 0.5],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, {health: 1.24, damage: 4}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, {health: 1.15}]),
 				TYPE: "bullet",
 			},
 		}, {
 			POSITION: [15, 7, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, {health: 1.24, damage: 4}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, {health: 1.15}]),
 				TYPE: "bullet",
 			},
 		},
@@ -1258,19 +1339,19 @@ Class.arbitratorOfficialV2 = {
 		{
 			POSITION: [7.5, 10.75, 1.33, 5.5, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, {size: 0.7,  health: 1.33, reload: 1}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, {size: 0.7,  health: 1.05, range: 0.8, reload: 1}]),
 				TYPE: "bullet",
 			},
 		}, {
 			POSITION: [7.5, 9.5, 1.33, 7.5, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, {size: 0.65, health: 1.33, reload: 1.1}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, {size: 0.65, health: 1.05, range: 0.8, reload: 1.05}]),
 				TYPE: "bullet",
 			},
 		}, {
 			POSITION: [7.5, 7.25, 1.25, 9.5, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, {size: 0.7,  health: 1.33, reload: 1.2}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, {size: 0.7,  health: 1.05, range: 0.8, reload: 1.1}]),
 				TYPE: "bullet",
 			},
 		},
@@ -1280,9 +1361,9 @@ Class.retardantOfficialV2 = {
 	PARENT: "genericPentanought",
 	LABEL: "Retardant",
 	GUNS: weaponArray({
-		POSITION: [17, 0, 1, 0, 0, 0, 0],
+		POSITION: [17, 12, 1, 0, 0, 0, 0],
 		PROPERTIES: {
-			SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, {reload: 1.23, health: 1.35, damage: 7.60}]),
+			SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, {reload: 1.1, health: 1.26}]),
 			TYPE: "bullet",
 		},
 	}, 5),
@@ -1294,11 +1375,11 @@ Class.tyrantOfficialV2 = {
 		{
 			POSITION: [10, 11, -0.75, 7, 0, 0, 0],
 		}, {
-			POSITION: [15, 0, 1, 0, 0, 0, 0],
+			POSITION: [15, 12, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery, g.skimmer, {reload: 1.10, health: 1.41, damage: 6.4}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery, g.skimmer, {reload: 1.18, health: 1.39, speed: 0.7, maxSpeed: 0.7, range: 0.4}]),
 				TYPE: "supermissile",
-				STAT_CALCULATOR: gunCalcNames.sustained,
+				STAT_CALCULATOR: "sustained",
 			},
 		},
 	], 5),
@@ -1306,38 +1387,42 @@ Class.tyrantOfficialV2 = {
 Class.raiderOfficialV2 = {
 	PARENT: "genericPentanought",
 	LABEL: "Raider",
+	BODY: { 
+		FOV: pentanoughtBody.FOV * 1.1,
+		SPEED: pentanoughtBody.SPEED * 0.9,
+	},
 	GUNS: weaponArray([
 		{
-			POSITION: [4, 5, 2.1, 0, 3.25, 0, 0],
+			POSITION: [4, 5, 2.1, 8, 3, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.overseer, {damage: 0.9, health: 0.75, maxSpeed: 0.9, size: 1.5, reload: 1.2}]),
+				SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.overseer, {damage: 0.9, health: 0.63, maxSpeed: 0.9, size: 1.5, reload: 1.5}]),
 				TYPE: "drone",
 				MAX_CHILDREN: 2,
 				AUTOFIRE: true,
 				SYNCS_SKILLS: true,
-				STAT_CALCULATOR: gunCalcNames.drone,
+				STAT_CALCULATOR: "drone",
 				WAIT_TO_CYCLE: true,
 			},
 		}, {
-			POSITION: [4, 5, 2.1, 0, -3.25, 0, 0],
+			POSITION: [4, 5, 2.1, 8, -3, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.overseer, {damage: 0.9, health: 0.75, maxSpeed: 0.9, size: 1.5, reload: 1.2}]),
+				SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.overseer, {damage: 0.9, health: 0.63, maxSpeed: 0.9, size: 1.5, reload: 1.5}]),
 				TYPE: "drone",
 				MAX_CHILDREN: 2,
 				AUTOFIRE: true,
 				SYNCS_SKILLS: true,
-				STAT_CALCULATOR: gunCalcNames.drone,
+				STAT_CALCULATOR: "drone",
 				WAIT_TO_CYCLE: true,
 			},
 		}, {
-			POSITION: [6, 6.5, 1.4, 0, 0, 0, 0],
+			POSITION: [6, 6.5, 1.4, 8, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.overseer, g.pounder, {damage: 1.04, maxSpeed: 0.9, size: 2, reload: 1.05}]),
+				SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.overseer, g.pounder, {damage: 1.06, maxSpeed: 0.9, size: 2, reload: 1.5}]),
 				TYPE: "betadrone",
 				MAX_CHILDREN: 1,
 				AUTOFIRE: true,
 				SYNCS_SKILLS: true,
-				STAT_CALCULATOR: gunCalcNames.drone,
+				STAT_CALCULATOR: "drone",
 				WAIT_TO_CYCLE: true,
 			},
 		},
@@ -1352,9 +1437,9 @@ Class.gladiatorGenericMinionOfficialV2 = {
 Class.gladiatorTritankMinionOfficialV2 = {
 	PARENT: "gladiatorGenericMinionOfficialV2",
 	GUNS: weaponArray({
-		POSITION: [15, 0.5, 1, 0, 0, 0, 0],
+		POSITION: [15, 8.5, 1, 0, 0, 0, 0],
 		PROPERTIES: {
-			SHOOT_SETTINGS: combineStats([g.basic, g.assassin, g.minionGun, {speed: 1.06, maxSpeed: 1.06, reload: 1.0, health: 1.3}]),
+			SHOOT_SETTINGS: combineStats([g.basic, g.assassin, g.minionGun, {speed: 1.06, maxSpeed: 1.06, reload: 1.8, health: 1.3}]),
 			WAIT_TO_CYCLE: true,
 			TYPE: ["bullet", {COLOR: 5}],
 		},
@@ -1368,9 +1453,9 @@ Class.gladiatorTritrapMinionOfficialV2 = {
 		}, {
 			POSITION: [3, 7, 1.7, 13, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.trap, g.pounder, g.flankGuard, g.minionGun, {reload: 1.2, speed: 0.0, maxSpeed: 0.0}]),
+				SHOOT_SETTINGS: combineStats([g.trap, g.pounder, g.flankGuard, g.minionGun, {reload: 1.2, speed: 0.8, maxSpeed: 0.8}]),
 				TYPE: "trap",
-				STAT_CALCULATOR: gunCalcNames.trap,
+				STAT_CALCULATOR: "trap",
 			},
 		},
 	], 3),
@@ -1378,33 +1463,31 @@ Class.gladiatorTritrapMinionOfficialV2 = {
 Class.gladiatorTriswarmMinionOfficialV2 = {
 	PARENT: "gladiatorGenericMinionOfficialV2",
 	GUNS: weaponArray({
-		POSITION: [7, 0.5, -1.5, 7, 0, 0, 0],
+		POSITION: [7, 8.5, -1.5, 7, 0, 0, 0],
 		PROPERTIES: {
 			SHOOT_SETTINGS: combineStats([g.swarm, g.flankGuard, g.minionGun, {speed: 1.1, maxSpeed: 1.1, reload: 1.6, size: 1.6, range: 1.15}]),
 			TYPE: ["swarm", {COLOR: 5}],
-			STAT_CALCULATOR: gunCalcNames.swarm,
+			STAT_CALCULATOR: "swarm",
 		},
 	}, 3),
 }
 Class.gladiatorAutoMinionOfficialV2 = makeAuto({
 	PARENT: "gladiatorGenericMinionOfficialV2",
-}, "Minion", {size: 0, angle: 0});
-Class.gladiatorAuraMinionAuraOfficialV2 = addAura(1, 1.2);
+}, "Minion", {size: 12, angle: 0});
 Class.gladiatorAuraMinionOfficialV2 = {
 	PARENT: "gladiatorGenericMinionOfficialV2",
 	TURRETS: [
 		{
-			POSITION: [0, 0, 0, 0, 360, 1],
+			POSITION: [12, 0, 0, 0, 360, 1],
 			TYPE: "gladiatorAuraMinionAuraOfficialV2",
 		}
 	]
 }
-Class.gladiatorHealAuraMinionAuraOfficialV2 = addAura(-2/3, 1.2);
 Class.gladiatorHealAuraMinionOfficialV2 = {
 	PARENT: "gladiatorGenericMinionOfficialV2",
 	TURRETS: [
 		{
-			POSITION: [0, 0, 0, 0, 360, 1],
+			POSITION: [12, 0, 0, 0, 360, 1],
 			TYPE: "gladiatorHealAuraMinionAuraOfficialV2",
 		}
 	]
@@ -1412,21 +1495,26 @@ Class.gladiatorHealAuraMinionOfficialV2 = {
 Class.gladiatorOfficialV2 = {
 	PARENT: "genericPentanought",
 	LABEL: "Gladiator",
+	BODY: { 
+		FOV: pentanoughtBody.FOV * 1.1,
+		SPEED: pentanoughtBody.SPEED * 0.85,
+	},
 	GUNS: weaponArray([
 		{
-			POSITION: [4.75, 0, 1, 10, 0, 0, 0],
+			POSITION: [4.75, 12, 1, 10, 0, 0, 0],
 		}, {
-			POSITION: [1.5, 13, 1, 0.75, 0, 0, 0],
+			POSITION: [1.5, 13, 1, 14.75, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.factory, {size: 0.9, reload: 1.65, health: 1.16, damage: 0.7, speed: 0.0, maxSpeed: 0.0}]),
+				SHOOT_SETTINGS: combineStats([g.factory, {size: 0.9, reload: 2.1, health: 1.16, damage: 0.62, pen: 0.9, speed: 0.8, maxSpeed: 0.8, density: 1.6}]),
 				TYPE: "minion",
-				STAT_CALCULATOR: gunCalcNames.drone,
+				STAT_CALCULATOR: "drone",
 				AUTOFIRE: true,
 				SYNCS_SKILLS: true,
 				MAX_CHILDREN: 2,
+				WAIT_TO_CYCLE: true,
 			},
 		}, {
-			POSITION: [0, 13, 1, 0, 0, 0, 0],
+			POSITION: [12, 13, 1, 0, 0, 0, 0],
 		},
 	], 5),
 }
@@ -1439,31 +1527,31 @@ Class.cerberusOfficialV2 = {
 	LABEL: "Cerberus",
 	GUNS: weaponArray([
 		{
-			POSITION: [0, 4, 1, 0, 2.5, 10, 0.5],
+			POSITION: [12, 4, 1, 0, 2.5, 10, 0.5],
 		}, {
-			POSITION: [1.5, 4, 1.6, 0, 2.5, 10, 0.5],
+			POSITION: [1.5, 4, 1.6, 12, 2.5, 10, 0.5],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, {range: 1.2, shudder: 0.6, health: 0.55, reload: 1.2, speed: 1.35, maxSpeed: 1.35, range: 0.67}]),
+				SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, {shudder: 0.6, health: 0.55, reload: 1.2, speed: 1.26, maxSpeed: 1.26, range: 0.67}]),
 				TYPE: "trap",
-				STAT_CALCULATOR: gunCalcNames.trap,
+				STAT_CALCULATOR: "trap",
 			},
 		}, {
-			POSITION: [0, 4, 1, 0, -2.5, -10, 0.5],
+			POSITION: [12, 4, 1, 0, -2.5, -10, 0.5],
 		}, {
-			POSITION: [1.5, 4, 1.6, 0, -2.5, -10, 0.5],
+			POSITION: [1.5, 4, 1.6, 12, -2.5, -10, 0.5],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, {range: 1.2, shudder: 0.6, health: 0.55, reload: 1.2, speed: 1.35, maxSpeed: 1.35, range: 0.67}]),
+				SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, {shudder: 0.6, health: 0.55, reload: 1.2, speed: 1.26, maxSpeed: 1.26, range: 0.67}]),
 				TYPE: "trap",
-				STAT_CALCULATOR: gunCalcNames.trap,
+				STAT_CALCULATOR: "trap",
 			},
 		}, {
-			POSITION: [0, 5.5, 1, 0, 0, 0, 0],
+			POSITION: [14, 5.5, 1, 0, 0, 0, 0],
 		}, {
-			POSITION: [2, 5.5, 1.7, 0, 0, 0, 0],
+			POSITION: [2, 5.5, 1.7, 14, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.twin, g.pounder, {reload: 1.15, health: 0.05, speed: 0.75, maxSpeed: 0.75, range: 0.5}]),
+				SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.twin, g.pounder, {reload: 1.15, health: 0.85, speed: 0.75, maxSpeed: 0.75, range: 0.5}]),
 				TYPE: "unsetTrap",
-				STAT_CALCULATOR: gunCalcNames.block
+				STAT_CALCULATOR: "block"
 			},
 		},
 	], 5),
@@ -1477,9 +1565,9 @@ Class.luciferOfficialV2 = {
 		}, {
 			POSITION: [3.5, 10, 1.6, 13, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.pounder, {reload: 1.2, speed: 1.2, maxSpeed: 1.2, size: 1.25, health: 1.15, range: 0.37}]),
+				SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.pounder, {reload: 1.2, speed: 1.15, maxSpeed: 1.15, size: 1.25, health: 1.15, range: 0.37}]),
 				TYPE: "unsetTrap",
-				STAT_CALCULATOR: gunCalcNames.block
+				STAT_CALCULATOR: "block"
 			},
 		},
 	], 5),
@@ -1491,29 +1579,28 @@ Class.skynetOfficialV2 = {
 	LABEL: "Skynet",
 	TURRETS: [
 		...weaponArray({
-			POSITION: [3.25, 4.5, 0, 0, 100, 2],
-			TYPE: "spamAutoTurretWeak",
+			POSITION: [3.25, 4.5, 0, 0, 180, 2],
+			TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: {reload: 1.1, health: 0.93, damage: 0.8}}],
 		}, 5),
 		...weaponArray({
-			POSITION: [3.25, 0, 0, 36, 100, 2],
-			TYPE: "spamAutoTurretWeak",
+			POSITION: [3.25, 8, 0, 36, 180, 2],
+			TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: {reload: 1.1, health: 0.93, damage: 0.8}}],
 		}, 5)
 	],
 	PROPS: [
 		{
-			POSITION: [0, 0, 0, 100, 1],
+			POSITION: [12, 0, 0, 180, 1],
 			TYPE: "pentagon",
 		}
 	]
 }
-Class.pentanoughtBigAura = addAura(2.5, 1.45);
 Class.supernovaOfficialV2 = {
 	PARENT: "genericPentanought",
 	LABEL: "Supernova",
 	TURRETS: [
 		...weaponArray({
-			POSITION: [3.25, 9, 0, 36, 100, 2],
-			TYPE: "spamAutoTurret",
+			POSITION: [3.25, 9, 0, 36, 180, 2],
+			TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: g.pentaSecondaryAuto}],
 		}, 5),
 		{
 			POSITION: [9, 0, 0, 0, 360, 2],
@@ -1522,7 +1609,7 @@ Class.supernovaOfficialV2 = {
 	],
 	PROPS: [
 		{
-			POSITION: [13, 0, 0, 100, 1],
+			POSITION: [13, 0, 0, 180, 1],
 			TYPE: "pentagon",
 		},
 	]
@@ -1532,29 +1619,29 @@ Class.cipherOfficialV2 = {
 	LABEL: "Cipher",
 	TURRETS: [
 		...weaponArray({
-			POSITION: [3.25, 9, 0, 36, 100, 2],
-			TYPE: "spamAutoTurret",
+			POSITION: [3.25, 9, 0, 36, 180, 2],
+			TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: g.pentaSecondaryAuto}],
 		}, 5),
 		{
 			POSITION: [11.5, 0, 0, 0, 360, 2],
-			TYPE: "megabyteTurretOfficialV2",
+			TYPE: ["megabyteTurretOfficialV2", {GUN_STAT_SCALE: g.pentaMegabyte}],
 		},
 	],
 	PROPS: [
 		{
-			POSITION: [13, 0, 0, 100, 1],
+			POSITION: [13, 0, 0, 180, 1],
 			TYPE: "pentagon",
 		},
 	]
 }
-Class.pentanoughtBigHealAura = addAura(-2, 1.45);
 Class.interstellarOfficialV2 = {
 	PARENT: "genericPentanought",
 	LABEL: "Interstellar",
+	BODY: healerBodyStats[1],
 	TURRETS: [
 		...weaponArray({
-			POSITION: [3.25, 9, 0, 36, 100, 2],
-			TYPE: "spamAutoTurret",
+			POSITION: [3.25, 9, 0, 36, 180, 2],
+			TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: g.pentaSecondaryAuto}],
 		}, 5),
 		{
 			POSITION: [9.5, 0, 0, 0, 360, 2],
@@ -1563,7 +1650,7 @@ Class.interstellarOfficialV2 = {
 	],
 	PROPS: [
 		{
-			POSITION: [13, 0, 0, 100, 1],
+			POSITION: [13, 0, 0, 180, 1],
 			TYPE: "pentagon",
 		},
 	]
@@ -1575,7 +1662,7 @@ Class.gigabyteTurretOfficialV2 = {
 		{
 			POSITION: [26, 16, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.turret, g.assassin, g.pounder, g.destroyer, {health: 1.05, speed: 0.7, recoil: 1.15}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.turret, g.assassin, g.pounder, g.destroyer, {size: 0.8, health: 1.24, speed: 0.9, recoil: 2, range: 1.15}]),
 				TYPE: "bullet",
 			},
 		},
@@ -1592,63 +1679,58 @@ Class.gigabyteOfficialV2 = {
 	],
 	PROPS: [
 		{
-			POSITION: [0.5, 0, 0, 100, 1],
+			POSITION: [14.5, 0, 0, 180, 1],
 			TYPE: "pentagon",
 		},
 	]
 }
-Class.pentanoughtSmallAura = addAura(1, 1.6, 0.15);
 Class.malwareOfficialV2 = {
 	PARENT: "genericPentanought",
 	LABEL: "Malware",
 	TURRETS: [
 		...weaponArray({
-			POSITION: [4, 0.5, 0, 36, 360, 2],
+			POSITION: [4, 8.5, 0, 36, 360, 2],
 			TYPE: "pentanoughtSmallAura",
 		}, 5),
 		{
 			POSITION: [11.5, 0, 0, 0, 360, 2],
-			TYPE: "megabyteTurretOfficialV2",
+			TYPE: ["megabyteTurretOfficialV2", {GUN_STAT_SCALE: g.pentaMegabyte}],
 		},
 	],
 	PROPS: [
 		{
-			POSITION: [13, 0, 0, 100, 1],
+			POSITION: [13, 0, 0, 180, 1],
 			TYPE: "pentagon",
 		},
 	]
 }
-Class.pentanoughtSmallHealAura = addAura(-2/3, 1.6, 0.15);
 Class.softwareOfficialV2 = {
 	PARENT: "genericPentanought",
 	LABEL: "Software",
+	BODY: healerBodyStats[1],
 	TURRETS: [
 		...weaponArray({
-			POSITION: [4, 0.5, 0, 36, 360, 2],
+			POSITION: [4, 8.5, 0, 36, 360, 2],
 			TYPE: "pentanoughtSmallHealAura",
 		}, 5),
 		{
 			POSITION: [11.5, 0, 0, 0, 360, 2],
-			TYPE: "megabyteTurretOfficialV2",
+			TYPE: ["megabyteTurretOfficialV2", {GUN_STAT_SCALE: g.pentaMegabyte}],
 		},
 	],
 	PROPS: [
 		{
-			POSITION: [13, 0, 0, 100, 1],
+			POSITION: [13, 0, 0, 180, 1],
 			TYPE: "pentagon",
 		},
 	]
-}
-if (useOldPhotosphere) {
-	Class.photosphereSmallAuraOfficialV2 = addAura(1, 1.05, 0.15);
-	Class.photosphereBigAuraOfficialV2 = addAura(1.5, 4);
 }
 Class.photosphereOfficialV2 = {
 	PARENT: "genericPentanought",
 	LABEL: "Photosphere",
 	PROPS: [
 		{
-			POSITION: [0, 0, 0, 100, 1],
+			POSITION: [12, 0, 0, 180, 1],
 			TYPE: "pentagon",
 		},
 	],
@@ -1656,7 +1738,7 @@ Class.photosphereOfficialV2 = {
 if (useOldPhotosphere) {
 	Class.photosphereOfficialV2.TURRETS = [
 		...weaponArray({
-			POSITION: [3.5, 0.75, 0, 36, 360, 2],
+			POSITION: [3.5, 8.75, 0, 36, 360, 2],
 			TYPE: "photosphereSmallAuraOfficialV2",
 		}, 5),
 		...weaponArray({
@@ -1667,7 +1749,7 @@ if (useOldPhotosphere) {
 } else {
 	Class.photosphereOfficialV2.TURRETS = [
 		...weaponArray({
-			POSITION: [4, 0.5, 0, 36, 360, 2],
+			POSITION: [4, 8.5, 0, 36, 360, 2],
 			TYPE: "pentanoughtSmallAura",
 		}, 5),
 		{
@@ -1679,9 +1761,10 @@ if (useOldPhotosphere) {
 Class.stratosphereOfficialV2 = {
 	PARENT: "genericPentanought",
 	LABEL: "Stratosphere",
+	BODY: healerBodyStats[2],
 	TURRETS: [
 		...weaponArray({
-			POSITION: [4, 0.5, 0, 36, 360, 2],
+			POSITION: [4, 8.5, 0, 36, 360, 2],
 			TYPE: "pentanoughtSmallHealAura",
 		}, 5),
 		{
@@ -1691,7 +1774,7 @@ Class.stratosphereOfficialV2 = {
 	],
 	PROPS: [
 		{
-			POSITION: [13, 0, 0, 100, 1],
+			POSITION: [13, 0, 0, 180, 1],
 			TYPE: "pentagon",
 		},
 	]
@@ -1702,10 +1785,10 @@ Class.behemothOfficialV2 = {
 	BODY: hpBuffBodyStats[3],
 	PROPS: [
 		{
-			POSITION: [15, 0, 0, 100, 1],
+			POSITION: [15, 0, 0, 180, 1],
 			TYPE: ["pentagon", {COLOR: 9}],
 		}, {
-			POSITION: [24, 0, 0, 100, 0],
+			POSITION: [24, 0, 0, 180, 0],
 			TYPE: ["pentagon", {COLOR: 9}],
 		},
 	],
@@ -1715,15 +1798,15 @@ Class.astronomicOfficialV2 = {
 	LABEL: "Astronomic",
 	BODY: hpBuffBodyStats[2],
 	TURRETS: weaponArray({
-		POSITION: [4, 0.5, 0, 36, 360, 2],
+		POSITION: [4, 8.5, 0, 36, 360, 2],
 		TYPE: "pentanoughtSmallAura",
 	}, 5),
 	PROPS: [
 		{
-			POSITION: [13, 0, 0, 100, 1],
+			POSITION: [13, 0, 0, 180, 1],
 			TYPE: "pentagon",
 		}, {
-			POSITION: [24, 0, 0, 100, 0],
+			POSITION: [24, 0, 0, 180, 0],
 			TYPE: ["pentagon", {COLOR: 9}],
 		},
 	],
@@ -1731,17 +1814,17 @@ Class.astronomicOfficialV2 = {
 Class.grandioseOfficialV2 = {
 	PARENT: "genericPentanought",
 	LABEL: "Grandiose",
-	BODY: hpBuffBodyStats[2],
+	BODY: combineBodyStats(hpBuffBodyStats[2], healerBodyStats[1]),
 	TURRETS: weaponArray({
-		POSITION: [4, 0.5, 0, 36, 360, 2],
+		POSITION: [4, 8.5, 0, 36, 360, 2],
 		TYPE: "pentanoughtSmallHealAura",
 	}, 5),
 	PROPS: [
 		{
-			POSITION: [13, 0, 0, 100, 1],
+			POSITION: [13, 0, 0, 180, 1],
 			TYPE: "pentagon",
 		}, {
-			POSITION: [24, 0, 0, 100, 0],
+			POSITION: [24, 0, 0, 180, 0],
 			TYPE: ["pentagon", {COLOR: 9}],
 		},
 	],
@@ -1784,10 +1867,10 @@ Class.leviathanOfficialV2 = {
 	BODY: speedBuffBodyStats[2],
 	PROPS: [
 		{
-			POSITION: [0, 0, 0, 0, 1],
+			POSITION: [12, 0, 0, 0, 1],
 			TYPE: "pentagonLeviathanTopOfficialV2"
 		}, {
-			POSITION: [0, 0, 0, 0, 0],
+			POSITION: [20, 0, 0, 0, 0],
 			TYPE: "pentagonLeviathanBottomOfficialV2"
 		},
 	],
@@ -1797,15 +1880,15 @@ Class.valrayvnOfficialV2 = {
 	LABEL: "Valrayvn",
 	BODY: speedBuffBodyStats[1],
 	TURRETS: weaponArray({
-		POSITION: [4, 0.5, 0, 36, 360, 2],
+		POSITION: [4, 8.5, 0, 36, 360, 2],
 		TYPE: "pentanoughtSmallAura",
 	}, 5),
 	PROPS: [
 		{
-			POSITION: [0, 0, 0, 100, 1],
+			POSITION: [12, 0, 0, 180, 1],
 			TYPE: "pentagon"
 		}, {
-			POSITION: [0, 0, 0, 0, 0],
+			POSITION: [20, 0, 0, 0, 0],
 			TYPE: "pentagonLeviathanBottomOfficialV2"
 		},
 	],
@@ -1813,17 +1896,17 @@ Class.valrayvnOfficialV2 = {
 Class.pegasusOfficialV2 = {
 	PARENT: "genericPentanought",
 	LABEL: "Pegasus",
-	BODY: speedBuffBodyStats[1],
+	BODY: combineBodyStats(speedBuffBodyStats[1], healerBodyStats[1]),
 	TURRETS: weaponArray({
-		POSITION: [4, 0.5, 0, 36, 360, 2],
+		POSITION: [4, 8.5, 0, 36, 360, 2],
 		TYPE: "pentanoughtSmallHealAura",
 	}, 5),
 	PROPS: [
 		{
-			POSITION: [0, 0, 0, 100, 1],
+			POSITION: [12, 0, 0, 180, 1],
 			TYPE: "pentagon"
 		}, {
-			POSITION: [0, 0, 0, 0, 0],
+			POSITION: [20, 0, 0, 0, 0],
 			TYPE: "pentagonLeviathanBottomOfficialV2"
 		},
 	],
@@ -1840,51 +1923,50 @@ Class.addons.UPGRADES_TIER_0.push("dreadOfficialV2");
 
 	Class.sword2OfficialV2.UPGRADES_TIER_0 = ["swordOfficialV2"];
 	Class.pacifier2OfficialV2.UPGRADES_TIER_0 = ["pacifierOfficialV2"];
-	Class.peacekeeper2OfficialV2.UPGRADES_TIER_0 = ["peacekeeperOfficialV2"];
 	Class.invader2OfficialV2.UPGRADES_TIER_0 = ["invaderOfficialV2"];
 	Class.centaur2OfficialV2.UPGRADES_TIER_0 = ["centaurOfficialV2"];
 
 	Class.dreadWeaponOfficialV2.UPGRADES_TIER_0 = ["swordOfficialV2", "pacifierOfficialV2", "peacekeeperOfficialV2", "invaderOfficialV2", "centaurOfficialV2"];
 
-		Class.swordOfficialV2.UPGRADES_TIER_0 = ["gladiusOfficialV2", "sabreOfficialV2"];
-			Class.gladiusOfficialV2.UPGRADES_TIER_0 = ["bladeOfficialV2"];
-				Class.bladeOfficialV2.UPGRADES_TIER_0 = ["rapierOfficialV2"];
-					Class.rapierOfficialV2.UPGRADES_TIER_0 = [];
-			Class.sabreOfficialV2.UPGRADES_TIER_0 = ["bayonetOfficialV2"];
-				Class.bayonetOfficialV2.UPGRADES_TIER_0 = ["javelinOfficialV2"];
-					Class.javelinOfficialV2.UPGRADES_TIER_0 = [];
+		Class.swordOfficialV2.UPGRADES_TIER_7 = ["gladiusOfficialV2", "sabreOfficialV2"];
+			Class.gladiusOfficialV2.UPGRADES_TIER_11 = ["bladeOfficialV2"];
+				Class.bladeOfficialV2.UPGRADES_TIER_13 = ["rapierOfficialV2"];
+					Class.rapierOfficialV2.UPGRADES_TIER_15 = [];
+			Class.sabreOfficialV2.UPGRADES_TIER_11 = ["bayonetOfficialV2"];
+				Class.bayonetOfficialV2.UPGRADES_TIER_13 = ["javelinOfficialV2"];
+					Class.javelinOfficialV2.UPGRADES_TIER_15 = [];
 
-		Class.pacifierOfficialV2.UPGRADES_TIER_0 = ["mediatorOfficialV2", "negotiatorOfficialV2"];
-			Class.mediatorOfficialV2.UPGRADES_TIER_0 = ["mitigatorOfficialV2"];
-				Class.mitigatorOfficialV2.UPGRADES_TIER_0 = ["diplomatOfficialV2"];
-					Class.diplomatOfficialV2.UPGRADES_TIER_0 = [];
-			Class.negotiatorOfficialV2.UPGRADES_TIER_0 = ["appeaserOfficialV2"];
-				Class.appeaserOfficialV2.UPGRADES_TIER_0 = ["arbitratorOfficialV2"];
-					Class.arbitratorOfficialV2.UPGRADES_TIER_0 = [];
+		Class.pacifierOfficialV2.UPGRADES_TIER_7 = ["mediatorOfficialV2", "negotiatorOfficialV2"];
+			Class.mediatorOfficialV2.UPGRADES_TIER_11 = ["mitigatorOfficialV2"];
+				Class.mitigatorOfficialV2.UPGRADES_TIER_13 = ["diplomatOfficialV2"];
+					Class.diplomatOfficialV2.UPGRADES_TIER_15 = [];
+			Class.negotiatorOfficialV2.UPGRADES_TIER_11 = ["appeaserOfficialV2"];
+				Class.appeaserOfficialV2.UPGRADES_TIER_13 = ["arbitratorOfficialV2"];
+					Class.arbitratorOfficialV2.UPGRADES_TIER_15 = [];
 
-		Class.peacekeeperOfficialV2.UPGRADES_TIER_0 = ["enforcerOfficialV2", "executorOfficialV2"];
-			Class.enforcerOfficialV2.UPGRADES_TIER_0 = ["suppressorOfficialV2"];
-				Class.suppressorOfficialV2.UPGRADES_TIER_0 = ["retardantOfficialV2"];
-					Class.retardantOfficialV2.UPGRADES_TIER_0 = [];
-			Class.executorOfficialV2.UPGRADES_TIER_0 = ["inhibitorOfficialV2"];
-				Class.inhibitorOfficialV2.UPGRADES_TIER_0 = ["tyrantOfficialV2"];
-					Class.tyrantOfficialV2.UPGRADES_TIER_0 = [];
+		Class.peacekeeperOfficialV2.UPGRADES_TIER_7 = ["enforcerOfficialV2", "executorOfficialV2"];
+			Class.enforcerOfficialV2.UPGRADES_TIER_11 = ["suppressorOfficialV2"];
+				Class.suppressorOfficialV2.UPGRADES_TIER_13 = ["retardantOfficialV2"];
+					Class.retardantOfficialV2.UPGRADES_TIER_15 = [];
+			Class.executorOfficialV2.UPGRADES_TIER_11 = ["inhibitorOfficialV2"];
+				Class.inhibitorOfficialV2.UPGRADES_TIER_13 = ["tyrantOfficialV2"];
+					Class.tyrantOfficialV2.UPGRADES_TIER_15 = [];
 
-		Class.invaderOfficialV2.UPGRADES_TIER_0 = ["inquisitorOfficialV2", "assailantOfficialV2"];
-			Class.inquisitorOfficialV2.UPGRADES_TIER_0 = ["infiltratorOfficialV2"];
-				Class.infiltratorOfficialV2.UPGRADES_TIER_0 = ["raiderOfficialV2"];
-					Class.raiderOfficialV2.UPGRADES_TIER_0 = [];
-			Class.assailantOfficialV2.UPGRADES_TIER_0 = ["aggressorOfficialV2"];
-				Class.aggressorOfficialV2.UPGRADES_TIER_0 = ["gladiatorOfficialV2"];
-					Class.gladiatorOfficialV2.UPGRADES_TIER_0 = [];
+		Class.invaderOfficialV2.UPGRADES_TIER_7 = ["inquisitorOfficialV2", "assailantOfficialV2"];
+			Class.inquisitorOfficialV2.UPGRADES_TIER_11 = ["infiltratorOfficialV2"];
+				Class.infiltratorOfficialV2.UPGRADES_TIER_13 = ["raiderOfficialV2"];
+					Class.raiderOfficialV2.UPGRADES_TIER_15 = [];
+			Class.assailantOfficialV2.UPGRADES_TIER_11 = ["aggressorOfficialV2"];
+				Class.aggressorOfficialV2.UPGRADES_TIER_13 = ["gladiatorOfficialV2"];
+					Class.gladiatorOfficialV2.UPGRADES_TIER_15 = [];
 
-		Class.centaurOfficialV2.UPGRADES_TIER_0 = ["daemonOfficialV2", "minotaurOfficialV2"];
-			Class.daemonOfficialV2.UPGRADES_TIER_0 = ["hydraOfficialV2"];
-				Class.hydraOfficialV2.UPGRADES_TIER_0 = ["cerberusOfficialV2"];
-					Class.cerberusOfficialV2.UPGRADES_TIER_0 = [];
-			Class.minotaurOfficialV2.UPGRADES_TIER_0 = ["beelzebubOfficialV2"];
-				Class.beelzebubOfficialV2.UPGRADES_TIER_0 = ["luciferOfficialV2"];
-					Class.luciferOfficialV2.UPGRADES_TIER_0 = [];
+		Class.centaurOfficialV2.UPGRADES_TIER_7 = ["daemonOfficialV2", "minotaurOfficialV2"];
+			Class.daemonOfficialV2.UPGRADES_TIER_11 = ["hydraOfficialV2"];
+				Class.hydraOfficialV2.UPGRADES_TIER_13 = ["cerberusOfficialV2"];
+					Class.cerberusOfficialV2.UPGRADES_TIER_15 = [];
+			Class.minotaurOfficialV2.UPGRADES_TIER_11 = ["beelzebubOfficialV2"];
+				Class.beelzebubOfficialV2.UPGRADES_TIER_13 = ["luciferOfficialV2"];
+					Class.luciferOfficialV2.UPGRADES_TIER_15 = [];
 
 	Class.dreadBodyOfficialV2.UPGRADES_TIER_0 = ["byteOfficialV2", "atmosphereOfficialV2", "juggernautOfficialV2"];
 
@@ -1945,7 +2027,7 @@ Class.addons.UPGRADES_TIER_0.push("dreadOfficialV2");
 
 const hexDreadNames = {
 	Javelin: {
-		Javelin: 'Javelin',
+		Javelin: 'Javelin II',
 		Rapier: 'Lance',
 		Diplomat: 'Envoy',
 		Arbitrator: 'Cutlass',
@@ -1957,7 +2039,7 @@ const hexDreadNames = {
 		Lucifer: 'Kitsune',
 	},
 	Rapier: {
-		Rapier: 'Rapier',
+		Rapier: 'Rapier II',
 		Diplomat: 'Emissary',
 		Arbitrator: 'Umpire',
 		Retardant: 'Impeder',
@@ -1968,7 +2050,7 @@ const hexDreadNames = {
 		Lucifer: 'Damocles',
 	},
 	Diplomat: {
-		Diplomat: 'Diplomat',
+		Diplomat: 'Diplomat II',
 		Arbitrator: 'Moderator',
 		Retardant: 'Insurgent',
 		Tyrant: 'Dictator',
@@ -1978,7 +2060,7 @@ const hexDreadNames = {
 		Lucifer: 'Manticore',
 	},
 	Arbitrator: {
-		Arbitrator: 'Arbitrator',
+		Arbitrator: 'Arbitrator II',
 		Retardant: 'Extinguisher',
 		Tyrant: 'Shogun',
 		Raider: 'Buccaneer',
@@ -1987,7 +2069,7 @@ const hexDreadNames = {
 		Lucifer: 'Keres',
 	},
 	Retardant: {
-		Retardant: 'Retardant',
+		Retardant: 'Retardant II',
 		Tyrant: 'Anarchist',
 		Raider: 'Freebooter',
 		Gladiator: 'Combatant',
@@ -1995,29 +2077,29 @@ const hexDreadNames = {
 		Lucifer: 'Demogorgon',
 	},
 	Tyrant: {
-		Tyrant: 'Tyrant',
+		Tyrant: 'Tyrant II',
 		Raider: 'Corsair',
 		Gladiator: 'Amazon',
 		Cerberus: 'Ouroboros',
 		Lucifer: 'Raiju',
 	},
 	Raider: {
-		Raider: 'Raider',
+		Raider: 'Raider II',
 		Gladiator: 'Filibuster',
 		Cerberus: 'Wyvern',
 		Lucifer: 'Kraken',
 	},
 	Gladiator: {
-		Gladiator: 'Gladiator',
+		Gladiator: 'Gladiator II',
 		Cerberus: 'Ogre',
 		Lucifer: 'Wendigo',
 	},
 	Cerberus: {
-		Cerberus: 'Cerberus',
+		Cerberus: 'Cerberus II',
 		Lucifer: 'Oni',
 	},
 	Lucifer: {
-		Lucifer: 'Lucifer',
+		Lucifer: 'Lucifer II',
 	},
 };
 
@@ -2052,7 +2134,6 @@ function mergeHexnoughtWeaponV2(weapon1, weapon2) {
 	weapon2 = ensureIsClass(weapon2);
 
 	let PARENT = "genericHexnought",
-		BODY = hexnoughtBody,
 		GUNS = [],
 		gunsOnOneSide = [],
 		weapon2GunsOnOneSide = [],
@@ -2117,12 +2198,12 @@ function mergeHexnoughtWeaponV2(weapon1, weapon2) {
 	for (let i = 0; i < 3; i++) {
 		for (let g in gunsOnOneSide) {
 			let gun = JSON.parse(JSON.stringify(gunsOnOneSide[g]));
-			gun.POSITION[5] += 00 * i;
+			gun.POSITION[5] += 120 * i;
 			GUNS.push(gun);
 		}
 		for (let t in turretsOnOneSide) {
 			let turret = JSON.parse(JSON.stringify(turretsOnOneSide[t]));
-			turret.POSITION[3] += 00 * i;
+			turret.POSITION[3] += 120 * i;
 			TURRETS.push(turret);
 		}
 	};
@@ -2137,12 +2218,20 @@ function mergeHexnoughtWeaponV2(weapon1, weapon2) {
 	}
 	
 	// Body stat modification
-	if (weapon1.BODY) for (let m in weapon1.BODY) BODY[m] *= weapon1.BODY[m];
-	if (weapon2.BODY) for (let m in weapon2.BODY) BODY[m] *= weapon2.BODY[m];
+	// Arithmetic mean of body stats
+	let bodyStatFactors = {FOV: 2, SPEED: 2, HEALTH: 2, SHIELD: 2, REGEN: 2, RESIST: 2, DENSITY: 2};
+	let weapon1Body = weapon1.BODY ?? pentanoughtBody;
+	let weapon2Body = weapon2.BODY ?? pentanoughtBody;
+	for (let m in bodyStatFactors) {
+		bodyStatFactors[m] = (weapon1Body[m] ?? pentanoughtBody[m]) / pentanoughtBody[m];
+		bodyStatFactors[m] += (weapon2Body[m] ?? pentanoughtBody[m]) / pentanoughtBody[m];
+		bodyStatFactors[m] *= hexnoughtBody[m] / 2;
+	}
 
 	// Smash it together
 	Class[className] = {
-		PARENT, BODY, LABEL, GUNS, TURRETS
+		PARENT, LABEL, GUNS, TURRETS,
+		BODY: bodyStatFactors
 	};
 	return className;
 }
