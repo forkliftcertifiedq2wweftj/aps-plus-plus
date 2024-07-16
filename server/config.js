@@ -99,7 +99,7 @@ module.exports = {
     MAX_SKILL: 15,
 
     // Amount of tank tiers.
-    MAX_UPGRADE_TIER: 9,
+    MAX_UPGRADE_TIER: 25,
 
     // Level difference between each tier.
     TIER_MULTIPLIER: 15,
