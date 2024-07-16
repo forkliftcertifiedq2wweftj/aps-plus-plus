@@ -136,7 +136,7 @@ makeLaby = (type, level, baseScale = 1) => {
     type = ensureIsClass(type);
     let usableSHAPE = Math.max(type.SHAPE, 3),
         downscale = Math.cos(Math.PI / usableSHAPE),
-        strengthMultiplier = 15.288 ** level;
+        strengthMultiplier = 5 ** level;
         hpMulti = 5 ** level;
     return {
         PARENT: "food",
@@ -304,15 +304,15 @@ Class.transPentagon = makeRare("pentagon", 4);
 // BETA PENTAGONS
 Class.betaPentagon = {
     PARENT: "food",
-    LABEL: "Hendecagon",
-    VALUE: 2101540,
-    SHAPE: 11,
-    SIZE: 203,
-    COLOR: "yellow",
+    LABEL: "Hexagon",
+    VALUE: 3750,
+    SHAPE: 6,
+    SIZE: 25,
+    COLOR: "hexagon",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 30,
-        HEALTH: 550 * basePolygonHealth,
+        HEALTH: 20 * basePolygonHealth,
         RESIST: Math.pow(1.25, 2),
         PENETRATION: 1.1,
         SHIELD: 20 * basePolygonHealth,
@@ -331,15 +331,15 @@ Class.transBetaPentagon = makeRare("betaPentagon", 4);
 // ALPHA PENTAGONS
 Class.alphaPentagon = {
     PARENT: "food",
-    LABEL: "Dodecagon",
-    VALUE: 3110279,
-    SHAPE: 12,
-    SIZE: 227,
-    COLOR: "lavender",
+    LABEL: "Heptagon",
+    VALUE: 9000,
+    SHAPE: 7,
+    SIZE: 40,
+    COLOR: "pink",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 80,
-        HEALTH: 580 * basePolygonHealth,
+        HEALTH: 60 * basePolygonHealth,
         RESIST: Math.pow(1.25, 3),
         PENETRATION: 1.1,
         SHIELD: 40 * basePolygonHealth,
@@ -380,17 +380,17 @@ Class.rainbowHexagon = makeRare("hexagon", 3);
 Class.transHexagon = makeRare("hexagon", 4);
 
 // HEXAGONS
-Class.heptagon = {
+Class.shape8 = {
     PARENT: "food",
-    LABEL: "Heptagon",
-    VALUE: 9000,
-    SHAPE: 7,
-    SIZE: 40,
-    COLOR: "pink",
+    LABEL: "Octagon",
+    VALUE: 23400,
+    SHAPE: 8,
+    SIZE: 65,
+    COLOR: "purple",
     BODY: {
         DAMAGE: 3 * basePolygonDamage,
         DENSITY: 8,
-        HEALTH: 60 * basePolygonHealth,
+        HEALTH: 180 * basePolygonHealth,
         RESIST: 1.3,
         SHIELD: 50 * basePolygonHealth,
         PENETRATION: 1.1,
