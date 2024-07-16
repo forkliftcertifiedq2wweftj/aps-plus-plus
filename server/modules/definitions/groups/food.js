@@ -169,10 +169,10 @@ makeLaby = (type, level, baseScale = 1) => {
 Class.egg = {
     PARENT: "food",
     LABEL: "Egg",
-    VALUE: 48,
+    VALUE: 5,
     SHAPE: 0,
     SIZE: 4.5,
-    COLOR: "veryLightGrey",
+    COLOR: "white",
     INTANGIBLE: true,
     BODY: {
         DAMAGE: 0,
@@ -233,7 +233,7 @@ Class.transEgg = makeRare("egg", 4); //ironic
 Class.square = {
     PARENT: "food",
     LABEL: "Square",
-    VALUE: 144,
+    VALUE: 20,
     SHAPE: 4,
     SIZE: 14,
     COLOR: "gold",
@@ -257,7 +257,7 @@ Class.transSquare = makeRare("square", 4);
 Class.triangle = {
     PARENT: "food",
     LABEL: "Triangle",
-    VALUE: 576,
+    VALUE: 150,
     SHAPE: 3,
     SIZE: 10,
     COLOR: "orange",
@@ -281,7 +281,7 @@ Class.transTriangle = makeRare("triangle", 4);
 Class.pentagon = {
     PARENT: "food",
     LABEL: "Pentagon",
-    VALUE: 1922,
+    VALUE: 500,
     SHAPE: 5,
     SIZE: 21,
     COLOR: "purple",
@@ -358,7 +358,7 @@ Class.transAlphaPentagon = makeRare("alphaPentagon", 4);
 Class.hexagon = {
     PARENT: "food",
     LABEL: "Hexagon",
-    VALUE: 45927,
+    VALUE: 3750,
     SHAPE: 6,
     SIZE: 25,
     COLOR: "hexagon",
@@ -366,6 +366,56 @@ Class.hexagon = {
         DAMAGE: 3 * basePolygonDamage,
         DENSITY: 8,
         HEALTH: 20 * basePolygonHealth,
+        RESIST: 1.3,
+        SHIELD: 50 * basePolygonHealth,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.003
+    },
+    DRAW_HEALTH: true,
+};
+Class.shinyHexagon = makeRare("hexagon", 0);
+Class.legendaryHexagon = makeRare("hexagon", 1);
+Class.shadowHexagon = makeRare("hexagon", 2);
+Class.rainbowHexagon = makeRare("hexagon", 3);
+Class.transHexagon = makeRare("hexagon", 4);
+
+// HEXAGONS
+Class.heptagon = {
+    PARENT: "food",
+    LABEL: "Heptagon",
+    VALUE: 9000,
+    SHAPE: 7,
+    SIZE: 40,
+    COLOR: "pink",
+    BODY: {
+        DAMAGE: 3 * basePolygonDamage,
+        DENSITY: 8,
+        HEALTH: 60 * basePolygonHealth,
+        RESIST: 1.3,
+        SHIELD: 50 * basePolygonHealth,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.003
+    },
+    DRAW_HEALTH: true,
+};
+Class.shinyHexagon = makeRare("hexagon", 0);
+Class.legendaryHexagon = makeRare("hexagon", 1);
+Class.shadowHexagon = makeRare("hexagon", 2);
+Class.rainbowHexagon = makeRare("hexagon", 3);
+Class.transHexagon = makeRare("hexagon", 4);
+
+// HEXAGONS
+Class.octagon = {
+    PARENT: "food",
+    LABEL: "Octagon",
+    VALUE: 23400,
+    SHAPE: 8,
+    SIZE: 65,
+    COLOR: "purple",
+    BODY: {
+        DAMAGE: 3 * basePolygonDamage,
+        DENSITY: 8,
+        HEALTH: 180 * basePolygonHealth,
         RESIST: 1.3,
         SHIELD: 50 * basePolygonHealth,
         PENETRATION: 1.1,
