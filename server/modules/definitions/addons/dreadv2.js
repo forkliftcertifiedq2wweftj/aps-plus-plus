@@ -91,7 +91,7 @@ function combineBodyStats(...bodies) {
 const buildHexnoughts = true;
 
 // Set the below variable to true to enable photosphere with 10 auras instead of 6.
-const useOldPhotosphere = false;
+const useOldPhotosphere = true;
 
 // For hexnought merging
 const hexnoughtScaleFactor = 0.9;
@@ -1928,45 +1928,45 @@ Class.addons.UPGRADES_TIER_0.push("dreadOfficialV2");
 
 	Class.dreadWeaponOfficialV2.UPGRADES_TIER_0 = ["swordOfficialV2", "pacifierOfficialV2", "peacekeeperOfficialV2", "invaderOfficialV2", "centaurOfficialV2"];
 
-		Class.swordOfficialV2.UPGRADES_TIER_7 = ["gladiusOfficialV2", "sabreOfficialV2"];
-			Class.gladiusOfficialV2.UPGRADES_TIER_11 = ["bladeOfficialV2"];
-				Class.bladeOfficialV2.UPGRADES_TIER_13 = ["rapierOfficialV2"];
-					Class.rapierOfficialV2.UPGRADES_TIER_15 = [];
-			Class.sabreOfficialV2.UPGRADES_TIER_11 = ["bayonetOfficialV2"];
-				Class.bayonetOfficialV2.UPGRADES_TIER_13 = ["javelinOfficialV2"];
-					Class.javelinOfficialV2.UPGRADES_TIER_15 = [];
+		Class.swordOfficialV2.UPGRADES_TIER_8 = ["gladiusOfficialV2", "sabreOfficialV2"];
+			Class.gladiusOfficialV2.UPGRADES_TIER_12 = ["bladeOfficialV2"];
+				Class.bladeOfficialV2.UPGRADES_TIER_14 = ["rapierOfficialV2"];
+					Class.rapierOfficialV2.UPGRADES_TIER_16 = [];
+			Class.sabreOfficialV2.UPGRADES_TIER_12 = ["bayonetOfficialV2"];
+				Class.bayonetOfficialV2.UPGRADES_TIER_14 = ["javelinOfficialV2"];
+					Class.javelinOfficialV2.UPGRADES_TIER_16 = [];
 
-		Class.pacifierOfficialV2.UPGRADES_TIER_7 = ["mediatorOfficialV2", "negotiatorOfficialV2"];
-			Class.mediatorOfficialV2.UPGRADES_TIER_11 = ["mitigatorOfficialV2"];
-				Class.mitigatorOfficialV2.UPGRADES_TIER_13 = ["diplomatOfficialV2"];
-					Class.diplomatOfficialV2.UPGRADES_TIER_15 = [];
-			Class.negotiatorOfficialV2.UPGRADES_TIER_11 = ["appeaserOfficialV2"];
-				Class.appeaserOfficialV2.UPGRADES_TIER_13 = ["arbitratorOfficialV2"];
-					Class.arbitratorOfficialV2.UPGRADES_TIER_15 = [];
+		Class.pacifierOfficialV2.UPGRADES_TIER_8 = ["mediatorOfficialV2", "negotiatorOfficialV2"];
+			Class.mediatorOfficialV2.UPGRADES_TIER_12 = ["mitigatorOfficialV2"];
+				Class.mitigatorOfficialV2.UPGRADES_TIER_14 = ["diplomatOfficialV2"];
+					Class.diplomatOfficialV2.UPGRADES_TIER_16 = [];
+			Class.negotiatorOfficialV2.UPGRADES_TIER_12 = ["appeaserOfficialV2"];
+				Class.appeaserOfficialV2.UPGRADES_TIER_14 = ["arbitratorOfficialV2"];
+					Class.arbitratorOfficialV2.UPGRADES_TIER_16 = [];
 
-		Class.peacekeeperOfficialV2.UPGRADES_TIER_7 = ["enforcerOfficialV2", "executorOfficialV2"];
-			Class.enforcerOfficialV2.UPGRADES_TIER_11 = ["suppressorOfficialV2"];
-				Class.suppressorOfficialV2.UPGRADES_TIER_13 = ["retardantOfficialV2"];
-					Class.retardantOfficialV2.UPGRADES_TIER_15 = [];
-			Class.executorOfficialV2.UPGRADES_TIER_11 = ["inhibitorOfficialV2"];
-				Class.inhibitorOfficialV2.UPGRADES_TIER_13 = ["tyrantOfficialV2"];
-					Class.tyrantOfficialV2.UPGRADES_TIER_15 = [];
+		Class.peacekeeperOfficialV2.UPGRADES_TIER_8 = ["enforcerOfficialV2", "executorOfficialV2"];
+			Class.enforcerOfficialV2.UPGRADES_TIER_12 = ["suppressorOfficialV2"];
+				Class.suppressorOfficialV2.UPGRADES_TIER_14 = ["retardantOfficialV2"];
+					Class.retardantOfficialV2.UPGRADES_TIER_16 = [];
+			Class.executorOfficialV2.UPGRADES_TIER_12 = ["inhibitorOfficialV2"];
+				Class.inhibitorOfficialV2.UPGRADES_TIER_14 = ["tyrantOfficialV2"];
+					Class.tyrantOfficialV2.UPGRADES_TIER_16 = [];
 
-		Class.invaderOfficialV2.UPGRADES_TIER_7 = ["inquisitorOfficialV2", "assailantOfficialV2"];
-			Class.inquisitorOfficialV2.UPGRADES_TIER_11 = ["infiltratorOfficialV2"];
-				Class.infiltratorOfficialV2.UPGRADES_TIER_13 = ["raiderOfficialV2"];
-					Class.raiderOfficialV2.UPGRADES_TIER_15 = [];
-			Class.assailantOfficialV2.UPGRADES_TIER_11 = ["aggressorOfficialV2"];
-				Class.aggressorOfficialV2.UPGRADES_TIER_13 = ["gladiatorOfficialV2"];
-					Class.gladiatorOfficialV2.UPGRADES_TIER_15 = [];
+		Class.invaderOfficialV2.UPGRADES_TIER_8 = ["inquisitorOfficialV2", "assailantOfficialV2"];
+			Class.inquisitorOfficialV2.UPGRADES_TIER_12 = ["infiltratorOfficialV2"];
+				Class.infiltratorOfficialV2.UPGRADES_TIER_14 = ["raiderOfficialV2"];
+					Class.raiderOfficialV2.UPGRADES_TIER_16 = [];
+			Class.assailantOfficialV2.UPGRADES_TIER_12 = ["aggressorOfficialV2"];
+				Class.aggressorOfficialV2.UPGRADES_TIER_14 = ["gladiatorOfficialV2"];
+					Class.gladiatorOfficialV2.UPGRADES_TIER_16 = [];
 
-		Class.centaurOfficialV2.UPGRADES_TIER_7 = ["daemonOfficialV2", "minotaurOfficialV2"];
-			Class.daemonOfficialV2.UPGRADES_TIER_11 = ["hydraOfficialV2"];
-				Class.hydraOfficialV2.UPGRADES_TIER_13 = ["cerberusOfficialV2"];
-					Class.cerberusOfficialV2.UPGRADES_TIER_15 = [];
-			Class.minotaurOfficialV2.UPGRADES_TIER_11 = ["beelzebubOfficialV2"];
-				Class.beelzebubOfficialV2.UPGRADES_TIER_13 = ["luciferOfficialV2"];
-					Class.luciferOfficialV2.UPGRADES_TIER_15 = [];
+		Class.centaurOfficialV2.UPGRADES_TIER_8 = ["daemonOfficialV2", "minotaurOfficialV2"];
+			Class.daemonOfficialV2.UPGRADES_TIER_12 = ["hydraOfficialV2"];
+				Class.hydraOfficialV2.UPGRADES_TIER_14 = ["cerberusOfficialV2"];
+					Class.cerberusOfficialV2.UPGRADES_TIER_16 = [];
+			Class.minotaurOfficialV2.UPGRADES_TIER_12 = ["beelzebubOfficialV2"];
+				Class.beelzebubOfficialV2.UPGRADES_TIER_14 = ["luciferOfficialV2"];
+					Class.luciferOfficialV2.UPGRADES_TIER_16 = [];
 
 	Class.dreadBodyOfficialV2.UPGRADES_TIER_0 = ["byteOfficialV2", "atmosphereOfficialV2", "juggernautOfficialV2"];
 
