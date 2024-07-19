@@ -3614,3 +3614,9 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
 
     Class.ranger.UPGRADES_TIER_4 = ["alap"]
     Class.machineGunner.UPGRADES_TIER_4 = ["lor"]
+        Class.lor.UPGRADES_TIER_10 = ["dreadOfficialV1"]
+        Class.alap.UPGRADES_TIER_10 = ["dreadOfficialV1"]
+        Class.architect.UPGRADES_TIER_10 = ["dreadOfficialV1"]
+        Class.bulwark.UPGRADES_TIER_10 = ["dreadOfficialV1"]
+        Class.assembler.UPGRADES_TIER_10 = ["dreadOfficialV1"]
+        Class.triplex.UPGRADES_TIER_10 = ["dreadOfficialV1"]
