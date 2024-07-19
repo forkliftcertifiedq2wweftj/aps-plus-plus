@@ -105,7 +105,7 @@ module.exports = {
     TIER_MULTIPLIER: 15,
 
     // Max normally achievable level.
-    LEVEL_CAP: 45,
+    LEVEL_CAP: 300,
 
     // Max level you get by level-up key and auto-level-up.
     LEVEL_CHEAT_CAP: 45,
