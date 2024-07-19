@@ -91,7 +91,7 @@ function combineBodyStats(...bodies) {
 const buildHexnoughts = true;
 
 // Set the below variable to true to enable photosphere with 10 auras instead of 6.
-const useOldPhotosphere = true;
+const useOldPhotosphere = false;
 
 // For hexnought merging
 const hexnoughtScaleFactor = 0.9;
@@ -150,7 +150,7 @@ Class.spamAutoTurret = {
 		{
 			POSITION: [22, 10, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.flankGuard, g.autoTurret, {recoil: 0.2}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.flankGuard, g.autoTurret, {recoil: 0.125}]),
 				TYPE: "bullet",
 			},
 		},
@@ -347,7 +347,7 @@ Class.byteTurretOfficialV2 = {
 		{
 			POSITION: [22, 10, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.turret, {health: 1.2, speed: 0.85, recoil: 1.15}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.turret, {size: 0.9, health: 1.3, speed: 0.85, recoil: 0.8, range: 0.45}]),
 				TYPE: "bullet",
 			},
 		},
@@ -413,7 +413,7 @@ Class.gladiusOfficialV2 = {
 		}, {
 			POSITION: [19.5, 5, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, {speed: 1.05, maxSpeed: 1.05, damage: 1.12, range: 0.65, damage: 1.4}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, {speed: 1.05, maxSpeed: 1.05, damage: 1.12, range: 0.65}]),
 				TYPE: "bullet",
 			},
 		},
@@ -619,7 +619,7 @@ Class.kilobyteTurretOfficialV2 = {
 		{
 			POSITION: [26, 10, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.turret, g.assassin, {health: 1.39, speed: 0.63, recoil: 1.8, range: 0.55}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.turret, g.assassin, {size: 0.9, health: 1.39, speed: 0.63, recoil: 1.25, range: 0.5}]),
 				TYPE: "bullet",
 			},
 		},
@@ -731,13 +731,13 @@ Class.bladeOfficialV2 = {
 		}, {
 			POSITION: [18, 5, 1, 0, 3, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.09, maxSpeed: 1.09, health: 1.09, range: 0.65, damage: 1.6}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.09, maxSpeed: 1.09, health: 1.09, range: 0.65}]),
 				TYPE: "bullet",
 			},
 		}, {
 			POSITION: [18, 5, 1, 0, -3, 0, 0.5],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.09, maxSpeed: 1.09, health: 1.09, range: 0.65, damage: 1.6}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.09, maxSpeed: 1.09, health: 1.09, range: 0.65}]),
 				TYPE: "bullet",
 			},
 		},
@@ -1049,7 +1049,7 @@ Class.megabyteTurretOfficialV2 = {
 		{
 			POSITION: [26, 13, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.turret, g.assassin, g.pounder, {size: 0.9, health: 1.31, speed: 0.62, recoil: 2, range: 0.6}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.turret, g.assassin, g.pounder, {size: 0.85, health: 1.31, speed: 0.62, recoil: 1.4, range: 0.52}]),
 				TYPE: "bullet",
 			},
 		},
@@ -1276,13 +1276,13 @@ Class.rapierOfficialV2 = {
 		}, {
 			POSITION: [18, 5, 1, 0, 3, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.13, maxSpeed: 1.13, health: 1.15, range: 0.65, damage: 2.4}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.13, maxSpeed: 1.13, health: 1.15, range: 0.65}]),
 				TYPE: "bullet",
 			},
 		}, {
 			POSITION: [18, 5, 1, 0, -3, 0, 0.5],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.13, maxSpeed: 1.13, health: 1.15, range: 0.65, damage: 2.4}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.13, maxSpeed: 1.13, health: 1.15, range: 0.65}]),
 				TYPE: "bullet",
 			},
 		},
@@ -1662,7 +1662,7 @@ Class.gigabyteTurretOfficialV2 = {
 		{
 			POSITION: [26, 16, 1, 0, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.turret, g.assassin, g.pounder, g.destroyer, {size: 0.8, health: 1.24, speed: 0.9, recoil: 2, range: 1.15}]),
+				SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.turret, g.assassin, g.pounder, g.destroyer, {size: 0.75, health: 1.24, speed: 0.9, recoil: 1.4, range: 0.9}]),
 				TYPE: "bullet",
 			},
 		},
@@ -1923,50 +1923,51 @@ Class.addons.UPGRADES_TIER_0.push("dreadOfficialV2");
 
 	Class.sword2OfficialV2.UPGRADES_TIER_0 = ["swordOfficialV2"];
 	Class.pacifier2OfficialV2.UPGRADES_TIER_0 = ["pacifierOfficialV2"];
+	Class.peacekeeper2OfficialV2.UPGRADES_TIER_0 = ["peacekeeperOfficialV2"];
 	Class.invader2OfficialV2.UPGRADES_TIER_0 = ["invaderOfficialV2"];
 	Class.centaur2OfficialV2.UPGRADES_TIER_0 = ["centaurOfficialV2"];
 
 	Class.dreadWeaponOfficialV2.UPGRADES_TIER_0 = ["swordOfficialV2", "pacifierOfficialV2", "peacekeeperOfficialV2", "invaderOfficialV2", "centaurOfficialV2"];
 
-		Class.swordOfficialV2.UPGRADES_TIER_8 = ["gladiusOfficialV2", "sabreOfficialV2"];
-			Class.gladiusOfficialV2.UPGRADES_TIER_12 = ["bladeOfficialV2"];
-				Class.bladeOfficialV2.UPGRADES_TIER_14 = ["rapierOfficialV2"];
-					Class.rapierOfficialV2.UPGRADES_TIER_16 = [];
-			Class.sabreOfficialV2.UPGRADES_TIER_12 = ["bayonetOfficialV2"];
-				Class.bayonetOfficialV2.UPGRADES_TIER_14 = ["javelinOfficialV2"];
-					Class.javelinOfficialV2.UPGRADES_TIER_16 = [];
+		Class.swordOfficialV2.UPGRADES_TIER_0 = ["gladiusOfficialV2", "sabreOfficialV2"];
+			Class.gladiusOfficialV2.UPGRADES_TIER_0 = ["bladeOfficialV2"];
+				Class.bladeOfficialV2.UPGRADES_TIER_0 = ["rapierOfficialV2"];
+					Class.rapierOfficialV2.UPGRADES_TIER_0 = [];
+			Class.sabreOfficialV2.UPGRADES_TIER_0 = ["bayonetOfficialV2"];
+				Class.bayonetOfficialV2.UPGRADES_TIER_0 = ["javelinOfficialV2"];
+					Class.javelinOfficialV2.UPGRADES_TIER_0 = [];
 
-		Class.pacifierOfficialV2.UPGRADES_TIER_8 = ["mediatorOfficialV2", "negotiatorOfficialV2"];
-			Class.mediatorOfficialV2.UPGRADES_TIER_12 = ["mitigatorOfficialV2"];
-				Class.mitigatorOfficialV2.UPGRADES_TIER_14 = ["diplomatOfficialV2"];
-					Class.diplomatOfficialV2.UPGRADES_TIER_16 = [];
-			Class.negotiatorOfficialV2.UPGRADES_TIER_12 = ["appeaserOfficialV2"];
-				Class.appeaserOfficialV2.UPGRADES_TIER_14 = ["arbitratorOfficialV2"];
-					Class.arbitratorOfficialV2.UPGRADES_TIER_16 = [];
+		Class.pacifierOfficialV2.UPGRADES_TIER_0 = ["mediatorOfficialV2", "negotiatorOfficialV2"];
+			Class.mediatorOfficialV2.UPGRADES_TIER_0 = ["mitigatorOfficialV2"];
+				Class.mitigatorOfficialV2.UPGRADES_TIER_0 = ["diplomatOfficialV2"];
+					Class.diplomatOfficialV2.UPGRADES_TIER_0 = [];
+			Class.negotiatorOfficialV2.UPGRADES_TIER_0 = ["appeaserOfficialV2"];
+				Class.appeaserOfficialV2.UPGRADES_TIER_0 = ["arbitratorOfficialV2"];
+					Class.arbitratorOfficialV2.UPGRADES_TIER_0 = [];
 
-		Class.peacekeeperOfficialV2.UPGRADES_TIER_8 = ["enforcerOfficialV2", "executorOfficialV2"];
-			Class.enforcerOfficialV2.UPGRADES_TIER_12 = ["suppressorOfficialV2"];
-				Class.suppressorOfficialV2.UPGRADES_TIER_14 = ["retardantOfficialV2"];
-					Class.retardantOfficialV2.UPGRADES_TIER_16 = [];
-			Class.executorOfficialV2.UPGRADES_TIER_12 = ["inhibitorOfficialV2"];
-				Class.inhibitorOfficialV2.UPGRADES_TIER_14 = ["tyrantOfficialV2"];
-					Class.tyrantOfficialV2.UPGRADES_TIER_16 = [];
+		Class.peacekeeperOfficialV2.UPGRADES_TIER_0 = ["enforcerOfficialV2", "executorOfficialV2"];
+			Class.enforcerOfficialV2.UPGRADES_TIER_0 = ["suppressorOfficialV2"];
+				Class.suppressorOfficialV2.UPGRADES_TIER_0 = ["retardantOfficialV2"];
+					Class.retardantOfficialV2.UPGRADES_TIER_0 = [];
+			Class.executorOfficialV2.UPGRADES_TIER_0 = ["inhibitorOfficialV2"];
+				Class.inhibitorOfficialV2.UPGRADES_TIER_0 = ["tyrantOfficialV2"];
+					Class.tyrantOfficialV2.UPGRADES_TIER_0 = [];
 
-		Class.invaderOfficialV2.UPGRADES_TIER_8 = ["inquisitorOfficialV2", "assailantOfficialV2"];
-			Class.inquisitorOfficialV2.UPGRADES_TIER_12 = ["infiltratorOfficialV2"];
-				Class.infiltratorOfficialV2.UPGRADES_TIER_14 = ["raiderOfficialV2"];
-					Class.raiderOfficialV2.UPGRADES_TIER_16 = [];
-			Class.assailantOfficialV2.UPGRADES_TIER_12 = ["aggressorOfficialV2"];
-				Class.aggressorOfficialV2.UPGRADES_TIER_14 = ["gladiatorOfficialV2"];
-					Class.gladiatorOfficialV2.UPGRADES_TIER_16 = [];
+		Class.invaderOfficialV2.UPGRADES_TIER_0 = ["inquisitorOfficialV2", "assailantOfficialV2"];
+			Class.inquisitorOfficialV2.UPGRADES_TIER_0 = ["infiltratorOfficialV2"];
+				Class.infiltratorOfficialV2.UPGRADES_TIER_0 = ["raiderOfficialV2"];
+					Class.raiderOfficialV2.UPGRADES_TIER_0 = [];
+			Class.assailantOfficialV2.UPGRADES_TIER_0 = ["aggressorOfficialV2"];
+				Class.aggressorOfficialV2.UPGRADES_TIER_0 = ["gladiatorOfficialV2"];
+					Class.gladiatorOfficialV2.UPGRADES_TIER_0 = [];
 
-		Class.centaurOfficialV2.UPGRADES_TIER_8 = ["daemonOfficialV2", "minotaurOfficialV2"];
-			Class.daemonOfficialV2.UPGRADES_TIER_12 = ["hydraOfficialV2"];
-				Class.hydraOfficialV2.UPGRADES_TIER_14 = ["cerberusOfficialV2"];
-					Class.cerberusOfficialV2.UPGRADES_TIER_16 = [];
-			Class.minotaurOfficialV2.UPGRADES_TIER_12 = ["beelzebubOfficialV2"];
-				Class.beelzebubOfficialV2.UPGRADES_TIER_14 = ["luciferOfficialV2"];
-					Class.luciferOfficialV2.UPGRADES_TIER_16 = [];
+		Class.centaurOfficialV2.UPGRADES_TIER_0 = ["daemonOfficialV2", "minotaurOfficialV2"];
+			Class.daemonOfficialV2.UPGRADES_TIER_0 = ["hydraOfficialV2"];
+				Class.hydraOfficialV2.UPGRADES_TIER_0 = ["cerberusOfficialV2"];
+					Class.cerberusOfficialV2.UPGRADES_TIER_0 = [];
+			Class.minotaurOfficialV2.UPGRADES_TIER_0 = ["beelzebubOfficialV2"];
+				Class.beelzebubOfficialV2.UPGRADES_TIER_0 = ["luciferOfficialV2"];
+					Class.luciferOfficialV2.UPGRADES_TIER_0 = [];
 
 	Class.dreadBodyOfficialV2.UPGRADES_TIER_0 = ["byteOfficialV2", "atmosphereOfficialV2", "juggernautOfficialV2"];
 
@@ -2311,7 +2312,7 @@ const pentanoughtWeapons = ["rapierOfficialV2", "javelinOfficialV2", "diplomatOf
 if(buildHexnoughts) {
 	for (let i of pentanoughtWeapons) {
 		for (let j of pentanoughtWeapons) {
-			Class[i].UPGRADES_TIER_15.push(mergeHexnoughtWeaponV2(i, j));
+			Class[i].UPGRADES_TIER_0.push(mergeHexnoughtWeaponV2(i, j));
 		}
 	}
 }
