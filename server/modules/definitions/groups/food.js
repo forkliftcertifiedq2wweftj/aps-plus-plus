@@ -168,10 +168,10 @@ makeLaby = (type, level, baseScale = 1) => {
 // EGGS
 Class.egg = {
     PARENT: "food",
-    LABEL: "Egg",
-    VALUE: 48,
-    SHAPE: 0,
-    SIZE: 4.5,
+    LABEL: "2",
+    VALUE: 2,
+    SHAPE: 2,
+    SIZE: 6,
     COLOR: "veryLightGrey",
     INTANGIBLE: true,
     BODY: {
@@ -185,11 +185,11 @@ Class.egg = {
 };
 Class.gem = {
     PARENT: "food",
-    LABEL: "Gem",
-    VALUE: 10138,
-    SHAPE: 6,
-    SIZE: 4.5,
-    COLOR: "aqua",
+    LABEL: "4",
+    VALUE: 4,
+    SHAPE: 4,
+    SIZE: 8,
+    COLOR: "veryLightGrey",
     BODY: {
         DAMAGE: basePolygonDamage / 4,
         DENSITY: 4,
@@ -205,11 +205,11 @@ Class.gem = {
 };
 Class.jewel = {
     PARENT: "food",
-    LABEL: "Jewel",
-    VALUE: 577720,
-    SHAPE: 6,
-    SIZE: 8,
-    COLOR: "yellow",
+    LABEL: "8",
+    VALUE: 8,
+    SHAPE: 4,
+    SIZE: 9,
+    COLOR: "white",
     BODY: {
         DAMAGE: basePolygonDamage / 4,
         DENSITY: 4,
@@ -232,11 +232,11 @@ Class.transEgg = makeRare("egg", 4); //ironic
 // SQUARES
 Class.square = {
     PARENT: "food",
-    LABEL: "Square",
-    VALUE: 144,
+    LABEL: "4",
+    VALUE: 4,
     SHAPE: 4,
-    SIZE: 14,
-    COLOR: "gold",
+    SIZE: 8,
+    COLOR: "white",
     BODY: {
         DAMAGE: basePolygonDamage,
         DENSITY: 4,
@@ -256,11 +256,11 @@ Class.transSquare = makeRare("square", 4);
 // TRIANGLES
 Class.triangle = {
     PARENT: "food",
-    LABEL: "Triangle",
-    VALUE: 576,
-    SHAPE: 3,
-    SIZE: 10,
-    COLOR: "orange",
+    LABEL: "8",
+    VALUE: 8,
+    SHAPE: 4,
+    SIZE: 9,
+    COLOR: "white",
     BODY: {
         DAMAGE: basePolygonDamage,
         DENSITY: 6,
@@ -280,11 +280,11 @@ Class.transTriangle = makeRare("triangle", 4);
 // PENTAGONS
 Class.pentagon = {
     PARENT: "food",
-    LABEL: "Pentagon",
-    VALUE: 1922,
-    SHAPE: 5,
-    SIZE: 21,
-    COLOR: "purple",
+    LABEL: "16",
+    VALUE: 16,
+    SHAPE: 4,
+    SIZE: 16,
+    COLOR: "orange",
     BODY: {
         DAMAGE: 1.5 * basePolygonDamage,
         DENSITY: 8,
@@ -304,11 +304,11 @@ Class.transPentagon = makeRare("pentagon", 4);
 // BETA PENTAGONS
 Class.betaPentagon = {
     PARENT: "food",
-    LABEL: "Hendecagon",
-    VALUE: 2101540,
-    SHAPE: 11,
-    SIZE: 203,
-    COLOR: "yellow",
+    LABEL: "32",
+    VALUE: 32,
+    SHAPE: 4,
+    SIZE: 20,
+    COLOR: "red",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 30,
@@ -331,11 +331,11 @@ Class.transBetaPentagon = makeRare("betaPentagon", 4);
 // ALPHA PENTAGONS
 Class.alphaPentagon = {
     PARENT: "food",
-    LABEL: "Dodecagon",
-    VALUE: 3110279,
-    SHAPE: 12,
-    SIZE: 227,
-    COLOR: "lavender",
+    LABEL: "64",
+    VALUE: 64,
+    SHAPE: 4,
+    SIZE: 53,
+    COLOR: "red",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 80,
@@ -357,10 +357,10 @@ Class.transAlphaPentagon = makeRare("alphaPentagon", 4);
 // HEXAGONS
 Class.hexagon = {
     PARENT: "food",
-    LABEL: "Hexagon",
-    VALUE: 45927,
-    SHAPE: 6,
-    SIZE: 25,
+    LABEL: "128",
+    VALUE: 128,
+    SHAPE: 4,
+    SIZE: 60,
     COLOR: "hexagon",
     BODY: {
         DAMAGE: 3 * basePolygonDamage,
