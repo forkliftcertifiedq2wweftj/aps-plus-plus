@@ -631,7 +631,7 @@ Class.ranger = {
 }
 Class.alap = {
     PARENT: "genericTank",
-    LABEL: "As Long As Possible",
+    LABEL: "Longer",
     DANGER: 8,
     BODY: {
         SPEED: 0.9 * base.SPEED,
@@ -1014,6 +1014,65 @@ Class.streamliner = {
             POSITION: [17, 8, 1, 0, 0, 0, 0.8],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner]),
+                TYPE: "bullet",
+            },
+        },
+    ],
+}
+Class.rationalizer = {
+    PARENT: "genericTank",
+    LABEL: "Rationalizer",
+    DANGER: 8,
+    BODY: {
+        FOV: 1.4,
+    },
+    GUNS: [
+        {
+            POSITION: [25, 8, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [23, 8, 1, 0, 0, 0, 0.2],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [21, 8, 1, 0, 0, 0, 0.4],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [19, 8, 1, 0, 0, 0, 0.6],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [17, 8, 1, 0, 0, 0, 0.8],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 8, 1, 0, 0, 0, 1],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [13, 8, 1, 0, 0, 0, 1.2],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
                 TYPE: "bullet",
             },
         },
@@ -3578,6 +3637,7 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
 
     Class.machineGun.UPGRADES_TIER_2 = ["artillery", "minigun", "gunner", "sprayer"]
         Class.minigun.UPGRADES_TIER_3 = ["streamliner", "nailgun", "cropDuster", "barricade", "vulture"]
+            Class.streamliner.UPGRADES_TIER_4 = ["rationalizer"]
         Class.gunner.UPGRADES_TIER_3 = ["autoGunner", "nailgun", "auto4", "machineGunner", "gunnerTrapper", "cyclone", "overgunner"]
         Class.sprayer.UPGRADES_TIER_3 = ["redistributor", "phoenix", "atomizer", "focal"]
 
@@ -3614,9 +3674,3 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
 
     Class.ranger.UPGRADES_TIER_4 = ["alap"]
     Class.machineGunner.UPGRADES_TIER_4 = ["lor"]
-        Class.lor.UPGRADES_TIER_10 = ["dreadOfficialV1"]
-        Class.alap.UPGRADES_TIER_10 = ["dreadOfficialV1"]
-        Class.architect.UPGRADES_TIER_10 = ["dreadOfficialV1"]
-        Class.bulwark.UPGRADES_TIER_10 = ["dreadOfficialV1"]
-        Class.assembler.UPGRADES_TIER_10 = ["dreadOfficialV1"]
-        Class.triplex.UPGRADES_TIER_10 = ["dreadOfficialV1"]
