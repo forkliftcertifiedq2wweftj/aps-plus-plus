@@ -631,7 +631,7 @@ Class.ranger = {
 }
 Class.alap = {
     PARENT: "genericTank",
-    LABEL: "As Long As Possible",
+    LABEL: "Longer",
     DANGER: 8,
     BODY: {
         SPEED: 0.9 * base.SPEED,
@@ -1014,6 +1014,65 @@ Class.streamliner = {
             POSITION: [17, 8, 1, 0, 0, 0, 0.8],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner]),
+                TYPE: "bullet",
+            },
+        },
+    ],
+}
+Class.rationalizer = {
+    PARENT: "genericTank",
+    LABEL: "Rationalizer",
+    DANGER: 8,
+    BODY: {
+        FOV: 1.4,
+    },
+    GUNS: [
+        {
+            POSITION: [25, 8, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [23, 8, 1, 0, 0, 0, 0.2],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [21, 8, 1, 0, 0, 0, 0.4],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [19, 8, 1, 0, 0, 0, 0.6],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [17, 8, 1, 0, 0, 0, 0.6],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 8, 1, 0, 0, 0, 0.6],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [13, 8, 1, 0, 0, 0, 0.8],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
                 TYPE: "bullet",
             },
         },
