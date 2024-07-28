@@ -3680,4 +3680,4 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.bulwark.UPGRADES_TIER_10 = ["dreadOfficialV1"]
         Class.assembler.UPGRADES_TIER_10 = ["dreadOfficialV1"]
         Class.triplex.UPGRADES_TIER_10 = ["dreadOfficialV1"]
-        Class.rationalizer.UPGRADES_TIER_10 = ["dreadOfficialV1]
+        Class.rationalizer.UPGRADES_TIER_10 = ["dreadOfficialV1"]
