@@ -1056,21 +1056,21 @@ Class.rationalizer = {
             },
         },
         {
-            POSITION: [17, 8, 1, 0, 0, 0, 0.6],
+            POSITION: [17, 8, 1, 0, 0, 0, 0.8],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
                 TYPE: "bullet",
             },
         },
         {
-            POSITION: [15, 8, 1, 0, 0, 0, 0.6],
+            POSITION: [15, 8, 1, 0, 0, 0, 1],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
                 TYPE: "bullet",
             },
         },
         {
-            POSITION: [13, 8, 1, 0, 0, 0, 0.8],
+            POSITION: [13, 8, 1, 0, 0, 0, 1.2],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.rationalizer]),
                 TYPE: "bullet",
