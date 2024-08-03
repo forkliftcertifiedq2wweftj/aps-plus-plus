@@ -3707,3 +3707,4 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
 
     Class.ranger.UPGRADES_TIER_4 = ["alap"]
     Class.machineGunner.UPGRADES_TIER_4 = ["lor"]
+    Class.redistributor.UPGRADES_TIER_4 = ["snowstorm"]
