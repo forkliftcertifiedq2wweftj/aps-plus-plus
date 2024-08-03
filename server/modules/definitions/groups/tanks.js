@@ -1228,6 +1228,39 @@ Class.redistributor = {
         },
     ],
 }
+Class.snowstorm = {
+    PARENT: "genericTank",
+    LABEL: "Snowstorm",
+    DANGER: 7,
+    GUNS: [
+        {
+            POSITION: [29, 4, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.powerII, g.machineGun, { recoil: 1.15 }]),
+                TYPE: "bullet",
+            },
+            POSITION: [26, 7, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.lowPower, g.machineGun, { recoil: 1.15 }]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [23, 10, 1, 0, 0, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.lowPower, g.machineGun, { recoil: 1.15 }]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [12, 10, 1.4, 8, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun]),
+                TYPE: "bullet",
+            },
+        },
+    ],
+}
 Class.lor = {
     PARENT: "genericTank",
     LABEL: "Lor",
