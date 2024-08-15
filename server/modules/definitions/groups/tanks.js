@@ -1231,7 +1231,7 @@ Class.redistributor = {
 Class.snowstorm = {
     PARENT: "genericTank",
     LABEL: "Snowstorm",
-    DANGER: 7,
+    DANGER: 9,
     GUNS: [
         {
             POSITION: [29, 4, 1, 0, 0, 0, 0],
