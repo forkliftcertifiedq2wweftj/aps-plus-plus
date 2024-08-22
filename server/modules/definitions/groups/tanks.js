@@ -2132,6 +2132,27 @@ Class.launcher = {
         },
     ],
 }
+Class.missiler = {
+    PARENT: "genericTank",
+    LABEL: "Missiler",
+    DANGER: 7,
+    BODY: {
+        FOV: base.FOV * 1.125,
+    },
+    GUNS: [
+        {
+            POSITION: [10, 9, 1, 9, 0, 0, 0],
+        },
+        {
+            POSITION: [17, 13, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.launcher]),
+                TYPE: "missilerM",
+                STAT_CALCULATOR: gunCalcNames.sustained,
+            },
+        },
+    ],
+}
 Class.shotgun = {
     PARENT: "genericTank",
     LABEL: "Shotgun",
@@ -3707,6 +3728,7 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
 
     Class.ranger.UPGRADES_TIER_4 = ["alap"]
     Class.machineGunner.UPGRADES_TIER_4 = ["lor"]
+    Class.launcher.UPGRADES_TIER_4 = ["missiler"]
     Class.redistributor.UPGRADES_TIER_4 = ["snowstorm"]
     Class.lor.UPGRADES_TIER_10 = ["dreadOfficialV1"]
         Class.alap.UPGRADES_TIER_10 = ["dreadOfficialV1"]
@@ -3716,3 +3738,4 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.triplex.UPGRADES_TIER_10 = ["dreadOfficialV1"]
         Class.rationalizer.UPGRADES_TIER_10 = ["dreadOfficialV1"]
         Class.snowstorm.UPGRADES_TIER_10 = ["dreadOfficialV1"]
+            Class.dreadOfficialV1.UPGRADES_TIER_20 = ["basic"]
