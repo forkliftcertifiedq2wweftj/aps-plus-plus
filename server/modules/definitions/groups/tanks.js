@@ -2132,6 +2132,27 @@ Class.launcher = {
         },
     ],
 }
+Class.missiler = {
+    PARENT: "genericTank",
+    LABEL: "Missiler",
+    DANGER: 7,
+    BODY: {
+        FOV: base.FOV * 1.125,
+    },
+    GUNS: [
+        {
+            POSITION: [10, 9, 1, 9, 0, 0, 0],
+        },
+        {
+            POSITION: [17, 13, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.launcher]),
+                TYPE: "missilerM",
+                STAT_CALCULATOR: gunCalcNames.sustained,
+            },
+        },
+    ],
+}
 Class.shotgun = {
     PARENT: "genericTank",
     LABEL: "Shotgun",
