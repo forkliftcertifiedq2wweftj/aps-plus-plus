@@ -108,31 +108,31 @@ Class.missilerM = {
          POSITION: [ 18, 8, 1, 0, 0, -45, 0, ],
          PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic]),
-            TYPE: exports.bullet,
+            TYPE: "bullet",
                              AUTOFIRE: true,
          }, }, {
          POSITION: [ 18, 8, 1, 0, 0, 45, 0, ],
          PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic]),
-            TYPE: exports.bullet,
+            TYPE: "bullet",
                              AUTOFIRE: true,
          }, }, {
          POSITION: [ 22, 8, 1, 0, 0, -22.5, 0, ],
          PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic]),
-            TYPE: exports.bullet,
+            TYPE: "bullet",
                              AUTOFIRE: true,
          }, }, {
          POSITION: [ 22, 8, 1, 0, 0, 22.5, 0, ],
          PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic]),
-            TYPE: exports.bullet,
+            TYPE: "bullet",
                              AUTOFIRE: true,
          }, }, {
          POSITION: [ 26, 8, 1, 0, 0, 0, 0, ],
          PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic]),
-            TYPE: exports.bullet,
+            TYPE: "bullet",
                              AUTOFIRE: true,
          }, }, 
      ],
