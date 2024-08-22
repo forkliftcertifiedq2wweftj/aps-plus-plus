@@ -3727,5 +3727,6 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.repeater.UPGRADES_TIER_3 = ["iterator", "duplicator"]
 
     Class.ranger.UPGRADES_TIER_4 = ["alap"]
+    Class.launcher.UPGRADES_TIER_4 = ["missiler"]
     Class.machineGunner.UPGRADES_TIER_4 = ["lor"]
     Class.redistributor.UPGRADES_TIER_4 = ["snowstorm"]
