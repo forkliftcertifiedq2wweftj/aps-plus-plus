@@ -25,6 +25,7 @@ Class.splitterBullet = {
         },
     ]
 }
+
 Class.superSplitterBullet = {
     PARENT: "bullet",
     INDEPENDENT: true,
@@ -100,6 +101,38 @@ Class.missile = {
         }
     ]
 }
+Class.missilerM = {
+   PARENT: "bullet",
+   LABEL: 'Missiler Missile',
+   GUNS: [ {
+         POSITION: [ 18, 8, 1, 0, 0, -45, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic]),
+            TYPE: exports.bullet,
+         }, }, {
+         POSITION: [ 18, 8, 1, 0, 0, 45, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic]),
+            TYPE: exports.bullet,
+         }, }, {
+         POSITION: [ 22, 8, 1, 0, 0, -22.5, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic]),
+            TYPE: exports.bullet,
+         }, }, {
+         POSITION: [ 22, 8, 1, 0, 0, 22.5, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic]),
+            TYPE: exports.bullet,
+         }, }, {
+         POSITION: [ 26, 8, 1, 0, 0, 0, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic]),
+            TYPE: exports.bullet,
+         }, }, 
+     ],
+};
+
 Class.hypermissile = {
     PARENT: "missile",
     GUNS: [
