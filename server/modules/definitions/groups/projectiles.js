@@ -100,6 +100,20 @@ Class.missile = {
         }
     ]
 }
+exports.missilerM = {
+   PARENT: [exports.genericTank],
+   LABEL: 'Missiler Missile',
+   SIZE: 10,
+   GUNS: [ {
+         POSITION: [ 18, 8, 1, 0, 0, -22.5, 0, ],
+         }, {
+         POSITION: [ 18, 8, 1, 0, 0, 22.5, 0, ],
+         }, {
+         POSITION: [ 22, 8, 1, 0, 0, 0, 0.5, ],
+         }, 
+     ],
+};
+
 Class.hypermissile = {
     PARENT: "missile",
     GUNS: [
