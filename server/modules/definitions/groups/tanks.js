@@ -1236,7 +1236,7 @@ Class.snowstorm = {
         {
             POSITION: [29, 4, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.powerII, g.machineGun, { recoil: 1.15 }]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.machineGun, { recoil: 1.15 }]),
                 TYPE: "bullet",
             },
             POSITION: [26, 7, 1, 0, 0, 0, 0],
