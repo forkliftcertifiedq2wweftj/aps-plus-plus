@@ -379,6 +379,73 @@ Class.shadowHexagon = makeRare("hexagon", 2);
 Class.rainbowHexagon = makeRare("hexagon", 3);
 Class.transHexagon = makeRare("hexagon", 4);
 
+Class.nlHexagon = {
+    PARENT: "food",
+    LABEL: "Hexagon",
+    VALUE: 5625,
+    SHAPE: 6,
+    SIZE: 25,
+    COLOR: "hexagon",
+    BODY: {
+        DAMAGE: 1.5 * basePolygonDamage,
+        DENSITY: 8,
+        HEALTH: 20 * basePolygonHealth,
+        RESIST: 1.25,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.0035
+    },
+    DRAW_HEALTH: true,
+};
+Class.shinyPentagon = makeRare("pentagon", 0);
+Class.legendaryPentagon = makeRare("pentagon", 1);
+Class.shadowPentagon = makeRare("pentagon", 2);
+Class.rainbowPentagon = makeRare("pentagon", 3);
+Class.transPentagon = makeRare("pentagon", 4);
+Class.betahexagon = {
+    PARENT: "food",
+    LABEL: "Beta Hexagon",
+    VALUE: 18750,
+    SHAPE: 6,
+    SIZE: 36,
+    COLOR: "hexagon",
+    BODY: {
+        DAMAGE: 1.5 * basePolygonDamage,
+        DENSITY: 8,
+        HEALTH: 100 * basePolygonHealth,
+        RESIST: 1.25,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.0035
+    },
+    DRAW_HEALTH: true,
+};
+Class.shinyPentagon = makeRare("pentagon", 0);
+Class.legendaryPentagon = makeRare("pentagon", 1);
+Class.shadowPentagon = makeRare("pentagon", 2);
+Class.rainbowPentagon = makeRare("pentagon", 3);
+Class.transPentagon = makeRare("pentagon", 4);
+Class.alphahexagon = {
+    PARENT: "food",
+    LABEL: "Alpha Hexagon",
+    VALUE: 93750,
+    SHAPE: 6,
+    SIZE: 36,
+    COLOR: "hexagon",
+    BODY: {
+        DAMAGE: 1.5 * basePolygonDamage,
+        DENSITY: 8,
+        HEALTH: 500 * basePolygonHealth,
+        RESIST: 1.25,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.0035
+    },
+    DRAW_HEALTH: true,
+};
+Class.shinyPentagon = makeRare("pentagon", 0);
+Class.legendaryPentagon = makeRare("pentagon", 1);
+Class.shadowPentagon = makeRare("pentagon", 2);
+Class.rainbowPentagon = makeRare("pentagon", 3);
+Class.transPentagon = makeRare("pentagon", 4);
+
 // 3D POLYGONS
 Class.sphere = {
     PARENT: "food",
