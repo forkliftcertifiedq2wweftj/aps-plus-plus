@@ -105,10 +105,10 @@ module.exports = {
     TIER_MULTIPLIER: 15,
 
     // Max normally achievable level.
-    LEVEL_CAP: 300,
+    LEVEL_CAP: 1000,
 
     // Max level you get by level-up key and auto-level-up.
-    LEVEL_CHEAT_CAP: 45,
+    LEVEL_CHEAT_CAP: 60,
 
     // Amount of player-bots to spawn.
     BOTS: 11,
