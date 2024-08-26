@@ -428,7 +428,7 @@ Class.alphahexagon = {
     LABEL: "Alpha Hexagon",
     VALUE: 93750,
     SHAPE: 6,
-    SIZE: 36,
+    SIZE: 72,
     COLOR: "hexagon",
     BODY: {
         DAMAGE: 1.5 * basePolygonDamage,
