@@ -158,6 +158,9 @@ module.exports = {
         [1000, [
             [1024, 'egg'], [256, 'square'], [64, 'triangle'], [16, 'pentagon'], [4, 'betaPentagon'], [1, 'alphaPentagon'], [0.25, 'hexagon']
         ]],
+         [200, [
+            [1024, 'cs'], [256, 'ct'], [64, 'cp']
+        ]],
         [22.222222, [
             [3125, 'gem'], [625, 'shinySquare'], [125, 'shinyTriangle'], [25, 'shinyPentagon'], [5, 'shinyBetaPentagon'], [1, 'shinyAlphaPentagon']
         ]],
