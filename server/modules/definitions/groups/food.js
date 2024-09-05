@@ -113,8 +113,8 @@ makeRare = (type, level) => {
     type = ensureIsClass(type);
     return {
         PARENT: "food",
-        LABEL: ["Shiny", "Legendary", "Shadow", "Rainbow", "Trans"][level] + " " + type.LABEL,
-        VALUE: [168, 840, 3360, 6720, 8400][level] * type.VALUE,
+        LABEL: ["Camo", "Shiny", "Legendary", "Shadow", "Rainbow", "Trans"][level] + " " + type.LABEL,
+        VALUE: [2, 168, 840, 3360, 6720, 8400][level] * type.VALUE,
         SHAPE: type.SHAPE,
         SIZE: type.SIZE + level,
         COLOR: ["lightGreen", "teal", "darkGrey", "rainbow", "trans"][level],
@@ -247,11 +247,12 @@ Class.square = {
     DRAW_HEALTH: true,
     INTANGIBLE: false,
 };
-Class.shinySquare = makeRare("square", 0);
-Class.legendarySquare = makeRare("square", 1);
-Class.shadowSquare = makeRare("square", 2);
-Class.rainbowSquare = makeRare("square", 3);
-Class.transSquare = makeRare("square", 4);
+Class.cs = makeRare("square", 0);
+Class.shinySquare = makeRare("square", 1);
+Class.legendarySquare = makeRare("square", 2);
+Class.shadowSquare = makeRare("square", 3);
+Class.rainbowSquare = makeRare("square", 4);
+Class.transSquare = makeRare("square", 5);
 
 // TRIANGLES
 Class.triangle = {
@@ -271,6 +272,7 @@ Class.triangle = {
     },
     DRAW_HEALTH: true,
 };
+Class.ct=makeRare("triangle", -1);
 Class.shinyTriangle = makeRare("triangle", 0);
 Class.legendaryTriangle = makeRare("triangle", 1);
 Class.shadowTriangle = makeRare("triangle", 2);
@@ -295,6 +297,7 @@ Class.pentagon = {
     },
     DRAW_HEALTH: true,
 };
+Class.cp=makeRare("pentagon",-1)
 Class.shinyPentagon = makeRare("pentagon", 0);
 Class.legendaryPentagon = makeRare("pentagon", 1);
 Class.shadowPentagon = makeRare("pentagon", 2);
