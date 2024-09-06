@@ -427,7 +427,7 @@ Class.legendaryPentagon = makeRare("pentagon", 1);
 Class.shadowPentagon = makeRare("pentagon", 2);
 Class.rainbowPentagon = makeRare("pentagon", 3);
 Class.transPentagon = makeRare("pentagon", 4);
-Class.7 = {
+Class.s7 = {
     PARENT: "food",
     LABEL: "Heptagon",
     VALUE: 26260,
@@ -444,11 +444,11 @@ Class.7 = {
     },
     DRAW_HEALTH: true,
 };
-Class.sh = makeRare("7", 0);
-Class.lh = makeRare("7", 1);
-Class.shh = makeRare("7", 2);
-Class.rh = makeRare("7", 3);
-Class.th = makeRare("7", 4);
+Class.sh = makeRare("s7", 0);
+Class.lh = makeRare("s7", 1);
+Class.shh = makeRare("s7", 2);
+Class.rh = makeRare("s7", 3);
+Class.th = makeRare("s7", 4);
 
 Class.alphahexagon = {
     PARENT: "food",
