@@ -430,7 +430,7 @@ Class.transPentagon = makeRare("pentagon", 4);
 Class.s7 = {
     PARENT: "food",
     LABEL: "Heptagon",
-    VALUE: 26260,
+    VALUE: 26250,
     SHAPE: 7,
     SIZE: 70,
     COLOR: 'yellow',
@@ -438,6 +438,28 @@ Class.s7 = {
         DAMAGE: 1.5 * basePolygonDamage,
         DENSITY: 8,
         HEALTH: 400 * basePolygonHealth,
+        RESIST: 1.25,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.0035
+    },
+    DRAW_HEALTH: true,
+};
+Class.sh = makeRare("s7", 0);
+Class.lh = makeRare("s7", 1);
+Class.shh = makeRare("s7", 2);
+Class.rh = makeRare("s7", 3);
+Class.th = makeRare("s7", 4);
+Class.s8 = {
+    PARENT: "food",
+    LABEL: "Octagon",
+    VALUE: 275625,
+    SHAPE: 8,
+    SIZE: 110,
+    COLOR: 'magenta',
+    BODY: {
+        DAMAGE: 1.5 * basePolygonDamage,
+        DENSITY: 8,
+        HEALTH: 1000 * basePolygonHealth,
         RESIST: 1.25,
         PENETRATION: 1.1,
         ACCELERATION: 0.0035
