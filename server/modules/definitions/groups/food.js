@@ -433,7 +433,7 @@ Class.s7 = {
     VALUE: 26260,
     SHAPE: 7,
     SIZE: 70,
-    COLOR: #c7c461,
+    COLOR: 'seven',
     BODY: {
         DAMAGE: 1.5 * basePolygonDamage,
         DENSITY: 8,
