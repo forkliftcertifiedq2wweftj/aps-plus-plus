@@ -182,9 +182,10 @@ module.exports = {
     ],
 
     // The possible nest food types that can spawn.
+    // can i please not approximate everything for the future shapes -forkliftcertifiedq2wweftj
     FOOD_TYPES_NEST: [
         [1, [
-            [64, 'pentagon'], [ 16, 'betaPentagon'], [ 4, 'alphaPentagon'], [ 2, 'hexagon'], [ 1.5, 's7'], [ 1, 'betahexagon'], [ 0.5, 'alphahexagon']
+            [64, 'pentagon'], [ 16, 'betaPentagon'], [ 4, 'alphaPentagon'], [ 2, 'hexagon'], [ 1.75, 's7'], [ 1.5, 's8'], [ 1, 'betahexagon'], [ 0.5, 'alphahexagon']
         ]]
     ],
 
