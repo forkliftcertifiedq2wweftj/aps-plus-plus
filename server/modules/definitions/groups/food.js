@@ -427,6 +427,29 @@ Class.legendaryPentagon = makeRare("pentagon", 1);
 Class.shadowPentagon = makeRare("pentagon", 2);
 Class.rainbowPentagon = makeRare("pentagon", 3);
 Class.transPentagon = makeRare("pentagon", 4);
+Class.7 = {
+    PARENT: "food",
+    LABEL: "Heptagon",
+    VALUE: 26260,
+    SHAPE: 7,
+    SIZE: 70,
+    COLOR: #c7c461,
+    BODY: {
+        DAMAGE: 1.5 * basePolygonDamage,
+        DENSITY: 8,
+        HEALTH: 400 * basePolygonHealth,
+        RESIST: 1.25,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.0035
+    },
+    DRAW_HEALTH: true,
+};
+Class.sh = makeRare("7", 0);
+Class.lh = makeRare("7", 1);
+Class.shh = makeRare("7", 2);
+Class.rh = makeRare("7", 3);
+Class.th = makeRare("7", 4);
+
 Class.alphahexagon = {
     PARENT: "food",
     LABEL: "Alpha Hexagon",
