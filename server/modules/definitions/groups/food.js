@@ -471,6 +471,28 @@ Class.lh = makeRare("s7", 1);
 Class.shh = makeRare("s7", 2);
 Class.rh = makeRare("s7", 3);
 Class.th = makeRare("s7", 4);
+Class.s9 = {
+    PARENT: "food",
+    LABEL: "Enneagon",
+    VALUE: 1860475,
+    SHAPE: 9,
+    SIZE: 155,
+    COLOR: 'white',
+    BODY: {
+        DAMAGE: 1.5 * basePolygonDamage,
+        DENSITY: 8,
+        HEALTH: 2500 * basePolygonHealth,
+        RESIST: 1.25,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.0035
+    },
+    DRAW_HEALTH: true,
+};
+Class.sh = makeRare("s7", 0);
+Class.lh = makeRare("s7", 1);
+Class.shh = makeRare("s7", 2);
+Class.rh = makeRare("s7", 3);
+Class.th = makeRare("s7", 4);
 
 Class.alphahexagon = {
     PARENT: "food",
