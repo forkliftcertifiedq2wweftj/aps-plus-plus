@@ -320,7 +320,6 @@ Class.betaPentagon = {
         ACCELERATION: 0.003
     },
     DRAW_HEALTH: true,
-    GIVE_KILL_MESSAGE: true,
 };
 Class.shinyBetaPentagon = makeRare("betaPentagon", 0);
 Class.legendaryBetaPentagon = makeRare("betaPentagon", 1);
@@ -347,7 +346,6 @@ Class.alphaPentagon = {
         ACCELERATION: 0.0025
     },
     DRAW_HEALTH: true,
-    GIVE_KILL_MESSAGE: true,
 };
 Class.shinyAlphaPentagon = makeRare("alphaPentagon", 0);
 Class.legendaryAlphaPentagon = makeRare("alphaPentagon", 1);
@@ -388,13 +386,65 @@ Class.shape9 = {
     BODY: {
         DAMAGE: 3 * basePolygonDamage,
         DENSITY: 8,
-        HEALTH: 180 * basePolygonHealth,
+        HEALTH: 360 * basePolygonHealth,
         RESIST: 1.3,
         SHIELD: 50 * basePolygonHealth,
         PENETRATION: 1.1,
         ACCELERATION: 0.003
     },
     DRAW_HEALTH: true,
+};
+Class.shinyHexagon = makeRare("hexagon", 0);
+Class.legendaryHexagon = makeRare("hexagon", 1);
+Class.shadowHexagon = makeRare("hexagon", 2);
+Class.rainbowHexagon = makeRare("hexagon", 3);
+Class.transHexagon = makeRare("hexagon", 4);
+
+// HEXAGONS
+Class.shape10 = {
+    PARENT: "food",
+    LABEL: "Decagon",
+    VALUE: 196550,
+    SHAPE: 9,
+    SIZE: 160,
+    COLOR: "gray",
+    BODY: {
+        DAMAGE: 6 * basePolygonDamage,
+        DENSITY: 8,
+        HEALTH: 1800 * basePolygonHealth,
+        RESIST: 1.3,
+        SHIELD: 50 * basePolygonHealth,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.003
+    },
+    DRAW_HEALTH: true,
+    GIVE_KILL_MESSAGE: true,
+    CAN_BE_ON_LEADERBOARD: true,
+};
+Class.shinyHexagon = makeRare("hexagon", 0);
+Class.legendaryHexagon = makeRare("hexagon", 1);
+Class.shadowHexagon = makeRare("hexagon", 2);
+Class.rainbowHexagon = makeRare("hexagon", 3);
+Class.transHexagon = makeRare("hexagon", 4);
+Class.shape12 = {
+    PARENT: "food",
+    LABEL: "Dodecagon",
+    VALUE: 2138425,
+    SHAPE: 12,
+    SIZE: 275,
+    COLOR: "red",
+    BODY: {
+        DAMAGE: 12 * basePolygonDamage,
+        DENSITY: 8,
+        HEALTH: 3600 * basePolygonHealth,
+        RESIST: 1.3,
+        SHIELD: 50 * basePolygonHealth,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.003
+    },
+    DRAW_HEALTH: true,
+        GIVE_KILL_MESSAGE: true,
+        CAN_BE_ON_LEADERBOARD: true,
 };
 Class.shinyHexagon = makeRare("hexagon", 0);
 Class.legendaryHexagon = makeRare("hexagon", 1);
@@ -426,32 +476,31 @@ Class.legendaryHexagon = makeRare("hexagon", 1);
 Class.shadowHexagon = makeRare("hexagon", 2);
 Class.rainbowHexagon = makeRare("hexagon", 3);
 Class.transHexagon = makeRare("hexagon", 4);
-
-// HEXAGONS
-Class.octagon = {
+Class.shape11 = {
     PARENT: "food",
-    LABEL: "Octagon",
-    VALUE: 23400,
-    SHAPE: 8,
-    SIZE: 65,
-    COLOR: "purple",
+    LABEL: "Hendecagon",
+    VALUE: 628950,
+    SHAPE: 11,
+    SIZE: 215,
+    COLOR: "black",
     BODY: {
-        DAMAGE: 3 * basePolygonDamage,
+        DAMAGE: 9 * basePolygonDamage,
         DENSITY: 8,
-        HEALTH: 180 * basePolygonHealth,
+        HEALTH: 2700 * basePolygonHealth,
         RESIST: 1.3,
         SHIELD: 50 * basePolygonHealth,
         PENETRATION: 1.1,
         ACCELERATION: 0.003
     },
     DRAW_HEALTH: true,
+    GIVE_KILL_MESSAGE: true,
+        CAN_BE_ON_LEADERBOARD: true,
 };
 Class.shinyHexagon = makeRare("hexagon", 0);
 Class.legendaryHexagon = makeRare("hexagon", 1);
 Class.shadowHexagon = makeRare("hexagon", 2);
 Class.rainbowHexagon = makeRare("hexagon", 3);
 Class.transHexagon = makeRare("hexagon", 4);
-
 // 3D POLYGONS
 Class.sphere = {
     PARENT: "food",
