@@ -378,6 +378,29 @@ Class.legendaryHexagon = makeRare("hexagon", 1);
 Class.shadowHexagon = makeRare("hexagon", 2);
 Class.rainbowHexagon = makeRare("hexagon", 3);
 Class.transHexagon = makeRare("hexagon", 4);
+Class.shape9 = {
+    PARENT: "food",
+    LABEL: "Nonagon",
+    VALUE: 65525,
+    SHAPE: 9,
+    SIZE: 110,
+    COLOR: "veryLightGray",
+    BODY: {
+        DAMAGE: 3 * basePolygonDamage,
+        DENSITY: 8,
+        HEALTH: 180 * basePolygonHealth,
+        RESIST: 1.3,
+        SHIELD: 50 * basePolygonHealth,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.003
+    },
+    DRAW_HEALTH: true,
+};
+Class.shinyHexagon = makeRare("hexagon", 0);
+Class.legendaryHexagon = makeRare("hexagon", 1);
+Class.shadowHexagon = makeRare("hexagon", 2);
+Class.rainbowHexagon = makeRare("hexagon", 3);
+Class.transHexagon = makeRare("hexagon", 4);
 
 // HEXAGONS
 Class.shape8 = {
