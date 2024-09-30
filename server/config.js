@@ -105,7 +105,8 @@ module.exports = {
     TIER_MULTIPLIER: 15,
 
     // Max normally achievable level.
-    LEVEL_CAP: 1000,
+    // im sorry but the 9 billion level cap is just for old growth
+    LEVEL_CAP: 9e9,
 
     // Max level you get by level-up key and auto-level-up.
     LEVEL_CHEAT_CAP: 60,
