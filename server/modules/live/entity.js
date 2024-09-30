@@ -1809,10 +1809,10 @@ class Entity extends EventEmitter {
             args = this.motionType[1];
         switch (type) {
             case "grow":
-                this.SIZE += args.growSpeed ?? 10;
+                this.SIZE += args.growSpeed ?? 40;
                 break;
             case "fastgrow":
-                this.SIZE += args.growSpeed ?? 50;
+                this.SIZE += args.growSpeed ?? 200;
                 break;
             case "glide":
                 this.maxSpeed = this.topSpeed;
