@@ -2301,6 +2301,18 @@ Class.annihilator = {
         },
     ],
 }
+Class.devastator = {
+   PARENT: "genericTank",
+   LABEL: 'Devastator',
+   DANGER: 7,
+   GUNS: [ {
+         POSITION: [ 18, 25, 1, 0, 0, 0, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator, g.power]),
+            TYPE: "bullet",
+         }, }, 
+     ],
+};
 
 // Artillery upgrades
 Class.mortar = {
