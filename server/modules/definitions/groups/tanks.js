@@ -383,6 +383,58 @@ Class.pentaShot = {
         }
     ]
 }
+Class.nonaShot = {
+   PARENT: [exports.genericTank],
+   LABEL: 'Ennea Shot',
+   GUNS: [ {
+         POSITION: [ 18, 8, 1, 0, 0, -82.5, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.pentaShot]),
+            TYPE: "bullet",
+         }, }, {
+         POSITION: [ 18, 8, 1, 0, 0, 82.5, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.pentaShot]),
+            TYPE: "bullet",
+         }, }, {
+         POSITION: [ 20, 8, 1, 0, 0, -60, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.pentaShot]),
+            TYPE: "bullet",
+         }, }, {
+         POSITION: [ 20, 8, 1, 0, 0, 60, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.pentaShot]),
+            TYPE: "bullet",
+         }, }, {
+         POSITION: [ 22, 8, 1, 0, 0, -37.5, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.pentaShot]),
+            TYPE: "bullet",
+         }, }, {
+         POSITION: [ 22, 8, 1, 0, 0, 37.5, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.pentaShot]),
+            TYPE: "bullet",
+         }, }, {
+         POSITION: [ 24, 8, 1, 0, 0, -15, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.pentaShot]),
+            TYPE: "bullet",
+         }, }, {
+         POSITION: [ 24, 8, 1, 0, 0, 15, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.pentaShot]),
+            TYPE: "bullet",
+         }, }, {
+         POSITION: [ 26, 8, 1, 0, 0, 0, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.pentaShot]),
+            TYPE: "bullet",
+         }, }, 
+     ],
+};
+
 Class.spreadshot = {
     PARENT: "genericTank",
     LABEL: "Spreadshot",
@@ -3726,11 +3778,12 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.undertow.UPGRADES_TIER_3 = ["riptide"]
         Class.repeater.UPGRADES_TIER_3 = ["iterator", "duplicator"]
 
+    Class.pentaShot.UPGRADES_TIER_4 = ["nonaShot"]
     Class.ranger.UPGRADES_TIER_4 = ["alap"]
     Class.machineGunner.UPGRADES_TIER_4 = ["lor"]
     Class.launcher.UPGRADES_TIER_4 = ["missiler"]
     Class.redistributor.UPGRADES_TIER_4 = ["snowstorm"]
-    Class.lor.UPGRADES_TIER_10 = ["dreadOfficialV1"]
+        Class.lor.UPGRADES_TIER_10 = ["dreadOfficialV1"]
         Class.alap.UPGRADES_TIER_10 = ["dreadOfficialV1"]
         Class.architect.UPGRADES_TIER_10 = ["dreadOfficialV1"]
         Class.bulwark.UPGRADES_TIER_10 = ["dreadOfficialV1"]
@@ -3738,3 +3791,4 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.triplex.UPGRADES_TIER_10 = ["dreadOfficialV1"]
         Class.rationalizer.UPGRADES_TIER_10 = ["dreadOfficialV1"]
         Class.snowstorm.UPGRADES_TIER_10 = ["dreadOfficialV1"]
+        Class.nonaShot.UPGRADES_TIER_10 = ["dreadOfficialV1"]
