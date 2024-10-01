@@ -384,52 +384,52 @@ Class.pentaShot = {
     ]
 }
 Class.nonaShot = {
-   PARENT: [exports.genericTank],
+   PARENT: "genericTank",
    LABEL: 'Ennea Shot',
    GUNS: [ {
          POSITION: [ 18, 8, 1, 0, 0, -82.5, 0, ],
          PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.pentaShot, g.tripleShot, g.twin]),
+            SHOOT_SETTINGS: combineStats([g.basic, g.tripleShot, g.twin]),
             TYPE: "bullet",
          }, }, {
          POSITION: [ 18, 8, 1, 0, 0, 82.5, 0, ],
          PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.pentaShot, g.tripleShot, g.twin]),
+            SHOOT_SETTINGS: combineStats([g.basic, g.tripleShot, g.twin]),
             TYPE: "bullet",
          }, }, {
          POSITION: [ 20, 8, 1, 0, 0, -60, 0, ],
          PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.pentaShot, g.tripleShot, g.twin]),
+            SHOOT_SETTINGS: combineStats([g.basic, g.tripleShot, g.twin]),
             TYPE: "bullet",
          }, }, {
          POSITION: [ 20, 8, 1, 0, 0, 60, 0, ],
          PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.pentaShot, g.tripleShot, g.twin]),
+            SHOOT_SETTINGS: combineStats([g.basic, g.tripleShot, g.twin]),
             TYPE: "bullet",
          }, }, {
          POSITION: [ 22, 8, 1, 0, 0, -37.5, 0, ],
          PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.pentaShot, g.tripleShot, g.twin]),
+            SHOOT_SETTINGS: combineStats([g.basic, g.tripleShot, g.twin]),
             TYPE: "bullet",
          }, }, {
          POSITION: [ 22, 8, 1, 0, 0, 37.5, 0, ],
          PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.pentaShot, g.tripleShot, g.twin]),
+            SHOOT_SETTINGS: combineStats([g.basic, g.tripleShot, g.twin]),
             TYPE: "bullet",
          }, }, {
          POSITION: [ 24, 8, 1, 0, 0, -15, 0, ],
          PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.pentaShot, g.tripleShot, g.twin]),
+            SHOOT_SETTINGS: combineStats([g.basic, g.tripleShot, g.twin]),
             TYPE: "bullet",
          }, }, {
          POSITION: [ 24, 8, 1, 0, 0, 15, 0, ],
          PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.pentaShot, g.tripleShot, g.twin]),
+            SHOOT_SETTINGS: combineStats([g.basic, g.tripleShot, g.twin]),
             TYPE: "bullet",
          }, }, {
          POSITION: [ 26, 8, 1, 0, 0, 0, 0, ],
          PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.pentaShot, g.tripleShot, g.twin]),
+            SHOOT_SETTINGS: combineStats([g.basic, g.tripleShot, g.twin]),
             TYPE: "bullet",
          }, }, 
      ],
