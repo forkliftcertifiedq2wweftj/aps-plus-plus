@@ -4,6 +4,33 @@ require('./generics.js');
 const g = require('../gunvals.js');
 
 // Basic & starting upgrades
+Class.quad = {
+   PARENT: 'genericTank',
+   LABEL: 'Quad',
+   GUNS: [ {
+         POSITION: [ 18, 6, 1, 0, 7, 0, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, g.power]),
+            TYPE: "bullet",
+         }, }, {
+         POSITION: [ 18, 6, 1, 0, -7, 0, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, g.power]),
+            TYPE: "bullet",
+         }, }, {
+         POSITION: [ 18, 6, 1, 4, 3, 0, 0, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, g.power]),
+            TYPE: "bullet",
+         }, }, {
+         POSITION: [ 18, 6, 1, 4, -3, 0, 0.5, ],
+         PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, g.power]),
+            TYPE: "bullet",
+         }, }, 
+     ],
+};
+
 Class.basic = {
     PARENT: "genericTank",
     LABEL: "Basic",
